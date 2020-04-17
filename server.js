@@ -15,7 +15,7 @@ app.use(express.static(__dirname + "/public"));
 
 // TEST: Render static index.html file when user wants to access the home page.
 app.get("/", function(req, res) {
-    res.render("index");
+    res.render("homePage");
 });
 
 app.listen(port, function()
