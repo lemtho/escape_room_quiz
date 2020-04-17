@@ -28,7 +28,7 @@
 </head>
 
 <body style="font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;">
-    
+
     <!-- header-start -->
     <header>
         <div class="header-area" style="background-color:rgb(89,0,179)">
@@ -46,11 +46,9 @@
                             <div class="main-menu  d-none d-lg-block">
                                 <nav>
                                     <ul id="navigation">
-                                        <li><a href="teacherHomePage.html">Home</a></li>
-                                        <li><a href="teacherQuiz.html">My Quizzes</a></li>
-                                        <li><a class="active" href="teacherStudents.html">My Students</a></li>
-                                        <li><a href="teacherScoreboard.html">Scoreboard</a></li>
-                                        <li><a href="teacherProfile.html">My Profile</a></li>
+                                        <li><a class="active" href="/studentHomePage">Home</a></li>
+                                        <li><a href="/studentScoreboard">My Scores</a></li>
+                                        <li><a href="/studentProfile">My Profile</a></li>
                                     </ul>
                                 </nav>
                             </div>
@@ -77,12 +75,23 @@
     <div class="slider_area ">
         <div class="single_slider slider_bg_1">
             <div class="container" style="position:relative; top:150px; text-align:center;">
-
-                
                 <div>
-                    <h1 style="color:white;">PUT STUFF HERE</h1>
+                    <h1 style="color:white;">Welcome Back User!</h1>
                 </div>
-            
+                <br>
+                <br>
+                <br>
+                <div style="margin:auto; text-align:center;">
+                    <h2 style="color:white;">Join Game</h2>
+                    <br>
+                    <!--The following form element has been exercpted and modified from https://getbootstrap.com/docs/4.0/components/forms/ -->
+                    <form class="form-inline" style="display:inline-flex;">
+                        <div class="form-group mx-sm-3 mb-2">
+                          <input type="text" class="form-control" style="width:200px; height:75px" id="quizID" placeholder="Enter code">
+                        </div>
+                        <button type="submit" class="btn btn-primary mb-2" style="width:100px; height:75px;">Go!</button>
+                      </form>
+                </div>
             </div>
         </div>
     </div>
