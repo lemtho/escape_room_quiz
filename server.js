@@ -53,7 +53,7 @@ app.use("/teacherProfile", require('./teacherProfile.js'));
 app.use(function(req,res)
 {
     res.status(404);
-    res.render('404');
+    res.render("pageNotFound");
 });
   
 // IF internal server error occurs when processing a route, render a HTTP 500 response.  
@@ -61,10 +61,10 @@ app.use(function(err, req, res, next)
 {
     console.error(err.stack);
     res.status(500);
-    res.render('500');
+    res.render("serverError");
 });
 
 app.listen(port, function()
 {
-    console.log("Express is running on port " + port + ". Press Ctrl + C to terminate.\n");
+    console.log("Express is running on port " + port + ". Press Ctrl+C to terminate the session.\n");
 });
