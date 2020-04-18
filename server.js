@@ -19,8 +19,8 @@ var port = process.env.PORT || 22580
 /* ESTABLISH ROUTES AND THE JS FILE THE ENGINE SHOULD USE WHEN PROCESSING THE ROUTE. */
 
 /* IF route to home page, execute homePage.js script. Additionally, for this and the
-following routes listed below grab static images, CSS scripts, and/or front-end JS scripts 
-from the "public" folder. */
+following routes listed below, grab static images, CSS scripts, and front-end JS scripts 
+from inside the "public" folder. */
 app.use("/", express.static("public"));
 app.use("/", require("./homePage.js"));
 
