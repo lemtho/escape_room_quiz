@@ -1,13 +1,17 @@
 // Import modules and initialize.
 var express = require("express");
-var handlebars = require('express-handlebars').create({defaultLayout:'main'});
+var mysql = require("./dbcon.js");
+var handlebars = require("express-handlebars").create({defaultLayout:"main"});
 
 // Create the express application.
 var app = express();
 
+// Create the mysql application.
+app.set('mysql', mysql);
+
 // Set the engine used to render the (front-end) web pages.
-app.engine('handlebars', handlebars.engine);
-app.set('view engine', 'handlebars');
+app.engine("handlebars", handlebars.engine);
+app.set("view engine", "handlebars");
 
 // Set the port. Have Heroku select port or use port 22580.
 var port = process.env.PORT || 22580
@@ -51,6 +55,10 @@ app.use("/teacherScoreboard", require("./teacherScoreboard.js"));
 // IF route to teacher profile page, execute teacherProfile.js script.
 app.use("/teacherProfile", express.static("public"));
 app.use("/teacherProfile", require("./teacherProfile.js"));
+
+// TEST: IF route to test database page, execute testDatabase.js script.
+app.use("/testDatabase", express.static("public"));
+app.use("/testDatabase", require("./testDatabase.js"));
 
 // IF route to a page that is not found, render a HTTP 404 response.
 app.use(function(req, res)
