@@ -1,7 +1,8 @@
 // Import modules and initialize.
 var express = require("express");
 var mysql = require("./dbcon.js");
-var handlebars = require("express-handlebars").create({defaultLayout:"main"});
+var exphbs = require("express-handlebars");
+var handlebars = require('./helpers/handlebars')(exphbs);
 
 // Create the express application.
 var app = express();
