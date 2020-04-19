@@ -87,21 +87,61 @@
                     </div>
                     <div class="col-xl-6 col-md-6">
                         <div class="container" style="display:block; text-align:center;">
-                            <h2 style="color:white;">Log In</h2>
+                            <h2 style="color:white;" id="selectOptionHeader">Please Select An Option</h2>
+                            <h2 style="color:white;" id="loginHeader">Log In</h2>
+                            <h2 style="color:white;" id="createAccountHeader">Create An Account</h2>
                             <br>
+                            <div class="form-group row" id="optionLoginButton">
+                                    <button type="submit" class="btn btn-primary" id="signInButton" style="width:750px;">Log In</button>
+                            </div>
+                            <div class="form-group row" id="optionSignUpButton">
+                                    <button type="submit" class="btn btn-primary" id="signUpButton" style="width:750px;">Create An Account</button>
+                            </div>
                             <!--The following form element has been exercpted and modified from https://getbootstrap.com/docs/4.0/components/forms/ -->
-                            <form style="display:inline-block; margin-left:auto; margin-right:auto; text-align:left; width:75%;">
+                            <form action="/login" method="POST" id="loginSection" style="display:inline-block; margin-left:auto; margin-right:auto; text-align:left; width:75%;">
                                 <div class="form-group row">
-                                    <input type="email" class="form-control" id="inputEmail" placeholder="Email">
+                                    <input type="email" class="form-control" id="email" name="email" placeholder="Email">
                                   </div>
                                 <div class="form-group row">
-                                    <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+                                    <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="userType" value="S" checked>
+                                    <label class="form-check-label" for="exampleRadios1" style="color:white; font-size:16px;">Student</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="userType" value="T">
+                                    <label class="form-check-label" for="exampleRadios2" style="color:white; font-size:16px;">Teacher</label>
+                                </div>
+                                <br>
+                                <div class="form-group row">
+                                    <button type="submit" class="btn btn-primary" id="loginButton">Sign In</button>
+                                </div>
+                            </form>
+                            <form action="/create" method="POST" id="createAccountSection" style="display:inline-block; margin-left:auto; margin-right:auto; text-align:left; width:75%;">
+                                <div class="form-group row">
+                                    <input type="input" class="form-control" name="firstName" placeholder="First Name">
+                                  </div>
+                                <div class="form-group row">
+                                    <input type="input" class="form-control" name="lastName" placeholder="Last Name">
                                 </div>
                                 <div class="form-group row">
-                                    <button type="submit" class="btn btn-primary">Sign In</button>
-                                </div>
+                                    <input type="email" class="form-control" name="email" placeholder="Email">
+                                  </div>
                                 <div class="form-group row">
-                                    <button type="submit" class="btn btn-primary">Create an account</button>
+                                    <input type="password" class="form-control" name="password" placeholder="Password">
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="userType" value="S" checked>
+                                    <label class="form-check-label" style="color:white; font-size:16px;">Student</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="userType" value="T">
+                                    <label class="form-check-label" style="color:white; font-size:16px;">Teacher</label>
+                                </div>
+                                <br>
+                                <div class="form-group row">
+                                    <button type="submit" class="btn btn-primary" id="createAccountButton">Sign Up</button>
                                 </div>
                             </form>
                         </div>
@@ -150,8 +190,8 @@
     <script src="js/jquery.magnific-popup.min.js"></script>
     <script src="js/plugins.js"></script>
     <script src="js/gijgo.min.js"></script>
-
     <script src="js/main.js"></script>
+    <script src="frontendJS/homePage.js"></script>
 </body>
 
 </html>

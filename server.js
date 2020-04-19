@@ -1,6 +1,7 @@
 // Import modules and initialize.
 var express = require("express");
 var mysql = require("./dbcon.js");
+var bodyParser = require('body-parser');
 var exphbs = require("express-handlebars");
 var handlebars = require('./helpers/handlebars')(exphbs);
 
@@ -9,6 +10,10 @@ var app = express();
 
 // Create the mysql application.
 app.set('mysql', mysql);
+
+// Create the body parser application.
+app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.json());
 
 // Set the engine used to render the (front-end) web pages.
 app.engine("handlebars", handlebars.engine);
