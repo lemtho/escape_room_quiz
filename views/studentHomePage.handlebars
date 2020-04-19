@@ -24,7 +24,11 @@
     <link rel="stylesheet" href="css/animate.css">
     <link rel="stylesheet" href="css/slicknav.css">
     <link rel="stylesheet" href="css/style.css">
-    <!-- <link rel="stylesheet" href="css/responsive.css"> -->
+
+    <!-- Unity Game Engine CSS here -->
+    <link rel="shortcut icon" href="game/TemplateData/favicon.ico">
+    <link rel="stylesheet" href="game/TemplateData/style.css">
+    
 </head>
 
 <body style="font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;">
@@ -72,16 +76,16 @@
     <!-- header-end -->
 
     <!-- content_area_start -->
-    <div class="slider_area ">
-        <div class="single_slider slider_bg_1">
+    <div id="studentHomeDiv1" class="slider_area">
+        <div id="studentHomeDiv2" class="single_slider slider_bg_1">
             <div class="container" style="position:relative; top:150px; text-align:center;">
-                <div>
+                <div id="studentHomeDiv3">
                     <h1 style="color:white;">Welcome Back User!</h1>
                 </div>
                 <br>
                 <br>
                 <br>
-                <div style="margin:auto; text-align:center;">
+                <div id="studentHomeDiv4" style="margin:auto; text-align:center;">
                     <h2 style="color:white;">Join Game</h2>
                     <br>
                     <!--The following form element has been exercpted and modified from https://getbootstrap.com/docs/4.0/components/forms/ -->
@@ -89,8 +93,15 @@
                         <div class="form-group mx-sm-3 mb-2">
                           <input type="text" class="form-control" style="width:200px; height:75px" id="quizID" placeholder="Enter code">
                         </div>
-                        <button type="submit" class="btn btn-primary mb-2" style="width:100px; height:75px;">Go!</button>
+                        <button type="submit" class="btn btn-primary mb-2" style="width:100px; height:75px;" id="goButton">Go!</button>
                       </form>
+                </div>
+                <div id="game" class="webgl-content" style="bottom:100px;">
+                    <div id="unityContainer" style="width: 960px; height: 540px"></div>
+                    <div class="footer">
+                        <div class="webgl-logo"></div>
+                        <div class="fullscreen" onclick="unityInstance.SetFullscreen(1)"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -135,8 +146,17 @@
     <script src="js/jquery.magnific-popup.min.js"></script>
     <script src="js/plugins.js"></script>
     <script src="js/gijgo.min.js"></script>
-
     <script src="js/main.js"></script>
+    
+    <!-- Front-end JS scripts here -->
+    <script src="frontendJS/studentHomePage.js"></script>
+
+    <!-- Unity Game Engine scripts here -->
+    <script src="game/TemplateData/UnityProgress.js"></script>
+    <script src="game/Build/UnityLoader.js"></script>
+    <script>
+      var unityInstance = UnityLoader.instantiate("unityContainer", "game/Build/Desktop.json", {onProgress: UnityProgress});
+    </script>
 </body>
 
 </html>
