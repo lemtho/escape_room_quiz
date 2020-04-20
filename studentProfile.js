@@ -3,8 +3,9 @@ module.exports = function()
 	var express = require('express');
 	var router = express.Router();
 	
+	// still need to get specific student id
 	function getStudentName(res, mysql, context, complete){
-		mysql.pool.query("SELECT firstName, lastName FROM student WHERE studentID = 1", function(error, results, fields){
+		mysql.pool.query("SELECT * FROM student WHERE studentID = 1", function(error, results, fields){
 			if(error){
 				console.log(error);
 				res.write(JSON.stringify(error));
@@ -15,7 +16,7 @@ module.exports = function()
 			complete(); 
 		});
 	}
-		
+	
 	router.get("/", function(req, res){
 		var callbackCount = 0; 
 		var context = {};
@@ -29,5 +30,6 @@ module.exports = function()
 			}
 		}
 	});
+
 	return router;
 }();
