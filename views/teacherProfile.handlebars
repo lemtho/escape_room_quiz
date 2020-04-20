@@ -77,11 +77,35 @@
     <div class="slider_area">
         <div class="single_slider slider_bg_1">
             <div class="container" style="position:relative; top:150px; text-align:center;">
-
-                
                 <div>
-                    <h1 style="color:white;">PUT STUFF HERE</h1>
+                    <h1 style="color:white;">My Profile</h1>
                 </div>
+                <div>
+                     <table class="spacing" align="center">
+                        <thead>
+                            <th colspan="4" align="left">First Name</th>
+                            <th colspan="4">Last Name</th>
+                        </thead>
+                        <tbody>
+
+                            {{#each teacher}}
+                            <tr>
+                                <td colspan="4">{{firstName}}</td>
+                                <td colspan="4">{{lastName}}</td>
+                                <td>
+                                    <button type="button" value="editNameButtom">Edit Name</button>
+                                </td>
+                            </tr>
+                            {{/each}}
+
+                        </tbody>
+                    </table>
+                </div>
+                <hr />
+
+                <div>
+                    <button type="button" value="changePasswordButton">Change My Password</button>
+                </div>       
             
             </div>
         </div>

@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Teacher's Students Page</title>
+    <title>Teacher Profile Page</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -28,7 +28,7 @@
 </head>
 
 <body style="font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;">
-    
+
     <!-- header-start -->
     <header>
         <div class="header-area" style="background-color:rgb(89,0,179)">
@@ -48,9 +48,9 @@
                                     <ul id="navigation">
                                         <li><a href="/teacherHomePage">Home</a></li>
                                         <li><a href="/teacherQuiz">My Quizzes</a></li>
-                                        <li><a class="active" href="/teacherStudents">My Students</a></li>
+                                        <li><a href="/teacherStudents">My Students</a></li>
                                         <li><a href="/teacherScoreboard">Scoreboard</a></li>
-                                        <li><a href="/teacherProfile">My Profile</a></li>
+                                        <li><a class="active" href="/teacherProfile">My Profile</a></li>
                                     </ul>
                                 </nav>
                             </div>
@@ -74,38 +74,22 @@
     <!-- header-end -->
 
     <!-- content_area_start -->
-    <div class="slider_area ">
+    <div class="slider_area">
         <div class="single_slider slider_bg_1">
             <div class="container" style="position:relative; top:150px; text-align:center;">
-
                 <div>
-                    <h1 style="color:white;">My Students</h1>
+                    <h1 style="color:white;">Edit Name</h1>
                 </div>
 
                 <div>
-                     <table class="spacing" align="center">
-                        <thead>
-                            <th colspan="4" align="left">First Name</th>
-                            <th colspan="4">Last Name</th>
-                            <th colspan="4">Quiz Name</th>
-                        </thead>
-                        <tbody>
-
-                            {{#each students}}
-                            <tr>
-                                <td colspan="4">{{firstName}}</td>
-                                <td colspan="4">{{lastName}}</td>
-                                <td colspan="4">{{name}}</td>
-                                <td>
-                                    <button type="button" value="studentResults">Results</button>
-                                </td>
-                            </tr>
-                            {{/each}}
-
-                        </tbody>
-                    </table>
+                    <form id="update_teacher_name" action="/teacherProfile" method="post">
+                        First Name: <input type="text" name="firstName" value="{{armor.armorName}}"><br>
+                        Last Name: <input type="number" name="lastName" value="{{armor.armorDefense}}"><br>
+                        Evasion: <input type="number" name="armorEvasion" value="{{armor.armorEvasion}}"><br>
+                    </form>
+                    <button onclick="updateTeacherName({{armor.aid}})">Update</button>
                 </div>
-            
+
             </div>
         </div>
     </div>
