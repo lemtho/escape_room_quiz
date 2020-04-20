@@ -23,6 +23,7 @@ module.exports = function()
 		{
 			mysql.pool.query("SELECT `studentID` FROM `student` WHERE `email` = ? AND `password` = ?;", [email, password], function(err, results, fields)
 			{	
+				// IF query returned a result...
 				if (results.length > 0)
 				{
 					// Do something with sessions here.
@@ -31,6 +32,8 @@ module.exports = function()
 					res.redirect("/studentHomePage");
 				}
 
+				/* ELSE query did not return a result. Send a HTTP 400 status code and error message
+				to client. */
 				else
 				{
 					res.status(400).send("Invalid login credentials! Please try again.")
@@ -43,6 +46,7 @@ module.exports = function()
 		{
 			mysql.pool.query("SELECT `teacherID` FROM `teacher` WHERE `email` = ? AND `password` = ?;", [email, password], function(err, results, fields)
 			{
+				// IF query returned a result...
 				if (results.length > 0)
 				{
 					// Do something with sessions here.
@@ -51,6 +55,8 @@ module.exports = function()
 					res.redirect("/teacherHomePage");
 				}
 
+				/* ELSE query did not return a result. Send a HTTP 400 status code and error message
+				to client. */
 				else
 				{
 					res.status(400).send("Invalid login credentials! Please try again.")
@@ -61,6 +67,7 @@ module.exports = function()
 		// ELSE user did not provide an email and/or password...
 		else
 		{
+			// Send a HTTP 400 status code and error message to client.
 			res.status(400).send("Invalid login credentials! Please try again.")
 		}
 	});

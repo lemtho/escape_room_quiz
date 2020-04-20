@@ -61,11 +61,15 @@ document.getElementById("loginButton").addEventListener("click", function(logIn)
         // TEST: Output response from server.
         // console.log(req);
         
+        /* IF response from server is good, redirect user to the responseURL site.
+        (i.e., student or teacher home page). */
         if (req.readyState == 4 & req.status == 200)
         {
             window.location = req.responseURL;
         }
 
+        /* IF response from server is bad request, alert user with the message
+        (i.e., responseText) server sent. */
         else if (req.readyState == 4 & req.status == 400)
         {
             alert(req.responseText);
