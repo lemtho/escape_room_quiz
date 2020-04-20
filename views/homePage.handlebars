@@ -98,24 +98,24 @@
                                     <button type="submit" class="btn btn-primary" id="signUpButton" style="width:750px;">Create An Account</button>
                             </div>
                             <!--The following form element has been exercpted and modified from https://getbootstrap.com/docs/4.0/components/forms/ -->
-                            <form action="/login" method="POST" id="loginSection" style="display:inline-block; margin-left:auto; margin-right:auto; text-align:left; width:75%;">
+                            <form id="loginSection" style="display:inline-block; margin-left:auto; margin-right:auto; text-align:left; width:75%;">
                                 <div class="form-group row">
-                                    <input type="email" class="form-control" id="email" name="email" placeholder="Email">
+                                    <input type="email" class="form-control" id="loginEmail" name="email" placeholder="Email">
                                   </div>
                                 <div class="form-group row">
-                                    <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+                                    <input type="password" class="form-control" id="loginPassword" name="password" placeholder="Password">
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="userType" value="S" checked>
-                                    <label class="form-check-label" for="exampleRadios1" style="color:white; font-size:16px;">Student</label>
+                                    <input class="form-check-input" type="radio" name="userType" id="SLogin" value="S" checked>
+                                    <label class="form-check-label" style="color:white; font-size:16px;">Student</label>
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="userType" value="T">
-                                    <label class="form-check-label" for="exampleRadios2" style="color:white; font-size:16px;">Teacher</label>
+                                    <label class="form-check-label" style="color:white; font-size:16px;">Teacher</label>
                                 </div>
                                 <br>
                                 <div class="form-group row">
-                                    <button type="submit" class="btn btn-primary" id="loginButton">Sign In</button>
+                                    <button class="btn btn-primary" id="loginButton">Sign In</button>
                                 </div>
                             </form>
                             <form action="/create" method="POST" id="createAccountSection" style="display:inline-block; margin-left:auto; margin-right:auto; text-align:left; width:75%;">

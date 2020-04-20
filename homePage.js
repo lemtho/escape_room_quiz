@@ -33,7 +33,7 @@ module.exports = function()
 
 				else
 				{
-					res.send("Invalid login credentials! Please go back and reenter your email and password.");
+					res.status(400).send("Invalid login credentials! Please try again.")
 				}
 			});
 		}
@@ -53,7 +53,7 @@ module.exports = function()
 
 				else
 				{
-					res.send("Invalid login credentials! Please go back and reenter your email and password.");
+					res.status(400).send("Invalid login credentials! Please try again.")
 				}
 			});
 		}
@@ -61,7 +61,7 @@ module.exports = function()
 		// ELSE user did not provide an email and/or password...
 		else
 		{
-			res.send("Invalid login credentials! Please go back and reenter your email and password.");
+			res.status(400).send("Invalid login credentials! Please try again.")
 		}
 	});
 
