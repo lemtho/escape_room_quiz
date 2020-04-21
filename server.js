@@ -66,7 +66,7 @@ app.use("/teacherScoreboard", require("./teacherScoreboard.js"));
 app.use("/teacherProfile", express.static("public"));
 app.use("/teacherProfile", require("./teacherProfile.js"));
 
-// IF route to log out page, execute teacherProfile.js script.
+// IF route to log out page, execute logout.js script.
 app.use("/logout", express.static("public"));
 app.use("/logout", require("./logout.js"));
 
