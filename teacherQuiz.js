@@ -5,7 +5,7 @@ module.exports = function()
 	
 	//Need to change teacher ID to be a passed in value
 	function getQuiz(res, mysql, context, complete){
-		mysql.pool.query("SELECT q.name AS name, IFNULL(q.numQuestion, 0) AS numQuestion, IFNULL(num_taken, 0) AS num_taken FROM quiz AS q LEFT JOIN (SELECT quizID, count(distinct quizID, studentID) AS num_taken FROM student_question GROUP BY quizID) stu_num USING (quizID) WHERE teacherID = 4", function(error, results, fields){
+		mysql.pool.query("SELECT q.quizID AS id, q.name AS name, IFNULL(q.numQuestion, 0) AS numQuestion, IFNULL(num_taken, 0) AS num_taken FROM quiz AS q LEFT JOIN (SELECT quizID, count(distinct quizID, studentID) AS num_taken FROM student_question GROUP BY quizID) stu_num USING (quizID) WHERE teacherID = 4", function(error, results, fields){
             if(error){
                 console.log(error);
                 res.write(JSON.stringify(error));
@@ -32,16 +32,31 @@ module.exports = function()
             return context.id; 
         });
 	}
-	
+    
+    function getQuestions(res, mysql, context, quizID, complete){
+        var sql = "SELECT * FROM question WHERE quizID = ?";
+        var inserts = [quizID];
+        mysql.pool.query(sql, inserts, function(error, results, fields){
+            if(error){
+                console.log(error);
+                res.write(JSON.stringify(error));
+                res.end(); 
+            }
+            
+            context.question = results;
+            complete(); 
+        })
+    }
 	//Display all quizzes that the teacher has created 
 	router.get("/", function(req, res){
 		var callbackCount = 0; 
         var context = {};
         var mysql = req.app.get('mysql');
         getQuiz(res, mysql, context, complete);
-
+        
         function complete(){
             callbackCount++;
+            context.title = "My Quizzes";
             if(callbackCount >= 1){
                 res.render('teacherQuiz', context);
             }
@@ -49,11 +64,31 @@ module.exports = function()
 
 	});
 
-	router.get("/createQuiz", function(req, res){
+    router.get("/createQuiz", function(req, res){
 
-        res.render('createQuiz');
+        res.render('createQuiz', {title: "Create New Quiz"});
 
-	});
+    });
+    
+    
+    //renders edit quiz page to update quiz information 
+    router.get('/:id', function(req, res){
+        var callbackCount = 0;
+        var context = {};
+        context.jsscripts = ["editQuizPage.js"];
+        var mysql = req.app.get('mysql');
+        getQuestions(res, mysql, context, req.params.id, complete); 
+
+        function complete(){
+            callbackCount++;
+            if(callbackCount >= 1){
+                res.render('editQuiz', context);
+            }
+        }
+    });
+    
+
+	
 
 	//Need to have teacher ID 
 	router.post("/", function(req, res){
