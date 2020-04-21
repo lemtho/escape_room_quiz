@@ -1,12 +1,32 @@
 module.exports = function()
 {
-	var express = require('express');
+	var express = require("express");
 	var router = express.Router();
+	var session = require("express-session");
 
 	// Route to render the home page.
 	router.get("/", function(req, res)
 	{	
-		res.render("homePage", {title: "2Kool4Skool"});
+		// TEST: Output session data.
+		// console.log(req.session);
+		
+		// IF user is already logged in and a student, redirect user to student home page.
+		if (req.session.accountType == "S")
+		{
+			res.redirect("/studentHomePage");	
+		}
+
+		// ELSE IF user is already logged in and a teacher, redirect user to teacher home page.
+		else if (req.session.accountType == "T")
+		{
+			res.redirect("/teacherHomePage");
+		}
+
+		// ELSE IF user is not logged in, render homePage.
+		else
+		{
+			res.render("homePage", {title: "2Kool4Skool"});
+		}
 	});
 
 	// Route to log user in.
@@ -21,12 +41,21 @@ module.exports = function()
 		// If user is a student...
 		if ((email != "") & (password != "") & (accountType == "S"))
 		{
-			mysql.pool.query("SELECT `studentID` FROM `student` WHERE `email` = ? AND `password` = ?;", [email, password], function(err, results, fields)
+			mysql.pool.query("SELECT `studentID`, `firstName`, `userType` FROM `student` WHERE `email` = ? AND `password` = ?;", [email, password], function(err, results, fields)
 			{	
 				// IF query returned a result...
 				if (results.length > 0)
 				{
-					// Do something with sessions here.
+					// TEST: Output query results.
+					// console.log(results);
+					
+					// Store student ID, student's first name, and user type in sessions data.
+					req.session.studentID = results[0].studentID;
+					req.session.firstName = results[0].firstName;
+					req.session.accountType = results[0].userType;
+
+					// TEST: Output session data.
+					// console.log(req.session);
 					
 					// Redirect user to student home page.
 					res.redirect("/studentHomePage");
@@ -44,12 +73,15 @@ module.exports = function()
 		// ELSE IF user is a teacher...
 		else if ((email != "") & (password != "") & (accountType == "T"))
 		{
-			mysql.pool.query("SELECT `teacherID` FROM `teacher` WHERE `email` = ? AND `password` = ?;", [email, password], function(err, results, fields)
+			mysql.pool.query("SELECT `teacherID`, `firstName`, `userType` FROM `teacher` WHERE `email` = ? AND `password` = ?;", [email, password], function(err, results, fields)
 			{
 				// IF query returned a result...
 				if (results.length > 0)
 				{
-					// Do something with sessions here.
+					// Store student ID, student's first name, and user type in sessions data.
+					req.session.teacherID = results[0].teacherID;
+					req.session.firstName = results[0].firstName;
+					req.session.accountType = results[0].userType;
 
 					// Redirect user to teacher home page.
 					res.redirect("/teacherHomePage");

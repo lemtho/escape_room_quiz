@@ -55,7 +55,7 @@
                         </div>
                         <div class="col-xl-3 col-lg-3 d-none d-lg-block">
                             <div>
-                                <a href="#">
+                                <a href="/logout">
                                     <i style="color:white;" class="flaticon-user"></i>
                                     <span style="color:white;">Log Out</span>
                                 </a>
@@ -78,47 +78,22 @@
                 <div>
                     <h1 style="color:white;">Quizzes I've Taken</h1>
                     <br>
-                    <table align="center">
+                    <table class="spacing" align="center">
                         <thead>
-                            <th colspan="100" align="left">Quiz</th>
-                            <th colspan="100" align="left">Score</th>
+                            <th colspan="4" align="left">Quiz Name</th>
+                            <th colspan="4">Score</th>
                         </thead>
                         <tbody>
 
-                            <!--
                             {{#each student}}
                             <tr>
-                                <td>{{quizName}}</td>
-                                <td>{{quizScore}}</td>
+                                <td colspan="4">{{name}}</td>
+                                <td colspan="4">{{actual_score}}</td>
                                 <td>
                                     <button type="button">Results</button>
                                 </td>
                             </tr>
                             {{/each}}
-                            -->
-
-                            <tr>
-                                <td colspan="100">Biology 101</td>
-                                <td colspan="100">100</td>
-                                <td>
-                                    <button type="button">Results</button>
-                                </td>
-                            </tr>
-                                                        <tr>
-                                <td colspan="100">Math 101</td>
-                                <td colspan="100">100</td>
-                                <td>
-                                    <button type="button">Results</button>
-                                </td>
-                            </tr>
-                                                        <tr>
-                                <td colspan="100">Chemistry 101</td>
-                                <td colspan="100">100</td>
-                                <td>
-                                    <button type="button">Results</button>
-                                </td>
-                            </tr>
-
 
                         </tbody>
                     </table>

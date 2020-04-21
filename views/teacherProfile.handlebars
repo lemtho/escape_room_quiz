@@ -57,7 +57,7 @@
                         </div>
                         <div class="col-xl-3 col-lg-3 d-none d-lg-block">
                             <div>
-                                <a href="#">
+                                <a href="/logout">
                                     <i style="color:white;" class="flaticon-user"></i>
                                     <span style="color:white;">Log Out</span>
                                 </a>
@@ -77,11 +77,62 @@
     <div class="slider_area">
         <div class="single_slider slider_bg_1">
             <div class="container" style="position:relative; top:150px; text-align:center;">
-
-                
                 <div>
-                    <h1 style="color:white;">PUT STUFF HERE</h1>
+                    <h1 style="color:white;">My Profile</h1>
                 </div>
+                
+                <div class="spacing">
+                     <table id="nameTable" align="center">
+                        <thead>
+                            <th colspan="4" align="left">First Name</th>
+                            <th colspan="4">Last Name</th>
+                        </thead>
+                        <tbody>
+
+                            {{#each teacher}}
+                            <tr>
+                                <td colspan="4">{{firstName}}</td>
+                                <td colspan="4">{{lastName}}</td>
+                                <td>
+                                    <button type="button" id="editNameButton">Edit Name</button>
+                                </td>
+                            </tr>
+                            <input id="id" type="hidden" value={{teacherID}}>                            
+                            <input id="email" type="hidden" value={{email}}>
+                            <input id="password" type="hidden" value={{password}}>
+                            <input id="userType" type="hidden" value={{userType}}>
+                            {{/each}}
+
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="updateNameForm">
+                    <form onsubmit="editName(editFirstName.value, editLastName.value)">
+                        First Name: <input type="text" name="editFirstName" id="editFirstName"><br><br>
+                        Last Name: <input type="text" name="editLastName" id="editLastName"><br><br>
+                        <input type="hidden" id="editEmail" name="editEmail">
+                        <input type="hidden" id="editPassword" name="editPassword">
+                        <input type="hidden" id="editUserType" name="editUserType">
+                        <button type="submit" id="UpdateNameButton">Update My Name</button>
+                    </form>
+                </div>
+                <hr />
+
+                <div>
+                    <button type="button" id="changePasswordButton">Change My Password</button>
+                </div>
+
+                <div id="changePasswordForm">
+                    <form onsubmit="editPassword(editPassword.value)">
+                        New Password: <input type="text" name="editPassword" id="editPassword"><br><br>
+                        <input type="hidden" id="editEmail" name="editEmail">
+                        <input type="hidden" id="editUserType" name="editUserType">
+                        <input type="hidden" id="editUserType" name="editFirstName">
+                        <input type="hidden" id="editUserType" name="editLastName">
+                        <button type="submit" id="UpdatePasswordButton">Update My Password</button>
+                    </form>
+                </div>      
             
             </div>
         </div>
@@ -126,6 +177,8 @@
     <script src="js/jquery.magnific-popup.min.js"></script>
     <script src="js/plugins.js"></script>
     <script src="js/gijgo.min.js"></script>
+
+    <script src="frontendJS/teacherProfile.js"></script>
 
     <script src="js/main.js"></script>
 </body>
