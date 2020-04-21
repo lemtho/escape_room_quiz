@@ -4,6 +4,7 @@ var mysql = require("./dbcon.js");
 var bodyParser = require('body-parser');
 var exphbs = require("express-handlebars");
 var handlebars = require('./helpers/handlebars')(exphbs);
+var session = require("express-session");
 
 // Create the express application.
 var app = express();
@@ -14,6 +15,9 @@ app.set('mysql', mysql);
 // Create the body parser application.
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
+
+// Create the session application.
+app.use(session({secret: "ESCAPE", resave: false, saveUninitialized: false}));
 
 // Set the engine used to render the (front-end) web pages.
 app.engine("handlebars", handlebars.engine);
@@ -61,6 +65,10 @@ app.use("/teacherScoreboard", require("./teacherScoreboard.js"));
 // IF route to teacher profile page, execute teacherProfile.js script.
 app.use("/teacherProfile", express.static("public"));
 app.use("/teacherProfile", require("./teacherProfile.js"));
+
+// IF route to log out page, execute teacherProfile.js script.
+app.use("/logout", express.static("public"));
+app.use("/logout", require("./logout.js"));
 
 // TEST: IF route to test database page, execute testDatabase.js script.
 app.use("/testDatabase", express.static("public"));
