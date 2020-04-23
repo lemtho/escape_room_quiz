@@ -4,8 +4,28 @@ module.exports = function()
     var router = express.Router();
 	
 	router.get("/", function(req, res){
-		res.render("teacherHomePage", {title: "Teacher Home Page"});
+		
+		// TEST: Output request data.
+		console.log(req.session);
+		
+		// IF user is already signed in (i.e., req.session.studentID exists)...
+		if (req.session.teacherID)
+		{
+			/* Declare a local variable that stores the user's first name obtained from 
+			session data. User's first name will be displayed on page. */
+			var firstName = req.session.firstName;
+		
+			res.render("teacherHomePage", {title: "Teacher Home Page", user: firstName});
+		}
+
+		// ELSE user is not signed in...
+		else
+		{
+			// Redirect user to home page.
+			res.redirect("/");
+		}
 	});
 	
 	return router;
+
 }();

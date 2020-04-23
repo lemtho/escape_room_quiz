@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Teacher's Students Page</title>
+    <title>{{title}}</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -85,20 +85,18 @@
                 <div>
                      <table class="spacing" align="center">
                         <thead>
-                            <th colspan="4" align="left">First Name</th>
-                            <th colspan="4">Last Name</th>
+                            <th colspan="4" align="left">Last Name</th>
+                            <th colspan="4">First Name</th>
                             <th colspan="4">Quiz Name</th>
                         </thead>
                         <tbody>
 
                             {{#each students}}
                             <tr>
-                                <td colspan="4">{{firstName}}</td>
                                 <td colspan="4">{{lastName}}</td>
+                                <td colspan="4">{{firstName}}</td>
                                 <td colspan="4">{{name}}</td>
-                                <td>
-                                    <button type="button" value="studentResults">Results</button>
-                                </td>
+                                    <td><button onclick = "window.location.href = '/teacherStudents/{{quizID}}/{{studentID}}';">Results</button></td>
                             </tr>
                             {{/each}}
 

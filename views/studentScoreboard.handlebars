@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Student Scoreboard Page</title>
+    <title>{{title}}</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -77,7 +77,7 @@
             <div class="container" style="position:relative; top:150px; text-align:center;">
                 <div>
                     <h1 style="color:white;">Quizzes I've Taken</h1>
-                    <br>
+                    
                     <table class="spacing" align="center">
                         <thead>
                             <th colspan="4" align="left">Quiz Name</th>
@@ -90,7 +90,7 @@
                                 <td colspan="4">{{name}}</td>
                                 <td colspan="4">{{actual_score}}</td>
                                 <td>
-                                    <button type="button">Results</button>
+                                    <td><button onclick = "window.location.href = '/studentScoreboard/{{quizID}}/{{studentID}}';">Results</button></td>
                                 </td>
                             </tr>
                             {{/each}}
@@ -122,7 +122,6 @@
         </div>
     </footer>
     <!-- footer -->
-    <script src="/frontJS/search.js"></script>
 
     <!-- JS here -->
     <script src="js/vendor/modernizr-3.5.0.min.js"></script>
