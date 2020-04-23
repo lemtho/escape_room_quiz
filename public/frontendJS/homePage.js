@@ -105,7 +105,7 @@ document.getElementById("createAccountButton").addEventListener("click", functio
 {
     /* Referenced "How to send a JSON object to a server using Javascript?" from
     https://www.geeksforgeeks.org/how-to-send-a-json-object-to-a-server-using-javascript/ 
-    to help the programmer write the code inside the logIn() function that sends data from 
+    to help the programmer write the code inside the createAccount() function that sends data from 
     client to server and receives data from server to client. */
     
     // Create a local variable to store first name, last name, email, password, and userType in.

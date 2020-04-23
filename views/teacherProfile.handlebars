@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Teacher Profile Page</title>
+    <title>{{title}}</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -80,6 +80,7 @@
                 <div>
                     <h1 style="color:white;">My Profile</h1>
                 </div>
+                <br>
                 
                 <div class="spacing">
                      <table id="nameTable" align="center">
@@ -97,10 +98,6 @@
                                     <button type="button" id="editNameButton">Edit Name</button>
                                 </td>
                             </tr>
-                            <input id="id" type="hidden" value={{teacherID}}>                            
-                            <input id="email" type="hidden" value={{email}}>
-                            <input id="password" type="hidden" value={{password}}>
-                            <input id="userType" type="hidden" value={{userType}}>
                             {{/each}}
 
                         </tbody>
@@ -108,15 +105,12 @@
                 </div>
 
                 <div id="updateNameForm">
-                    <form onsubmit="editName(editFirstName.value, editLastName.value)">
-                        First Name: <input type="text" name="editFirstName" id="editFirstName"><br><br>
-                        Last Name: <input type="text" name="editLastName" id="editLastName"><br><br>
-                        <input type="hidden" id="editEmail" name="editEmail">
-                        <input type="hidden" id="editPassword" name="editPassword">
-                        <input type="hidden" id="editUserType" name="editUserType">
-                        <button type="submit" id="UpdateNameButton">Update My Name</button>
-                    </form>
-                </div>
+                        <form id = "updateName" action = "/teacherProfile" method = "post">
+                            <b>First name: </b><input type = "text" name = "newFirstName" value = "{{firstName}}"><br><br>
+                            <b>Last name: </b><input type = "text" name = "newLastName" value = "{{lastName}}"><br><br>
+                        </form>
+                        <button onclick = "updateName()">Update</button>
+                    </div>
                 <hr />
 
                 <div>
@@ -124,14 +118,11 @@
                 </div>
 
                 <div id="changePasswordForm">
-                    <form onsubmit="editPassword(editPassword.value)">
-                        New Password: <input type="text" name="editPassword" id="editPassword"><br><br>
-                        <input type="hidden" id="editEmail" name="editEmail">
-                        <input type="hidden" id="editUserType" name="editUserType">
-                        <input type="hidden" id="editUserType" name="editFirstName">
-                        <input type="hidden" id="editUserType" name="editLastName">
-                        <button type="submit" id="UpdatePasswordButton">Update My Password</button>
-                    </form>
+                        <form id = "updatePassword" action = "/teacherProfile" method = "post">
+                            <b>New Password: </b><input id="newPassword" type = "password" name = "newPassword" value = "{{password}}"><br><br>
+                            <b>Confirm New Password: </b><input id="confirmPassword" type = "password" value=""><br><br>
+                        </form>
+                        <button onclick = "updatePassword()">Update</button>
                 </div>      
             
             </div>

@@ -4,8 +4,10 @@ module.exports = function()
 	var router = express.Router();
 	
 	// still need to get specific teacher id
-	function getTeacherName(res, mysql, context, complete){
-		mysql.pool.query("SELECT * FROM teacher WHERE teacherID = 3", function(error, results, fields){
+	function getTeacherName(res, mysql, id, context, complete){
+		var sql = "SELECT * FROM teacher WHERE teacherID = ?";
+		var inserts = [id]
+		mysql.pool.query(sql, inserts, function(error, results, fields){
 			if(error){
 				console.log(error);
 				res.write(JSON.stringify(error));
@@ -18,42 +20,72 @@ module.exports = function()
 	}
 	
 	router.get("/", function(req, res){
-		var callbackCount = 0; 
-		var context = {};
-		var mysql = req.app.get('mysql');
-		getTeacherName(res, mysql, context, complete);
-	
-		function complete(){
-			callbackCount++;
-			if(callbackCount >= 1){
-				res.render('teacherProfile', context);
+		if (req.session.teacherID) {
+			var teacherID = req.session.teacherID;
+			var callbackCount = 0; 
+			var context = {};
+			var mysql = req.app.get('mysql');
+			getTeacherName(res, mysql, teacherID, context, complete);
+		
+			function complete(){
+				callbackCount++;
+				if(callbackCount >= 1){
+					context.title = 'Teacher Profile Page';
+					res.render('teacherProfile', context);
+				}
 			}
+		}
+		else {
+			res.redirect("/");
 		}
 	});
 
-	// update teacher name NOT WORKING
-	router.post('/edit', (req, res) => {  
-		var sql = "SELECT firstName, lastName, email, password, userType FROM teacher WHERE teacherID = 3";
-		mysql.pool.query(sql, function (err, result) {
-			if (err) {
-				next(err);
-				return;
-			}
-			if (result.length == 1) {
-				var curVals = result[0];
-				var sql2 = "UPDATE teacher SET firstName=?, lastName=?, email=?, password=?, phone=? WHERE teacherID=?";
-				mysql.pool.query(sql2,
-					[req.body.firstName || curVals.firstName, req.body.lastName || curVals.lastName, req.body.email || curVals.email, req.body.password || curVals.password, req.body.userType || curVals.userType, req.body.id],
-					function (err, result) {
-						if (err) {
-							next(err);
-							return;
-						}
-						res.render('teacherProfile');
-					});
-			}
-		});
+	// update teacher name
+    router.put('/', function(req, res){
+		if (req.session.teacherID) {
+			var teacherID = req.session.teacherID;
+			var mysql = req.app.get('mysql');
+			var sql = 'UPDATE teacher SET firstName = ?, lastName = ? WHERE teacherID = ?';
+			var inserts = [req.body.newFirstName, req.body.newLastName, teacherID];
+
+			sql = mysql.pool.query(sql, inserts, function(error, results, fields){
+				if(error){
+					res.write(JSON.stringify(error));
+					res.end(); 
+				}
+				else{
+					res.status(200);
+					res.end(); 
+				}
+			});
+		}
+		else {
+			res.redirect('/');
+		}
 	});
+	
+	// update teacher password
+	router.put('/', function(req, res){
+		if (req.session.teacherID) {
+			var mysql = req.app.get('mysql');
+			var sql = 'UPDATE teacher SET password = ? WHERE teacherID = ?';
+			var inserts = [req.body.newPassword, teacherID];
+
+			sql = mysql.pool.query(sql, inserts, function(error, results, fields){
+				if(error){
+					res.write(JSON.stringify(error));
+					res.end(); 
+				}
+				else{
+					res.status(200);
+					res.end(); 
+				}
+			});
+		}
+		else {
+			res.redirect("/");
+		}
+    });
 	
 	return router;
 }();
