@@ -83,9 +83,26 @@
 
                 <div id="searchFilter">
                     <br>
+                    <input id="quizRadio" name="rad" type="radio" onclick="showQuizDrop()" /> Quiz Name
+                    <input id="nameRadio" name="rad" type="radio" onclick="showStudentDrop()" /> Student Name
+                </div>
 
-                    <input id="quizRadio" name="rad" type="radio" /> Quiz Name
-                    <input id="nameRadio" name="rad" type="radio" /> Student Name
+                <div id="quizDrop">
+                    <b>Quiz Name:</b>
+                    <select class="browser-default" name="armor"> 
+                        {{#each quizDrop}}
+                            <option value="{{quizID}}">{{name}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+
+                <div id="studentDrop">
+                    <b>Student Name:</b>
+                    <select class="browser-default" name="armor"> 
+                        {{#each studentDrop}}
+                            <option value="{{studentID}}">{{lastName}}, {{firstName}}</option>
+                        {{/each}}
+                    </select>
                 </div>
 
                 <div id="displayScores">

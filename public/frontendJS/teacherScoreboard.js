@@ -1,5 +1,5 @@
-document.getElementById("search_quiz").style.display = "none";
-document.getElementById("search_student").style.display = "none";
+document.getElementById("quizDrop").style.display = "none";
+document.getElementById("studentDrop").style.display = "none";
 
 document.getElementById("submitSearch").addEventListener("click", function(appear)
 {	
@@ -8,7 +8,19 @@ document.getElementById("submitSearch").addEventListener("click", function(appea
 	appear.preventDefault();
 });
 
-// small portion of code from https://www.w3schools.com/howto/howto_js_sort_table.asp
+function showQuizDrop() {
+    document.getElementById('studentDrop').style.display ='none';
+    document.getElementById("quizDrop").style.display = "block";
+	appear.preventDefault();
+}
+
+function showStudentDrop() {
+    document.getElementById('quizDrop').style.display ='none';
+    document.getElementById("studentDrop").style.display = "block";
+	appear.preventDefault();
+}
+
+// code from https://www.w3schools.com/howto/howto_js_sort_table.asp
 function sortTable(n) {
     var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
     table = document.getElementById("myTable");
