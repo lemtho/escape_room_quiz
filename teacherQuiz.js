@@ -5,7 +5,7 @@ module.exports = function()
     var moment = require('moment');
     var session = require('express-session');
 	
-	//Need to change teacher ID to be a passed in value
+	// Function to pull all quizzes under a teacher
 	function getQuiz(res, mysql, context, id, complete){
         mysql.pool.query("UPDATE quiz SET numQUESTION = (SELECT COUNT(quizID) FROM question WHERE question.quizID = quiz.quizID)");
         var sql = 'SELECT q.quizID AS id, q.name AS name, IFNULL(q.numQuestion, 0) AS numQuestion, IFNULL(num_taken, 0) AS num_taken FROM quiz AS q LEFT JOIN (SELECT quizID, count(distinct quizID, studentID) AS num_taken FROM student_question GROUP BY quizID) stu_num USING (quizID) WHERE teacherID = ?';
@@ -22,7 +22,7 @@ module.exports = function()
         });
 	}
 
-	 /* function to get id of a quiz */
+	 // Function to get id of a quiz
 	 function getQuizID(res, mysql, context, name, teacherID, complete){
         var sql = "SELECT quizID FROM quiz WHERE name = ? and teacherID = ?";
         var inserts = [name, teacherID];
@@ -37,6 +37,7 @@ module.exports = function()
         });
 	}
     
+    // Function to pull all questions from a quiz; used to load editQuiz page
     function getQuestions(res, mysql, context, quizID, complete){
         var sql = "SELECT * FROM question WHERE quizID = ?";
         var inserts = [quizID];
@@ -53,7 +54,7 @@ module.exports = function()
         })
     }
 
-	//Display all quizzes that the teacher has created 
+	// Display all quizzes that the teacher has created 
 	router.get("/", function(req, res){
         if(req.session.teacherID)
         {
@@ -77,7 +78,7 @@ module.exports = function()
 
 	});
 
-    //Create quiz page
+    // Renders create quiz page
     router.get("/createQuiz", function(req, res){
         if(req.session.teacherID)
         {
@@ -89,7 +90,7 @@ module.exports = function()
     });
     
     
-    //renders edit quiz page to update quiz information 
+    // Renders edit quiz page to update quiz information 
     router.get('/:id', function(req, res){
         var callbackCount = 0;
         var context = {};
@@ -105,8 +106,7 @@ module.exports = function()
         }
     });
 
-    //Create new quiz, get quiz name and redirect to add question page
-    //Need to have teacher ID 
+    // Create new quiz, get quiz name and redirect to add question page
 	router.post("/Quiz", function(req, res){
         var teacherID = req.session.teacherID;
 		var mysql = req.app.get('mysql');
@@ -137,7 +137,7 @@ module.exports = function()
 		});
     });
     
-    //Insert new question into quiz and reload page
+    // Insert new question into quiz and reload page
     router.post("/Quiz/:id", function(req, res){
         var mysql = req.app.get('mysql');
         var sql = 'INSERT into question (question, type, answer, quizID, choiceA, choiceB, choiceC) VALUES (?, ?, ?, ?, ?, ?, ?)';
@@ -167,6 +167,7 @@ module.exports = function()
         
     });
 
+    // Update question in quiz and reloads page
     router.put("/Quiz/:id", function(req, res){
         var mysql = req.app.get('mysql');
         console.log(req.body.type);
@@ -202,7 +203,7 @@ module.exports = function()
         });
     });
 
-    //Delete quiz 
+    // Delete quiz from quiz list
     router.delete("/:id", function(req, res){
         var mysql = req.app.get('mysql');
         var sql = 'DELETE FROM quiz WHERE quizID = ?';
@@ -219,7 +220,7 @@ module.exports = function()
         });
     });
 
-    //Delete question
+    // Delete question from quiz
     router.delete("/Quiz/:id", function(req, res){
         var mysql = req.app.get('mysql');
         var sql = 'DELETE FROM question WHERE questionID = ?';
