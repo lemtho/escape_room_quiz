@@ -4,7 +4,7 @@ module.exports = function()
 	var router = express.Router();
 	
 	function getTeacherStudents(res, mysql, id, context, complete){
-		var sql = "SELECT s.studentID, s.lastName, s.firstName, q.quizID, q.name FROM student AS s LEFT JOIN (SELECT quizID, studentID FROM student_question GROUP BY quizID, studentID) sq USING (studentID) JOIN quiz AS q ON sq.quizID = q.quizID WHERE q.teacherID = ? ORDER BY name;";
+		var sql = "SELECT DISTINCT s.studentID, s.lastName, s.firstName FROM teacher AS t LEFT JOIN quiz AS q ON t.teacherID = q.teacherID JOIN (SELECT studentID, quizID FROM student_question GROUP BY studentID, quizID) sq USING (quizID) JOIN student AS s ON sq.studentID = s.studentID WHERE t.teacherID = ? ORDER BY lastName ASC;";
 		var inserts = [id];
 		mysql.pool.query(sql, inserts, function(error, results, fields){
 			if(error){

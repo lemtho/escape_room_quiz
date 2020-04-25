@@ -86,43 +86,69 @@
                     <input id="quizRadio" name="rad" type="radio" onclick="showQuizDrop()" /> Quiz Name
                     <input id="nameRadio" name="rad" type="radio" onclick="showStudentDrop()" /> Student Name
                 </div>
+                <br>
 
                 <div id="quizDrop">
                     <b>Quiz Name:</b>
-                    <select class="browser-default" name="armor"> 
+                    <select id="quizDropdown"> 
                         {{#each quizDrop}}
                             <option value="{{quizID}}">{{name}}</option>
                         {{/each}}
                     </select>
+                    <button onclick="searchQuiz()">Search</button>
                 </div>
 
                 <div id="studentDrop">
                     <b>Student Name:</b>
-                    <select class="browser-default" name="armor"> 
+                    <select id="studentDropdown"> 
                         {{#each studentDrop}}
                             <option value="{{studentID}}">{{lastName}}, {{firstName}}</option>
                         {{/each}}
                     </select>
+                    <button onclick="searchStudent()">Search</button>
                 </div>
 
-                <div id="displayScores">
+                <br>
+                <div id="displayScoresByQuiz">
                     <table id="myTable" align="center">
                         <thead>
                             <tr>
+                                <th style="visibility: collapse;"></th>
                                 <th onclick="sortTable(0)">Last Name</th>
                                 <th onclick="sortTable(1)">First Name</th>
-                                <th onclick="sortTable(2)">Quiz Name</th>
-                                <th onclick="sortTable(3)">Score</th>
+                                <th onclick="sortTable(2)">Score</th>
                             </tr>
                         </thead>
 
                         <tbody>
-                            {{#each student}}
+                            {{#each quizScore}}
                                 <tr>
+                                    <td id="quizID" style="visibility:collapse;">{{quizID}}</td>
                                     <td>{{lastName}}</td>
                                     <td>{{firstName}}</td>
+                                    <td>{{actual_score}}</td>
+                                    <td><button onclick = "window.location.href = '/teacherScoreboard/{{quizID}}/{{studentID}}';">Results</button></td>
+                                </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="displayScoresByStudent">
+                    <table id="myTable" align="center">
+                        <thead>
+                            <tr>
+                                <th onclick="sortTable(0)">Quiz Name</th>
+                                <th onclick="sortTable(1)">Score</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {{#each studentScore}}
+                                <tr>
                                     <td>{{name}}</td>
                                     <td>{{actual_score}}</td>
+                                    <input id="studentID" name="studentID" type="hidden" value="{{studentID}}">
                                     <td><button onclick = "window.location.href = '/teacherScoreboard/{{quizID}}/{{studentID}}';">Results</button></td>
                                 </tr>
                             {{/each}}

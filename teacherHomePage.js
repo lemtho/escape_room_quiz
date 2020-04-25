@@ -6,7 +6,7 @@ module.exports = function()
 	router.get("/", function(req, res){
 		
 		// TEST: Output request data.
-		console.log(req.session);
+		// console.log(req.session);
 		
 		// IF user is already signed in (i.e., req.session.studentID exists)...
 		if (req.session.teacherID)

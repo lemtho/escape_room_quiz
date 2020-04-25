@@ -1,15 +1,12 @@
 document.getElementById("quizDrop").style.display = "none";
 document.getElementById("studentDrop").style.display = "none";
-
-document.getElementById("submitSearch").addEventListener("click", function(appear)
-{	
-    document.getElementById("search_quiz").style.display = "block";
-    document.getElementById("search_student").style.display = "block";
-	appear.preventDefault();
-});
+document.getElementById("displayScoresByQuiz").style.display = "none";
+document.getElementById("displayScoresByStudent").style.display = "none";
 
 function showQuizDrop() {
     document.getElementById('studentDrop').style.display ='none';
+    document.getElementById('displayScoresByStudent').style.display ='none';
+
     document.getElementById("quizDrop").style.display = "block";
 	appear.preventDefault();
 }
@@ -18,6 +15,45 @@ function showStudentDrop() {
     document.getElementById('quizDrop').style.display ='none';
     document.getElementById("studentDrop").style.display = "block";
 	appear.preventDefault();
+}
+
+function searchQuiz() {
+    document.getElementById("displayScoresByStudent").style.display = "none";
+    document.getElementById("displayScoresByQuiz").style.display = "block";
+
+    // get value of dropdown item (quizID)
+    var e = document.getElementById("quizDropdown");
+    var quizID = e.options[e.selectedIndex].value;
+
+    // filter table by quizID
+    var filter, table, tr, td, i;
+    filter = quizID;
+    table = document.getElementById("myTable");
+    tr = table.getElementsByTagName("tr");
+
+    for (i = 1; i < tr.length; i++) {
+        // Hide the row initially
+        tr[i].style.display = "none";
+    
+        td = tr[i].getElementsByTagName("td");
+        for (var j = 0; j < td.length; j++) {
+            cell = tr[i].getElementsByTagName("td")[j];
+            if (cell) {
+                if (cell.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                    break;
+                } 
+            }
+        }
+    }
+
+    appear.preventDefault();
+}
+
+function searchStudent() {
+    document.getElementById("displayScoresByQuiz").style.display = "none";
+    document.getElementById("displayScoresByStudent").style.display = "block";
+    appear.preventDefault();
 }
 
 // code from https://www.w3schools.com/howto/howto_js_sort_table.asp
