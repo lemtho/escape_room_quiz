@@ -87,7 +87,6 @@
                         <thead>
                             <th colspan="4" align="left">Last Name</th>
                             <th colspan="4">First Name</th>
-                            <th colspan="4">Quiz Name</th>
                         </thead>
                         <tbody>
 
@@ -95,8 +94,7 @@
                             <tr>
                                 <td colspan="4">{{lastName}}</td>
                                 <td colspan="4">{{firstName}}</td>
-                                <td colspan="4">{{name}}</td>
-                                    <td><button onclick = "window.location.href = '/teacherStudents/{{quizID}}/{{studentID}}';">Results</button></td>
+                                    <td><button onclick = "window.location.href = '/teacherScoreboard/';">Scoreboard</button></td>
                             </tr>
                             {{/each}}
 
