@@ -76,7 +76,7 @@
     <!-- content_area_start -->
     <div class="slider_area ">
         <div class="single_slider slider_bg_1">
-            <div class="container" style="position:relative; top:150px; text-align:center;">
+            <div class="container" style="position:relative; top:150px; text-align:left;">
 
                 <div id="quizID" style="display: none;">
                     {{quizID}}
@@ -89,9 +89,9 @@
                             {{#each question}}
                                     <tr>
                                         <td>
-                                            <form id = "edit_question" action = "/teacherQuiz" method = "put">
+                                            <form id = "edit_question{{questionID}}" action = "/teacherQuiz/Quiz/" method = "put">
                                             <b>Q{{inc @index}}. </b><input type = "text" name = "question" value = "{{question}}">
-                                            <b>Answer: </b><input type = "text" name = "answer" value = "{{answer}}">
+                                            <b>Answer: </b><input type = "text" name = "answer" value = "{{answer}}"><br>
                                             {{#showChoices type}}
                                             <b>Incorrect Answer(s): </b><input type = "text" name = "choiceA" value = "{{choiceA}}">
                                             {{#showMCChoices type}}
@@ -99,9 +99,12 @@
                                             <b>                     </b><input type = "text" name = "choiceC" value = "{{choiceC}}">
                                             {{/showMCChoices}}
                                             {{/showChoices}}
+                                            <div id = "question type" style ="display: none;">
+                                                </b><input type = "text" name = "type" value = "{{type}}">
+                                            </div>
                                             </form>       
                                         </td>
-                                        <td><button onclick = "window.location.href = '/teacherQuiz/question/{{questionID}}';" class = "edit">Update</button></td>
+                                        <td><button onclick = "updateQuestion({{questionID}})" class = "edit">Update</button></td>
                                         <td><button onclick = "deleteQuestion({{questionID}})" class = "delete">Delete</button></td>                                        
                                     </tr>
                             {{/each}}
@@ -110,7 +113,7 @@
                             {{/if}}
                                 <tr>
                                     <td>
-                                        <form id = "new_question" action = "/teacherQuiz" method = "post" style="text-align: left;">
+                                        <form id = "new_question" action = "/teacherQuiz/Quiz/" method = "post" style="text-align: left;">
                                         <div id = "add_Question">
                                             <b>Q{{inc @index}}. </b><input type = "text" name = "newWording" value = "Enter your question here..."><br>
                                             <b>Type: </b><input type = "radio" id = "SAType" name = "newType" onclick="showQuestion(0)"value ="SA"><label for="SA">Short Answer</label>

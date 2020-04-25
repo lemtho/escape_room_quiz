@@ -4,7 +4,7 @@ function addQuestion(id){
         type: 'POST',
         data: $('#new_question').serialize(),
         success: function(result){
-            window.location.reload();
+            window.location.replace('./');
         }
     });
 };
@@ -71,12 +71,23 @@ function selectAnswer(x){
 }
 
 function updateQuestion(id){
+    var form =$('#' + 'edit_question' + id);
     $.ajax({
-        url: '/teacherQuiz/' + id,
+        url: '/teacherQuiz/Quiz/' + id,
         type: 'PUT',
-        data: $('#edit_question').serialize(),
+        data: $(form).serialize(),
         success: function(result){
             window.location.reload();
+        }
+    });
+};
+
+function deleteQuestion(id){
+    $.ajax({
+        url: '/teacherQuiz/Quiz/' + id,
+        type: "DELETE", 
+        success: function(result){
+            window.location.reload(); 
         }
     });
 };

@@ -2,6 +2,7 @@ module.exports = function()
 {
 	var express = require('express');
     var router = express.Router();
+    var moment = require('moment');
 	
 	//Need to change teacher ID to be a passed in value
 	function getQuiz(res, mysql, context, complete){
@@ -19,7 +20,7 @@ module.exports = function()
 	}
 
 	 /* function to get id of a quiz */
-	 function getQuizID(res, mysql, context, name, teacherID){
+	 function getQuizID(res, mysql, context, name, teacherID, complete){
         var sql = "SELECT quizID FROM quiz WHERE name = ? and teacherID = ?";
         var inserts = [name, teacherID];
         mysql.pool.query(sql, inserts, function(error, results, fields){
@@ -28,9 +29,8 @@ module.exports = function()
                 res.write(JSON.stringify(error));
                 res.end(); 
             }
-            
-            context.id = results[0];
-            return context.id; 
+            context.quizID = results[0].quizID;
+            complete();
         });
 	}
     
@@ -89,15 +89,17 @@ module.exports = function()
             }
         }
     });
-    
 
-	
-
-	//Need to have teacher ID 
-	router.post("/", function(req, res){
+    //Create new quiz, get quiz name and redirect to add question page
+    //Need to have teacher ID 
+	router.post("/Quiz", function(req, res){
 		var mysql = req.app.get('mysql');
-        var sql = 'INSERT INTO quiz (name, teacherID) VALUES (?,?)';
-        var inserts = [req.body.name, 3];
+        var sql = 'INSERT INTO quiz (name, teacherID, dateCreated) VALUES (?,?,?)';
+
+        //Get current time; referenced: https://stackoverflow.com/questions/23977548/using-node-js-express-and-mysql-to-insert-for-a-timestamp
+        var curTime = moment(Date.now()).format('YYYY-MM-DD HH:mm:ss');
+
+        var inserts = [req.body.quizName, 4, curTime];
         sql = mysql.pool.query(sql, inserts, function(error, results, fields){
             if(error){
                 console.log(error);
@@ -105,35 +107,25 @@ module.exports = function()
                 res.end();
 			}
 			else{
-				var context = {};
-				var id = getQuizID(res, mysql, context, req.body.name, 3);
-                res.redirect('createQuiz');
+                var context = {};
+                var callbackCount = 0;
+                getQuizID(res, mysql, context, req.body.quizName, 4, complete);
+                function complete(){
+                    callbackCount++;
+                    if(callbackCount >= 1){
+                        quizID = context.quizID;
+                        res.redirect('/teacherQuiz/' + quizID);
+                    }
+                }
             }  
 		});
-	});
-
-    //Delete quiz 
-    router.delete("/:id", function(req, res){
-        var mysql = req.app.get('mysql');
-        var sql = 'DELETE FROM quiz WHERE quizID = ?';
-        var inserts = [req.params.id];
-        sql = mysql.pool.query(sql, inserts, function(error, results, fields){
-            if(error){
-                console.log(error);
-                res.write(JSON.stringify(error));
-                res.end(); 
-            }
-            else{
-                res.status(202).end(); 
-            }
-        });
     });
-
+    
     //Insert new question into quiz and reload page
     router.post("/:id", function(req, res){
         var mysql = req.app.get('mysql');
         var sql = 'INSERT into question (question, type, answer, quizID, choiceA, choiceB, choiceC) VALUES (?, ?, ?, ?, ?, ?, ?)';
-        console.log(req.body.newType);
+        
         //check type and determine inserts
         if(req.body.newType == 'SA'){
             var inserts = [req.body.newWording, req.body.newType, req.body.SAAnswer, req.params.id, null, null, null];
@@ -152,10 +144,80 @@ module.exports = function()
                 res.end(); 
             }
             else{
-                res.status(202).end(); 
+                res.status(202);
+                res.end();
             }
         });
         
+    });
+
+    router.put("/Quiz/:id", function(req, res){
+        var mysql = req.app.get('mysql');
+        console.log(req.body.type);
+
+    
+        //Determine update content depending on question type
+        if(req.body.type == 'SA')
+        {
+            var sql = 'UPDATE question SET question = ?, answer = ? WHERE questionID = ?';
+            var inserts = [req.body.question, req.body.answer, req.params.id];
+        }
+        else if(req.body.type == 'TF')
+        {
+            var sql = 'UPDATE question SET question = ?, answer = ?, choiceA = ? WHERE questionID = ?';
+            var inserts = [req.body.question, req.body.answer, req.body.choiceA, req.params.id];
+        }
+        else if(req.body.type == 'MC')
+        {
+            var sql = 'UPDATE question SET question = ?, answer = ?, choiceA = ?, choiceB = ?, choiceC = ? WHERE questionID = ?';
+            var inserts = [req.body.question, req.body.answer, req.body.choiceA, req.body.choiceB, req.body.choiceC, req.params.id];
+        }
+
+        mysql = mysql.pool.query(sql, inserts, function(error, results){
+            if(error){
+                console.log(error);
+                res.write(JSON.stringify(error));
+                res.end(); 
+            }
+            else{
+                res.status(202);
+                res.end();
+            }
+        });
+    });
+
+    //Delete quiz 
+    router.delete("/:id", function(req, res){
+        var mysql = req.app.get('mysql');
+        var sql = 'DELETE FROM quiz WHERE quizID = ?';
+        var inserts = [req.params.id];
+        sql = mysql.pool.query(sql, inserts, function(error, results, fields){
+            if(error){
+                console.log(error);
+                res.write(JSON.stringify(error));
+                res.end(); 
+            }
+            else{
+                res.status(204).end(); 
+            }
+        });
+    });
+
+    //Delete question
+    router.delete("/Quiz/:id", function(req, res){
+        var mysql = req.app.get('mysql');
+        var sql = 'DELETE FROM question WHERE questionID = ?';
+        var inserts = [req.params.id];
+        sql = mysql.pool.query(sql, inserts, function(error, results, fields){
+            if(error){
+                console.log(error);
+                res.write(JSON.stringify(error));
+                res.end(); 
+            }
+            else{
+                res.status(204).end(); 
+            }
+        });
     });
     
 	return router;
