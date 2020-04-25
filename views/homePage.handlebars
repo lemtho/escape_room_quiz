@@ -118,21 +118,21 @@
                                     <button class="btn btn-primary" id="loginButton">Sign In</button>
                                 </div>
                             </form>
-                            <form action="/create" method="POST" id="createAccountSection" style="display:inline-block; margin-left:auto; margin-right:auto; text-align:left; width:75%;">
+                            <form id="createAccountSection" style="display:inline-block; margin-left:auto; margin-right:auto; text-align:left; width:75%;">
                                 <div class="form-group row">
-                                    <input type="input" class="form-control" name="firstName" placeholder="First Name">
+                                    <input type="input" class="form-control" id="accountFirstName" name="firstName" placeholder="First Name">
                                   </div>
                                 <div class="form-group row">
-                                    <input type="input" class="form-control" name="lastName" placeholder="Last Name">
+                                    <input type="input" class="form-control" id="accountLastName" name="lastName" placeholder="Last Name">
                                 </div>
                                 <div class="form-group row">
-                                    <input type="email" class="form-control" name="email" placeholder="Email">
+                                    <input type="email" class="form-control" id="accountEmail" name="email" placeholder="Email">
                                   </div>
                                 <div class="form-group row">
-                                    <input type="password" class="form-control" name="password" placeholder="Password">
+                                    <input type="password" class="form-control" id="accountPassword" name="password" placeholder="Password">
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="userType" value="S" checked>
+                                    <input class="form-check-input" type="radio" name="userType" id="ALogin" value="S" checked>
                                     <label class="form-check-label" style="color:white; font-size:16px;">Student</label>
                                 </div>
                                 <div class="form-check">
@@ -141,7 +141,7 @@
                                 </div>
                                 <br>
                                 <div class="form-group row">
-                                    <button type="submit" class="btn btn-primary" id="createAccountButton">Sign Up</button>
+                                    <button class="btn btn-primary" id="createAccountButton">Sign Up</button>
                                 </div>
                             </form>
                         </div>

@@ -9,11 +9,22 @@ module.exports = function()
 		// TEST: Output request data.
 		// console.log(req.session);
 		
-		/* Declare a local variable that stores the user's first name obtained from 
-		session data. User's first name will be displayed on page. */
-		var firstName = req.session.firstName;
+		// IF user is already signed in (i.e., req.session.studentID exists)...
+		if (req.session.studentID)
+		{
+			/* Declare a local variable that stores the user's first name obtained from 
+			session data. User's first name will be displayed on page. */
+			var firstName = req.session.firstName;
 		
-		res.render("studentHomePage", {title: "Student Home Page", user: firstName});
+			res.render("studentHomePage", {title: "Student Home Page", user: firstName});
+		}
+
+		// ELSE user is not signed in...
+		else
+		{
+			// Redirect user to home page.
+			res.redirect("/");
+		}
 	});
 	
 	return router;
