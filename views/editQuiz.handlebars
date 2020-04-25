@@ -78,7 +78,9 @@
         <div class="single_slider slider_bg_1">
             <div class="container" style="position:relative; top:150px; text-align:center;">
 
-                
+                <div id="quizID" style="display: none;">
+                    {{quizID}}
+                </div>
                 <div>
                     <!--<h1 style="color:white;">PUT STUFF HERE</h1>-->
                     <table class = "spacing">
@@ -88,7 +90,7 @@
                                     <tr>
                                         <td>
                                             <form id = "edit_question" action = "/teacherQuiz" method = "put">
-                                            <b>Q{{inc index}}. </b><input type = "text" name = "wording" value = "{{question.wording}}">
+                                            <b>Q{{inc @index}}. </b><input type = "text" name = "wording" value = "{{question.wording}}">
                                             <b>Answer: </b><input type = "text" name = "answer" value = "{{question.answer}}">
                                             {{#showChoices type}}
                                             <b>Incorrect Answer(s): </b><input type = "text" name = "choiceA" value = "{{question.choiceA}}">
@@ -104,31 +106,39 @@
                                     </tr>
                             {{/each}}
                             {{else}}
-                                <tr><td colspan = "20"><h4><span style ="font-weight: normal; text-align: center">The quiz has no questions. Click on "Add Question" to get started.</span></h4></td></tr>
+                                <tr id = "noQuestion"><td colspan = "20"><h4><span style ="font-weight: normal; text-align: center">The quiz has no questions. Click on "Add Question" to get started.</span></h4></td></tr>
                             {{/if}}
-                                <tr id = "newQuestion">
+                                <tr>
                                     <td>
-                                        <form id = "add_question" action = "/teacherQuiz/question" method = "post">
-                                            <b>Q{{inc index}}. </b><input type = "text" name = "wording" value = "Enter your question here...">
-                                            <b>Type: </b><input type = "radio" name = "newType" value ="SA"><label for="SA">Short Answer</label>
-                                                        <input type = "radio" name = "newType" value ="TF"><label for="TF">True/False</label>
-                                                        <input type = "radio" name = "newType" value = "MC"><label for="MC">Multiple Choice</label>
-                                            {{#showTF newType}}
-                                            <b>Answer: </b><input type = "radio" name = "answer" value = "True"><label for="True">True</label>
-                                                            <input type = "radio" name = "answer" value = "False"><label for="False">True</label>
-                                                            
-                                            <b>Answer: </b><input type = "text" name = "answer" value = "Enter the answer here...">
-                                            {{#showChoices newType}}
-                                            <b>Incorrect Answer(s): </b><input type = "text" name = "choiceA" value = "{{question.choiceA}}">
-                                            {{#showMCChoices type}}
-                                            <b>                     </b><input type = "text" name = "choiceB" value = "{{question.choiceB}}">
-                                            <b>                     </b><input type = "text" name = "choiceC" value = "{{question.choiceC}}">
-                                            {{/showMCChoices}}
-                                            {{/showChoices}}
+                                        <form id = "add_question" action = "/teacherQuiz/question" method = "post" style="text-align: left;">
+                                        <div id = "add_Question">
+                                            <b>Q{{inc @index}}. </b><input type = "text" name = "wording" value = "Enter your question here..."><br>
+                                            <b>Type: </b><input type = "radio" id = "SAType" name = "newType" onclick="showQuestion(0)"value ="SA"><label for="SA">Short Answer</label>
+                                                        <input type = "radio" id = "TFType" name = "newType" onclick="showQuestion(1)" value ="TF"><label for="TF">True/False</label>
+                                                        <input type = "radio" id = "MCType" name = "newType" onclick="showQuestion(2)" value = "MC"><label for="MC">Multiple Choice</label><br>
+                                                        </div>
+                                            <div id = "SAQuestion">
+                                                <b>Answer: </b><input type ="text" name = "answer" value ="Enter the answer here..."><br>
+                                                <input type = "submit">
+                                            </div>            
+                                            <div id = "TFQuestion">
+                                                <b>Answer: </b><input type = "radio" id= "TAnswer" name = "answer" onclick="selectWrongAnswer(0)" value = "True"><label for "True">True</label>
+                                                                <input type = "radio" id= "FAnswer" name = "answer" onclick="selectWrongAnswer(1)" value = "False"><label for "False">False</label><br>
+                                                <b>Wrong Answer: </b><input type = "radio" id= "TChoice" onclick="selectAnswer(0)" name = "choiceA" value = "True"><label for "True">True</label>
+                                                                <input type = "radio" id= "FChoice" onclick="selectAnswer(1)" name = "choiceA" value = "False"><label for "False">False</label><br>
+                                                <input type = "submit">
+                                            </div>
+                                            <div id = "MCQuestion">
+                                                <b>Answer: </b><input type ="text" name = "answer" value ="Enter the answer here..."><br>
+                                                <b>Wrong Answers: </b><input type ="text" name = "choiceA" value ="Enter the 1st wrong choice here..."><br>
+                                                                      <input type ="text" name = "choiceB" value ="Enter the 2nd wrong choice here..."><br>
+                                                                      <input type ="text" name = "choiceC" value ="Enter the 3rd wrong choice here..."><br>
+                                                <input type = "submit">    
+                                            </div>
                                             </form>
                                     </td>
                                 </tr>
-                                <tr><td colspan = "8" align = "right"><button onclick = "window.location.href = '/teacherQuiz/question';" class = "create">Add Question</button></td></tr>
+                        <tr><td colspan = "8" align = "right"><button class = "create" id = "newQuestion">Add New Question</button></td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -178,6 +188,9 @@
     <script src="js/gijgo.min.js"></script>
 
     <script src="js/main.js"></script>
+
+     <!-- Front-end JS scripts here -->
+    <script src="frontendJS/editQuizPage.js"></script>
 </body>
 
 </html>

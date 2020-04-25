@@ -44,6 +44,7 @@ module.exports = function()
             }
             
             context.question = results;
+            context.quizID = quizID; 
             complete(); 
         })
     }
@@ -109,5 +110,30 @@ module.exports = function()
 		});
 	});
 
+    //Delete quiz 
+    router.delete("/:id", function(req, res){
+        var mysql = req.app.get('mysql');
+        var sql = 'DELETE FROM quiz WHERE quizID = ?';
+        var inserts = [req.params.id];
+        sql = mysql.pool.query(sql, inserts, function(error, results, fields){
+            if(error){
+                console.log(error);
+                res.write(KSON.stringify(error));
+                res.end(); 
+            }
+            else{
+                res.status(202).end(); 
+            }
+        });
+    });
+
+    //Insert new question into quiz
+    router.post("/question", function(req, res){
+        var mysql = req.app.get('mysql');
+        var sql = 'INSERT into question (question, type, answer, quizID, choiceA, choiceB, choiceC) VALUES (?, ?, ?, ?, ?, ?, ?)';
+        //check type and determine inserts
+        var inserts = [req.body.wording, req.body.newType, req.body.answer, req.body.quizID, choiceA];
+    });
+    
 	return router;
 }();

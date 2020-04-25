@@ -13,8 +13,13 @@ function hbsHelpers(handlebars){
                     return options.fn(this);
                 }
             },
-
-            incIndex: function(index, options){
+            
+            //Increment question number, referenced: https://stackoverflow.com/questions/22103989/adding-offset-to-index-when-looping-through-items-in-handlebars
+            inc: function(index, options){
+                if(index == undefined)
+                {
+                    index = 0; 
+                }
                 return parseInt(index) + 1; 
             },
 
@@ -26,6 +31,25 @@ function hbsHelpers(handlebars){
 
             showMCChoices: function(type, options){
                 if(type == 'MC'){
+                    return options.fn(this);
+                }
+            },
+
+            showTF: function(type, options){
+                if(type == "TF"){
+                    return options.fn(this);
+                }
+            },
+
+            showTFChoice: function(type, options){
+                if(type == "TF"){
+                    return options.fn(this);
+                }
+            },
+
+            showMoreChoices: function(type, options){
+                if(type == "MC" || type == 'SA')
+                {
                     return options.fn(this);
                 }
             }
