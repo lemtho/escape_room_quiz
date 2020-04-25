@@ -83,6 +83,7 @@
                     <!--<h1 style="color:white;">PUT STUFF HERE</h1>-->
                     <table class = "spacing">
                         <thead>
+                            <th colspan="2" align="left"><h2>Quiz Code</h2></th>
                             <th colspan="4" align = "left"><h2>Quiz Name</h2></th>
                             <th colspan="4"><h2>Number of Questions</h2></th>
                             <th colspan="4"><h2>Number Taken</h2></th>
@@ -91,6 +92,7 @@
                             {{#if quiz}}
                             {{#each quiz}}
                                     <tr>
+                                        <td colspan="2">{{id}}</td>
                                         <td colspan="4">{{name}}</td>
                                         <td colspan="4">{{numQuestion}}</td>
                                         <td class = "cannot_change" colspan="4">{{num_taken}}</td>
@@ -156,6 +158,9 @@
     <script src="js/gijgo.min.js"></script>
 
     <script src="js/main.js"></script>
+    
+    <!-- Front-end JS scripts here -->
+    <script src="frontendJS/teacherQuiz.js"></script>
 </body>
 
 </html>
