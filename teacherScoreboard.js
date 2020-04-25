@@ -111,7 +111,7 @@ module.exports = function()
 	}
 
 	function getQuizHeader(res, mysql, qid, sid, context, complete) {
-		var sql = "SELECT DISTINCT s.firstName, s.lastName, q.name, dateTaken FROM student AS s LEFT JOIN (SELECT questionID, studentID, dateTaken FROM student_question WHERE quizID = ?) sq USING (studentID) JOIN question AS quest ON sq.questionID = quest.questionID JOIN quiz AS q ON quest.quizID = q.quizID WHERE studentID = ?;";
+		var sql = "SELECT DISTINCT s.firstName, s.lastName, q.name, lastTakenDate FROM student AS s LEFT JOIN (SELECT questionID, studentID, DATE_FORMAT(dateTaken, '%m/%d/%Y %h:%i %p') AS lastTakenDate FROM student_question WHERE quizID = ?) sq USING (studentID) JOIN question AS quest ON sq.questionID = quest.questionID JOIN quiz AS q ON quest.quizID = q.quizID WHERE studentID = ?;";
 		var inserts = [qid, sid];
 		mysql.pool.query(sql, inserts, function(error, results, fields) {
 			if (error) {
@@ -141,29 +141,6 @@ module.exports = function()
 			function complete() {
 				callbackCount++;
 				if (callbackCount >= 5) {
-					context.title = "Scoreboard";
-					res.render('teacherScoreboard', context);
-				}
-			}
-		}
-		else {
-			res.redirect("/");
-		}
-	});
-
-	router.get("/", function(req, res){
-		if (req.session.teacherID) {
-			var teacherID = req.session.teacherID;
-			var callbackCount = 0;
-			var context = {};
-			var mysql = req.app.get('mysql');
-			getScores(res, mysql, teacherID, context, complete);
-			getQuizDrop(res, mysql, teacherID, context, complete);
-			getStudentDrop(res, mysql, teacherID, context, complete);
-
-			function complete() {
-				callbackCount++;
-				if (callbackCount >= 3) {
 					context.title = "Scoreboard";
 					res.render('teacherScoreboard', context);
 				}

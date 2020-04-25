@@ -5,6 +5,8 @@ document.getElementById("displayScoresByStudent").style.display = "none";
 
 function showQuizDrop() {
     document.getElementById('studentDrop').style.display ='none';
+    document.getElementById('displayScoresByStudent').style.display ='none';
+
     document.getElementById("quizDrop").style.display = "block";
 	appear.preventDefault();
 }
