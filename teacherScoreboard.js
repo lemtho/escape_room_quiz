@@ -111,7 +111,7 @@ module.exports = function()
 	}
 
 	function getQuizHeader(res, mysql, qid, sid, context, complete) {
-		var sql = "SELECT DISTINCT s.firstName, s.lastName, q.name, lastTakenDate FROM student AS s LEFT JOIN (SELECT questionID, studentID, DATE_FORMAT(dateTaken, '%m/%d/%Y %h:%i %p') AS lastTakenDate FROM student_question WHERE quizID = ?) sq USING (studentID) JOIN question AS quest ON sq.questionID = quest.questionID JOIN quiz AS q ON quest.quizID = q.quizID WHERE studentID = ?;";
+		var sql = 'SELECT DISTINCT s.firstName, s.lastName, q.name, DATE_FORMAT(dateTaken, "%m/%d/%Y %h:%i %p") AS lastTakenDate FROM student AS s LEFT JOIN (SELECT questionID, studentID, dateTaken FROM student_question WHERE quizID = ?) sq USING (studentID) JOIN question AS quest ON sq.questionID = quest.questionID JOIN quiz AS q ON quest.quizID = q.quizID WHERE studentID = ?;';
 		var inserts = [qid, sid];
 		mysql.pool.query(sql, inserts, function(error, results, fields) {
 			if (error) {
