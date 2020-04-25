@@ -5,6 +5,7 @@ module.exports = function()
 	
 	//Need to change teacher ID to be a passed in value
 	function getQuiz(res, mysql, context, complete){
+        mysql.pool.query("UPDATE quiz SET numQUESTION = (SELECT COUNT(quizID) FROM question WHERE question.quizID = quiz.quizID)");
 		mysql.pool.query("SELECT q.quizID AS id, q.name AS name, IFNULL(q.numQuestion, 0) AS numQuestion, IFNULL(num_taken, 0) AS num_taken FROM quiz AS q LEFT JOIN (SELECT quizID, count(distinct quizID, studentID) AS num_taken FROM student_question GROUP BY quizID) stu_num USING (quizID) WHERE teacherID = 4", function(error, results, fields){
             if(error){
                 console.log(error);
@@ -48,6 +49,7 @@ module.exports = function()
             complete(); 
         })
     }
+
 	//Display all quizzes that the teacher has created 
 	router.get("/", function(req, res){
 		var callbackCount = 0; 
@@ -118,7 +120,7 @@ module.exports = function()
         sql = mysql.pool.query(sql, inserts, function(error, results, fields){
             if(error){
                 console.log(error);
-                res.write(KSON.stringify(error));
+                res.write(JSON.stringify(error));
                 res.end(); 
             }
             else{
@@ -127,12 +129,33 @@ module.exports = function()
         });
     });
 
-    //Insert new question into quiz
-    router.post("/question", function(req, res){
+    //Insert new question into quiz and reload page
+    router.post("/:id", function(req, res){
         var mysql = req.app.get('mysql');
         var sql = 'INSERT into question (question, type, answer, quizID, choiceA, choiceB, choiceC) VALUES (?, ?, ?, ?, ?, ?, ?)';
+        console.log(req.body.newType);
         //check type and determine inserts
-        var inserts = [req.body.wording, req.body.newType, req.body.answer, req.body.quizID, choiceA];
+        if(req.body.newType == 'SA'){
+            var inserts = [req.body.newWording, req.body.newType, req.body.SAAnswer, req.params.id, null, null, null];
+        }
+        else if(req.body.newType == 'TF'){
+            var inserts = [req.body.newWording, req.body.newType, req.body.TFAnswer, req.params.id, req.body.TFChoiceA, null, null];
+        }
+        else{
+            var inserts = [req.body.newWording, req.body.newType, req.body.MCAnswer, req.params.id, req.body.MCChoiceA, req.body.MCChoiceB, req.body.MCChoiceC];
+        }
+
+        sql = mysql.pool.query(sql, inserts, function(error, results){
+            if(error){
+                console.log(error);
+                res.write(JSON.stringify(error));
+                res.end(); 
+            }
+            else{
+                res.status(202).end(); 
+            }
+        });
+        
     });
     
 	return router;

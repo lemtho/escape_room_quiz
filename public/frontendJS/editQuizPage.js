@@ -1,3 +1,15 @@
+function addQuestion(id){
+    $.ajax({
+        url: '/teacherQuiz/' + id,
+        type: 'POST',
+        data: $('#new_question').serialize(),
+        success: function(result){
+            window.location.reload();
+        }
+    });
+};
+
+
 //Hide add question form on load
 document.getElementById("add_Question").style.display ="none";
 document.getElementById("SAQuestion").style.display ="none";
@@ -63,17 +75,6 @@ function updateQuestion(id){
         url: '/teacherQuiz/' + id,
         type: 'PUT',
         data: $('#edit_question').serialize(),
-        success: function(result){
-            window.location.reload();
-        }
-    });
-};
-
-function addQuestion(){
-    $.ajax({
-        url: '/teacherQuiz/' + id,
-        type: 'POST',
-        data: $('#add_question').serialize(),
         success: function(result){
             window.location.reload();
         }
