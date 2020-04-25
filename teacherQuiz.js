@@ -122,7 +122,7 @@ module.exports = function()
     });
     
     //Insert new question into quiz and reload page
-    router.post("/:id", function(req, res){
+    router.post("/Quiz/:id", function(req, res){
         var mysql = req.app.get('mysql');
         var sql = 'INSERT into question (question, type, answer, quizID, choiceA, choiceB, choiceC) VALUES (?, ?, ?, ?, ?, ?, ?)';
         

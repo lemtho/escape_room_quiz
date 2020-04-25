@@ -1,10 +1,10 @@
 function addQuestion(id){
     $.ajax({
-        url: '/teacherQuiz/' + id,
+        url: '/teacherQuiz/Quiz/' + id,
         type: 'POST',
         data: $('#new_question').serialize(),
         success: function(result){
-            window.location.replace('./');
+            window.location.reload();
         }
     });
 };
