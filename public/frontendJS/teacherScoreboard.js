@@ -13,6 +13,8 @@ function showQuizDrop() {
 
 function showStudentDrop() {
     document.getElementById('quizDrop').style.display ='none';
+    document.getElementById('displayScoresByQuiz').style.display ='none';
+
     document.getElementById("studentDrop").style.display = "block";
 	appear.preventDefault();
 }
@@ -26,33 +28,54 @@ function searchQuiz() {
     var quizID = e.options[e.selectedIndex].value;
 
     // filter table by quizID
-    var filter, table, tr, td, i;
+    var filter, table, tr, i;
     filter = quizID;
-    table = document.getElementById("myTable");
+    table = document.getElementById("quizTable");
     tr = table.getElementsByTagName("tr");
 
     for (i = 1; i < tr.length; i++) {
         // Hide the row initially
         tr[i].style.display = "none";
     
+        // element in 1st column
         td = tr[i].getElementsByTagName("td");
-        for (var j = 0; j < td.length; j++) {
-            cell = tr[i].getElementsByTagName("td")[j];
-            if (cell) {
-                if (cell.innerHTML.toUpperCase().indexOf(filter) > -1) {
-                    tr[i].style.display = "";
-                    break;
-                } 
-            }
+        cell = tr[i].getElementsByTagName("td")[0];
+
+        if (cell.innerHTML == filter) {
+            tr[i].style.display = "";
         }
     }
-
+    
     appear.preventDefault();
 }
 
 function searchStudent() {
     document.getElementById("displayScoresByQuiz").style.display = "none";
     document.getElementById("displayScoresByStudent").style.display = "block";
+
+    // get value of dropdown item (quizID)
+    var e = document.getElementById("studentDropdown");
+    var studentID = e.options[e.selectedIndex].value;
+
+    // filter table by studentID
+    var filter, table, tr, i;
+    filter = studentID;
+    table = document.getElementById("studentTable");
+    tr = table.getElementsByTagName("tr");
+
+    for (i = 1; i < tr.length; i++) {
+        // Hide the row initially
+        tr[i].style.display = "none";
+    
+        // element in 1st column
+        td = tr[i].getElementsByTagName("td");
+        cell = tr[i].getElementsByTagName("td")[0];
+        
+        if (cell.innerHTML == filter) {
+            tr[i].style.display = "";
+        }
+    }
+    
     appear.preventDefault();
 }
 
