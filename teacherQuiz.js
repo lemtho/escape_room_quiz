@@ -92,17 +92,23 @@ module.exports = function()
     
     // Renders edit quiz page to update quiz information 
     router.get('/:id', function(req, res){
-        var callbackCount = 0;
-        var context = {};
-        context.jsscripts = ["editQuizPage.js"];
-        var mysql = req.app.get('mysql');
-        getQuestions(res, mysql, context, req.params.id, complete); 
+        if(req.session.teacherID)
+        {
+            var callbackCount = 0;
+            var context = {};
+            context.jsscripts = ["editQuizPage.js"];
+            var mysql = req.app.get('mysql');
+            getQuestions(res, mysql, context, req.params.id, complete); 
 
-        function complete(){
-            callbackCount++;
-            if(callbackCount >= 1){
-                res.render('editQuiz', context);
+            function complete(){
+                callbackCount++;
+                if(callbackCount >= 1){
+                    res.render('editQuiz', context);
+                }
             }
+        }
+        else{
+            res.redirect("/");
         }
     });
 

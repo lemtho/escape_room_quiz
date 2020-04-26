@@ -9,7 +9,6 @@ function addQuestion(id){
     });
 };
 
-
 //Hide add question form on load
 document.getElementById("add_Question").style.display ="none";
 document.getElementById("SAQuestion").style.display ="none";
@@ -28,6 +27,7 @@ document.getElementById("newQuestion").addEventListener("click", function(appear
 //Function to display different answer prompt for different question type
 //Referenced: https://www.youtube.com/watch?v=zndWZv9DZWc
 function showQuestion(x){
+    insertIndex(); 
     if(x==0){
         document.getElementById("SAQuestion").style.display ="block";
         document.getElementById("TFQuestion").style.display ="none";
