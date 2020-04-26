@@ -61,8 +61,8 @@ document.getElementById("loginButton").addEventListener("click", function(logIn)
         // TEST: Output response from server.
         // console.log(req);
         
-        /* IF response from server is good, redirect user to the responseURL site.
-        (i.e., student or teacher home page). */
+        /* IF response from server is good and the response has completed, 
+        redirect user to the responseURL site. (i.e., student or teacher home page). */
         if (req.readyState == 4 & req.status == 200)
         {
             window.location = req.responseURL;
@@ -133,8 +133,8 @@ document.getElementById("createAccountButton").addEventListener("click", functio
         // TEST: Output response from server.
         // console.log(req);
         
-        /* IF response from server is good, redirect user to the responseURL site.
-        (i.e., student or teacher home page). */
+        /* IF response from server is good and the response has completed, 
+        redirect user to the responseURL site. (i.e., student or teacher home page). */
         if (req.readyState == 4 & req.status == 200)
         {
             window.location = req.responseURL;
