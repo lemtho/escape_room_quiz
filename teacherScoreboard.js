@@ -189,7 +189,7 @@ module.exports = function()
 	});
 	
 	// to delete student from quiz
-	router.delete('/removeStudent/:qid/:sid', function(req, res){
+	router.delete('/:qid/:sid', function(req, res){
         var mysql = req.app.get('mysql');
         var sql = "DELETE FROM student_question WHERE quizID = ? AND studentID = ?";
         var inserts = [req.params.qid, req.params.sid];

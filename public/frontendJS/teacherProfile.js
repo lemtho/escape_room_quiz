@@ -15,17 +15,6 @@ document.getElementById("editNameButton").addEventListener("click", function(app
 	appear.preventDefault();
 });
 
-function updateName(){
-    $.ajax({
-        url: '/teacherProfile/',
-        type: 'PUT',
-        data: $('#updateName').serialize(),
-        success: function(result){
-            window.location.reload();
-        }
-    })
-};
-
 // change password button is clicked
 document.getElementById("changePasswordButton").addEventListener("click", function(appear)
 {	
@@ -51,4 +40,15 @@ function updatePassword(){
             }
         })
     }
+};
+
+function updateName(){
+    $.ajax({
+        url: '/teacherProfile/',
+        type: 'PUT',
+        data: $('#updateName').serialize(),
+        success: function(result){
+            window.location.reload();
+        }
+    })
 };

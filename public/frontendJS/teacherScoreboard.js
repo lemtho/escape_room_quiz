@@ -130,10 +130,10 @@ function searchStudent() {
 
 function deleteStudentScore(qid, sid){
     $.ajax({
-        url: '/removeStudent/' + qid + '/' + sid,
+        url: '/teacherScoreboard/' + qid + '/' + sid,
         type: 'DELETE',
         success: function(result){
-          window.location.reload(true);
+          window.location.reload();
         }
     })
 };
