@@ -99,7 +99,7 @@
                                         <td colspan="4">{{numQuestion}}</td>
                                         <td class = "cannot_change" colspan="4">{{num_taken}}</td>
                                         {{#showResult num_taken}}
-                                        <td><button onclick = 'window.location.href = '/Scoreboard/{{id}}';' class = "results">Results</button></td>
+                                        <td><button onclick="fetchResults({{id}},'{{name}}')" class = "results">Results</button></td>
                                         {{/showResult}}
                                         {{#editdel num_taken}}
                                         <td><button onclick = "window.location.href = '/teacherQuiz/{{id}}';" class = "edit">Edit</button></td>

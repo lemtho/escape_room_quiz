@@ -128,6 +128,23 @@ module.exports = function()
 			var teacherID = req.session.teacherID;
 			var callbackCount = 0;
 			var context = {};
+
+			// If this routed originated from teacherQuiz page...
+			if (req.session.fromTeacherQuizPage == true)
+			{
+				context.fromTeacherQuizID = req.session.fromTeacherQuizID;
+				context.fromTeacherQuizName = req.session.fromTeacherQuizName;
+
+				/* Reset information so that the "from Teacher
+				quiz ID" or from Teacher quiz name" is not populated or 
+				that the server does not think every time the user is redirected 
+				from the teacherQuiz page each time user visits the 
+				teacherScoreboard page. */
+				req.session.fromTeacherQuizPage = false;
+				req.session.fromTeacherQuizID = "";
+				req.fromTeacherQuizName = "";
+			}
+
 			var mysql = req.app.get('mysql');
 			getScores(res, mysql, teacherID, context, complete);
 			getQuizDrop(res, mysql, teacherID, context, complete);
@@ -169,7 +186,32 @@ module.exports = function()
 		else {
 			res.redirect("/");
 		}
-    });
+	});
+	
+	// Route to teacherScoreboard page from teacherQuiz page.
+	router.post("/", function(req, res)
+	{
+		// TEST: Output request sent from the client.
+		// console.log(req.body);
+		
+		if (req.session.teacherID) 
+		{
+			// Store or update the following data in session.
+			req.session.fromTeacherQuizPage = true;
+			req.session.fromTeacherQuizID = req.body.fromTeacherQuizID;
+			req.session.fromTeacherQuizName = req.body.fromTeacherQuizName;
+			
+			// Send status 200 to the client.
+			res.status(200);
+			
+			// Forcefully end the response process.
+			res.end();
+		}
+		
+		else {
+			res.redirect("/");
+		}
+	});
 	
 	return router;
 }();
