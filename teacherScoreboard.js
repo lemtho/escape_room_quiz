@@ -78,8 +78,6 @@ module.exports = function()
 		});
 	}
 
-	
-
 	function getStudentResults(res, mysql, qid, sid, context, complete) {
 		var sql = "SELECT s.firstName, s.lastName, quest.questionID, quest.question, quest.answer, studentAnswer, questionPt, q.name FROM student AS s LEFT JOIN (SELECT questionID, studentID, studentAnswer, questionPT FROM student_question WHERE quizID = ?) sq USING (studentID) JOIN question AS quest ON sq.questionID = quest.questionID JOIN quiz AS q ON quest.quizID = q.quizID WHERE studentID = ?;";
 		var inserts = [qid, sid];
@@ -125,7 +123,6 @@ module.exports = function()
 		});
 	}
 
-	
 	router.get("/", function(req, res){
 		if (req.session.teacherID) {
 			var teacherID = req.session.teacherID;
