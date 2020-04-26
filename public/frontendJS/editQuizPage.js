@@ -9,7 +9,6 @@ function addQuestion(id){
     });
 };
 
-
 //Hide add question form on load
 document.getElementById("add_Question").style.display ="none";
 document.getElementById("SAQuestion").style.display ="none";

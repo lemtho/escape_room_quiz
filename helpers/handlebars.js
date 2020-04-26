@@ -20,6 +20,12 @@ function hbsHelpers(handlebars){
                 {
                     index = 0; 
                 }
+
+                return parseInt(index) + 1; 
+            },
+
+            new: function(index, options)
+            {
                 return parseInt(index) + 1; 
             },
 
@@ -31,25 +37,6 @@ function hbsHelpers(handlebars){
 
             showMCChoices: function(type, options){
                 if(type == 'MC'){
-                    return options.fn(this);
-                }
-            },
-
-            showTF: function(type, options){
-                if(type == "TF"){
-                    return options.fn(this);
-                }
-            },
-
-            showTFChoice: function(type, options){
-                if(type == "TF"){
-                    return options.fn(this);
-                }
-            },
-
-            showMoreChoices: function(type, options){
-                if(type == "MC" || type == 'SA')
-                {
                     return options.fn(this);
                 }
             }
