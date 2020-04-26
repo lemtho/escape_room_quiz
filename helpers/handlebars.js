@@ -15,17 +15,14 @@ function hbsHelpers(handlebars){
             },
             
             //Increment question number, referenced: https://stackoverflow.com/questions/22103989/adding-offset-to-index-when-looping-through-items-in-handlebars
-            inc: function(index, options){
+            //Also saves index value into variable, referenced: https://stackoverflow.com/questions/24736938/is-it-possible-to-assign-a-parameter-value-within-handlebars-templates-without-u/37152268
+            inc: function(index, variable, options){
                 if(index == undefined)
                 {
                     index = 0; 
                 }
+                options.data.root[variable] = parseInt(index) + 2;
 
-                return parseInt(index) + 1; 
-            },
-
-            new: function(index, options)
-            {
                 return parseInt(index) + 1; 
             },
 

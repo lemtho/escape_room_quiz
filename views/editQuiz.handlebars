@@ -86,11 +86,11 @@
                     <table class = "spacing">
                         <tbody>
                             {{#if question}}
-                            {{#each question}}
+                            {{#each question}}   
                                     <tr>
                                         <td>
                                             <form id = "edit_question{{questionID}}" action = "/teacherQuiz/Quiz/" method = "put">
-                                            <b>Q{{inc @index}}. </b><input type = "text" name = "question" value = "{{question}}">
+                                            <b>Q{{inc @index "qNum"}}. </b><input type = "text" name = "question" value = "{{question}}">
                                             <b>Answer: </b><input type = "text" name = "answer" value = "{{answer}}"><br>
                                             {{#showChoices type}}
                                             <b>Incorrect Answer(s): </b><input type = "text" name = "choiceA" value = "{{choiceA}}">
@@ -115,10 +115,16 @@
                                     <td>
                                         <form id = "new_question" action = "/teacherQuiz/Quiz/" method = "post" style="text-align: left;">
                                         <div id = "add_Question">
-                                            <b>Q{{inc @index}}. </b><input type = "text" name = "newWording" value = "Enter your question here..."><br>
+                                            {{#if qNum}}
+                                            <b>Q{{qNum}}.</b>
+                                            {{else}}
+                                            <b>Q1.</b>
+                                            {{/if}}
+                                            <input type = "text" name = "newWording" value = "Enter your question here..."><br>
                                             <b>Type: </b><input type = "radio" id = "SAType" name = "newType" onclick="showQuestion(0)"value ="SA"><label for="SA">Short Answer</label>
                                                         <input type = "radio" id = "TFType" name = "newType" onclick="showQuestion(1)" value ="TF"><label for="TF">True/False</label>
                                                         <input type = "radio" id = "MCType" name = "newType" onclick="showQuestion(2)" value = "MC"><label for="MC">Multiple Choice</label><br>
+                                                        
                                                         </div>
                                             <div id = "SAQuestion">
                                                 <b>Answer: </b><input type ="text" name = "SAAnswer" value ="Enter the answer here..."><br>
@@ -137,7 +143,9 @@
                                                                       <input type ="text" name = "MCChoiceB" value ="Enter the 2nd wrong choice here..."><br>
                                                                       <input type ="text" name = "MCChoiceC" value ="Enter the 3rd wrong choice here..."><br>
                                                 <button onclick = "addQuestion({{quizID}})">Submit</button> 
+                
                                             </div>
+                                            
                                             </form>
                                     </td>
                                 </tr>
