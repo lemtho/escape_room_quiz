@@ -169,7 +169,23 @@ module.exports = function()
 		else {
 			res.redirect("/");
 		}
-    });
+	});
+	
+	// to delete student from quiz
+	router.delete('/removeStudent/:qid/:sid', function(req, res){
+        var mysql = req.app.get('mysql');
+        var sql = "DELETE FROM student_question WHERE quizID = ? AND studentID = ?";
+        var inserts = [req.params.qid, req.params.sid];
+        sql = mysql.pool.query(sql, inserts, function(error, results, fields){
+            if(error){
+                res.write(JSON.stringify(error));
+                res.status(400);
+                res.end();
+            }else{
+                res.status(202).end();
+            }
+        })
+    })
 	
 	return router;
 }();
