@@ -167,7 +167,7 @@ module.exports = function()
             }
             else{
                 res.status(202);
-                res.end();
+                res.redirect('/teacherQuiz/' + req.params.id);
             }
         });
         

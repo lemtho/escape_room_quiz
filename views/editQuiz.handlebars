@@ -115,36 +115,36 @@
                             {{/if}}
                                 <tr>
                                     <td>
-                                        <form id = "new_question" action = "/teacherQuiz/Quiz/" method = "post" style="text-align: left;">
+                                        <form id = "new_question" action = "/teacherQuiz/Quiz/{{quizID}}" method = "post" style="text-align: left;">
                                         <div id = "add_Question">
                                             {{#if qNum}}
                                             <b>Q{{qNum}}.</b>
                                             {{else}}
                                             <b>Q1.</b>
                                             {{/if}}
-                                            <input type = "text" name = "newWording" value = "Enter your question here..."><br>
+                                            <input type = "text" name = "newWording" placeholder = "Enter your question here..."><br>
                                             <b>Type: </b><input type = "radio" id = "SAType" name = "newType" onclick="showQuestion(0)"value ="SA"><label for="SA">Short Answer</label>
                                                         <input type = "radio" id = "TFType" name = "newType" onclick="showQuestion(1)" value ="TF"><label for="TF">True/False</label>
                                                         <input type = "radio" id = "MCType" name = "newType" onclick="showQuestion(2)" value = "MC"><label for="MC">Multiple Choice</label><br>
                                                         
                                                         </div>
                                             <div id = "SAQuestion">
-                                                <b>Answer: </b><input type ="text" name = "SAAnswer" value ="Enter the answer here..."><br>
-                                                <button onclick = "addQuestion({{quizID}})">Submit</button> 
+                                                <b>Answer: </b><input type ="text" name = "SAAnswer" placeholder ="Enter the answer here..."><br>
+                                                <input type="submit">
                                             </div>            
                                             <div id = "TFQuestion">
                                                 <b>Answer: </b><input type = "radio" id= "TAnswer" name = "TFAnswer" onclick="selectWrongAnswer(0)" value = "True"><label for "True">True</label>
                                                                 <input type = "radio" id= "FAnswer" name = "TFAnswer" onclick="selectWrongAnswer(1)" value = "False"><label for "False">False</label><br>
                                                 <b>Wrong Answer: </b><input type = "radio" id= "TChoice" onclick="selectAnswer(0)" name = "TFChoiceA" value = "True"><label for "True">True</label>
                                                                 <input type = "radio" id= "FChoice" onclick="selectAnswer(1)" name = "TFChoiceA" value = "False"><label for "False">False</label><br>
-                                                <button onclick = "addQuestion({{quizID}})">Submit</button> 
+                                                <input type="submit"> 
                                             </div>
                                             <div id = "MCQuestion">
-                                                <b>Answer: </b><input type ="text" name = "MCAnswer" value ="Enter the answer here..."><br>
-                                                <b>Wrong Answers: </b><input type ="text" name = "MCChoiceA" value ="Enter the 1st wrong choice here..."><br>
-                                                                      <input type ="text" name = "MCChoiceB" value ="Enter the 2nd wrong choice here..."><br>
-                                                                      <input type ="text" name = "MCChoiceC" value ="Enter the 3rd wrong choice here..."><br>
-                                                <button onclick = "addQuestion({{quizID}})">Submit</button> 
+                                                <b>Answer: </b><input type ="text" name = "MCAnswer" placeholder ="Enter the answer here..."><br>
+                                                <b>Wrong Answers: </b><input type ="text" name = "MCChoiceA" placeholder ="Enter the 1st wrong choice here..."><br>
+                                                                      <input type ="text" name = "MCChoiceB" placeholder ="Enter the 2nd wrong choice here..."><br>
+                                                                      <input type ="text" name = "MCChoiceC" placeholder ="Enter the 3rd wrong choice here..."><br>
+                                                <input type="submit"> 
                 
                                             </div>
                                             
