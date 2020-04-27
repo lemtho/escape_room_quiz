@@ -40,11 +40,10 @@ else
         // Display the results.
         // get value of dropdown item (quizID)
         var e = document.getElementById("quizDropdown");
-        var quizID = e.options[e.selectedIndex].value;
+        var filter = e.options[e.selectedIndex].value;
 
         // filter table by quizID
-        var filter, table, tr, i;
-        filter = quizID;
+        var table, tr, i;
         table = document.getElementById("quizTable");
         tr = table.getElementsByTagName("tr");
 
@@ -84,11 +83,10 @@ else
         // Display the results.
         // get value of dropdown item (quizID)
         var e = document.getElementById("studentDropdown");
-        var studentID = e.options[e.selectedIndex].value;
+        var filter = e.options[e.selectedIndex].value;
 
         // filter table by quizID
-        var filter, table, tr, i;
-        filter = studentID;
+        var table, tr, i;
         table = document.getElementById("studentTable");
         tr = table.getElementsByTagName("tr");
 
@@ -134,11 +132,10 @@ function searchQuiz() {
 
     // get value of dropdown item (quizID)
     var e = document.getElementById("quizDropdown");
-    var quizID = e.options[e.selectedIndex].value;
+    var filter = e.options[e.selectedIndex].value;
 
     // filter table by quizID
-    var filter, table, tr, i;
-    filter = quizID;
+    var table, tr, i;
     table = document.getElementById("quizTable");
     tr = table.getElementsByTagName("tr");
     var isShowing = 'false';
@@ -178,11 +175,10 @@ function searchStudent() {
 
     // get value of dropdown item (studentID)
     var e = document.getElementById("studentDropdown");
-    var studentID = e.options[e.selectedIndex].value;
+    var filter = e.options[e.selectedIndex].value;
 
     // filter table by studentID
-    var filter, table, tr, i;
-    filter = studentID;
+    var table, tr, i;
     table = document.getElementById("studentTable");
     tr = table.getElementsByTagName("tr");
     var isShowing = 'false';
@@ -224,7 +220,7 @@ function deleteStudentScore(qid, sid){
     })
 };
 
-// code from https://www.w3schools.com/howto/howto_js_sort_table.asp
+// code sourced from https://www.w3schools.com/howto/howto_js_sort_table.asp
 // sort table by column both asc/desc
 function sortStudents() {
     // check value of drop down
