@@ -87,16 +87,16 @@
                 <div>
                      <table class="spacing" align="center">
                         <thead>
-                            <th colspan="4" align="left">Last Name</th>
-                            <th colspan="4">First Name</th>
+                            <th>Last Name</th>
+                            <th>First Name</th>
                         </thead>
                         <tbody>
 
                             {{#each students}}
                             <tr>
-                                <td colspan="4">{{lastName}}</td>
-                                <td colspan="4">{{firstName}}</td>
-                                    <td><button onclick = "window.location.href = '/teacherScoreboard/';">Scoreboard</button></td>
+                                <td>{{lastName}}</td>
+                                <td>{{firstName}}</td>
+                                <td><button onclick="fetchResults({{studentID}})" class = "results">Scoreboard</button></td>
                             </tr>
                             {{/each}}
 
@@ -147,6 +147,8 @@
     <script src="js/jquery.magnific-popup.min.js"></script>
     <script src="js/plugins.js"></script>
     <script src="js/gijgo.min.js"></script>
+
+    <script src="frontendJS/teacherStudents.js"></script>
 
     <script src="js/main.js"></script>
 </body>

@@ -80,20 +80,19 @@
                 <div>
                     <h1 style="color:white;">My Profile</h1>
                 </div>
-                <br>
                 
-                <div class="spacing">
-                     <table id="nameTable" align="center">
+                <div>
+                     <table id="nameTable" class="spacing" align="center">
                         <thead>
-                            <th colspan="4" align="left">First Name</th>
-                            <th colspan="4">Last Name</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
                         </thead>
                         <tbody>
 
                             {{#each student}}
                             <tr>
-                                <td colspan="4">{{firstName}}</td>
-                                <td colspan="4">{{lastName}}</td>
+                                <td>{{firstName}}</td>
+                                <td>{{lastName}}</td>
                                 <td>
                                     <button type="button" id="editNameButton">Edit Name</button>
                                 </td>
