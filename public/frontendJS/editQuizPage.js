@@ -26,8 +26,7 @@ document.getElementById("newQuestion").addEventListener("click", function(appear
 
 //Function to display different answer prompt for different question type
 //Referenced: https://www.youtube.com/watch?v=zndWZv9DZWc
-function showQuestion(x){
-    insertIndex(); 
+function showQuestion(x){ 
     if(x==0){
         document.getElementById("SAQuestion").style.display ="block";
         document.getElementById("TFQuestion").style.display ="none";
