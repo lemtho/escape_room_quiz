@@ -1,4 +1,6 @@
 // On load, hide the hidden divs.
+document.getElementById("printResults").style.display = "none";
+document.getElementById("noScores").style.display = "none";
 document.getElementById("fromTeacherQuizID").style.display = "none";
 document.getElementById("fromTeacherQuizName").style.display = "none";
 
@@ -108,6 +110,8 @@ else
 function showQuizDrop() {
     document.getElementById('studentDrop').style.display ='none';
     document.getElementById('displayScoresByStudent').style.display ='none';
+    document.getElementById('printResults').style.display ='none';
+    document.getElementById('noScores').style.display ='none';
 
     document.getElementById("quizDrop").style.display = "block";
 }
@@ -115,13 +119,18 @@ function showQuizDrop() {
 function showStudentDrop() {
     document.getElementById('quizDrop').style.display ='none';
     document.getElementById('displayScoresByQuiz').style.display ='none';
+    document.getElementById('printResults').style.display ='none';
+    document.getElementById('noScores').style.display ='none';
 
     document.getElementById("studentDrop").style.display = "block";
 }
 
 function searchQuiz() {
+    // on button click, refresh elements
     document.getElementById("displayScoresByStudent").style.display = "none";
-    document.getElementById("displayScoresByQuiz").style.display = "block";
+    document.getElementById("displayScoresByQuiz").style.display = "none";
+    document.getElementById("noScores").style.display = "none";
+    document.getElementById("printResults").style.display = "none";
 
     // get value of dropdown item (quizID)
     var e = document.getElementById("quizDropdown");
@@ -132,6 +141,7 @@ function searchQuiz() {
     filter = quizID;
     table = document.getElementById("quizTable");
     tr = table.getElementsByTagName("tr");
+    var isShowing = 'false';
 
     for (i = 1; i < tr.length; i++) {
         // hide the row initially
@@ -139,17 +149,32 @@ function searchQuiz() {
     
         // element in 1st column (hidden column holding quizid)
         cell = tr[i].getElementsByTagName("td")[0];
-
+        
         // if element is equal to filter, display
         if (cell.innerHTML == filter) {
             tr[i].style.display = "";
+            isShowing = 'true';
         }
+    }
+
+    // if no records, display message
+    if (isShowing != 'true') {
+        document.getElementById("noScores").style.display = "block";
+    }
+
+    // show table and print button
+    else {
+        document.getElementById("displayScoresByQuiz").style.display = "block";
+        document.getElementById("printResults").style.display = "block";
     }
 }
 
 function searchStudent() {
+    // on button click, refresh elements
+    document.getElementById("displayScoresByStudent").style.display = "none";
     document.getElementById("displayScoresByQuiz").style.display = "none";
-    document.getElementById("displayScoresByStudent").style.display = "block";
+    document.getElementById("noScores").style.display = "none";
+    document.getElementById("printResults").style.display = "none";
 
     // get value of dropdown item (studentID)
     var e = document.getElementById("studentDropdown");
@@ -160,6 +185,7 @@ function searchStudent() {
     filter = studentID;
     table = document.getElementById("studentTable");
     tr = table.getElementsByTagName("tr");
+    var isShowing = 'false';
 
     for (i = 1; i < tr.length; i++) {
         // hide the row initially
@@ -171,11 +197,35 @@ function searchStudent() {
         // if element is equal to filter, display
         if (cell.innerHTML == filter) {
             tr[i].style.display = "";
+            isShowing = 'true';
         }
+    }
+
+    // if no records, display message
+    if (isShowing != 'true') {
+        document.getElementById("noScores").style.display = "block";
+    }
+
+    // show table and print button
+    else {
+        document.getElementById("displayScoresByStudent").style.display = "block";
+        document.getElementById("printResults").style.display = "block";
     }
 }
 
+// to delete student from quiz
+function deleteStudentScore(qid, sid){
+    $.ajax({
+        url: '/teacherScoreboard/' + qid + '/' + sid,
+        type: 'DELETE',
+        success: function(result){
+          window.location.reload();
+        }
+    })
+};
+
 // code from https://www.w3schools.com/howto/howto_js_sort_table.asp
+// sort table by column both asc/desc
 function sortStudents() {
     // check value of drop down
     var e = document.getElementById("quizSort");
@@ -440,14 +490,3 @@ function sortQuizzes() {
         }
     }
 }
-
-// to delete student from quiz
-function deleteStudentScore(qid, sid){
-    $.ajax({
-        url: '/teacherScoreboard/' + qid + '/' + sid,
-        type: 'DELETE',
-        success: function(result){
-          window.location.reload();
-        }
-    })
-};

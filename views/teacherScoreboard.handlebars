@@ -92,91 +92,116 @@
                 <br>
 
                 <div id="quizDrop">
-                    <select id="quizDropdown"> 
-                        {{#each quizDrop}}
-                            <option value="{{quizID}}">{{name}}</option>
-                        {{/each}}
-                    </select>
-                    <button onclick="searchQuiz()">Search</button>
+                    {{#if quizDrop}}
+                        <select id="quizDropdown"> 
+                            {{#each quizDrop}}
+                                <option value="{{quizID}}">{{name}}</option>
+                            {{/each}}
+                        </select>
+                        <button onclick="searchQuiz()">Search</button>
+                    {{else}}
+                        <h4><span style ="font-weight: normal; text-align: center">No scores to display.</span></h4>
+                    {{/if}}
                 </div>
 
                 <div id="studentDrop">
-                    <select id="studentDropdown"> 
-                        {{#each studentDrop}}
-                            <option value="{{studentID}}">{{lastName}}, {{firstName}}</option>
-                        {{/each}}
-                    </select>
-                    <button onclick="searchStudent()">Search</button>
+                    {{#if studentDrop}}
+                        <select id="studentDropdown"> 
+                            {{#each studentDrop}}
+                                <option value="{{studentID}}">{{lastName}}, {{firstName}}</option>
+                            {{/each}}
+                        </select>
+                        <button onclick="searchStudent()">Search</button>
+                    {{else}}
+                            <h4><span style ="font-weight: normal; text-align: center">No scores to display.</span></h4>
+                    {{/if}}
                 </div>
 
                 <br>
                 <div id="displayScoresByQuiz">
-                    <div id="quizSortDrop">
-                        <select id="quizSort">
-                            <option value="sortFirst">Sort By First Name</option>
-                            <option value="sortLast">Sort By Last Name</option>
-                            <option value="sortScore">Sort By Score</option>
-                        </select>
-                        <button onclick="sortStudents()">Sort</button>
-                    </div>
-                    <br>
+                    <table id="quizTable" class="spacing" align="center">
+                        {{#if quizScore}}
+                            <div id="quizSortDrop">
+                                <select id="quizSort">
+                                    <option value="sortFirst">Sort By First Name</option>
+                                    <option value="sortLast">Sort By Last Name</option>
+                                    <option value="sortScore">Sort By Score</option>
+                                </select>
+                                <button onclick="sortStudents()">Sort</button>
+                            </div>
 
-                    <table id="quizTable" align="center">
-                        <thead>
-                            <tr>
-                                <th style="visibility: collapse;"></th>
-                                <th>First Name</th>
-                                <th>Last Name</th>
-                                <th>Score</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            {{#each quizScore}}
+                            <thead>
                                 <tr>
-                                    <td id="quizID" style="visibility:collapse;">{{quizID}}</td>
-                                    <td>{{firstName}}</td>
-                                    <td>{{lastName}}</td>
-                                    <td>{{actual_score}}</td>
-                                    <td><button onclick = "window.location.href = '/teacherScoreboard/{{quizID}}/{{studentID}}';">Results</button></td>
-                                    <td><button onclick="deleteStudentScore({{quizID}}, {{studentID}})">Delete</button></td>
+                                    <th style="visibility: collapse;"></th>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Score</th>
                                 </tr>
-                            {{/each}}
-                        </tbody>
+                            </thead>
+
+                            <tbody>
+                                    {{#each quizScore}}
+                                        <tr>
+                                            <td id="quizID" style="visibility:collapse;">{{quizID}}</td>
+                                            <td>{{firstName}}</td>
+                                            <td>{{lastName}}</td>
+                                            <td>{{actual_score}}</td>
+                                            <td><button onclick = "window.location.href = '/teacherScoreboard/{{quizID}}/{{studentID}}';">Results</button></td>
+                                            <td><button onclick="deleteStudentScore({{quizID}}, {{studentID}})">Delete</button></td>
+                                        </tr>
+                                    {{/each}}
+                            </tbody> 
+                        {{else}}
+                                <h4><span style ="font-weight: normal; text-align: center">No scores to display.</span></h4>
+                        {{/if}}
                     </table>
                 </div>
 
                 <div id="displayScoresByStudent">
-                    <div id="studentSortDrop">
-                        <select id="studentSort">
-                            <option value="sortQuiz">Sort By Quiz Name</option>
-                            <option value="sortScore">Sort By Score</option>
-                        </select>
-                        <button onclick="sortQuizzes()">Sort</button>
-                    </div>
-                    <br>
+                    <table id="studentTable" class="spacing" align="center">
+                        {{#if studentScore}}
+                            <div id="studentSortDrop">
+                                <select id="studentSort">
+                                    <option value="sortQuiz">Sort By Quiz Name</option>
+                                    <option value="sortScore">Sort By Score</option>
+                                </select>
+                                <button onclick="sortQuizzes()">Sort</button>
+                            </div>
 
-                    <table id="studentTable" align="center">
-                        <thead>
-                            <tr>
-                                <th style="visibility: collapse;"></th>
-                                <th>Quiz Name</th>
-                                <th>Score</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            {{#each studentScore}}
+                            <thead>
                                 <tr>
-                                    <td id="studentID" style="visibility:collapse;">{{studentID}}</td>
-                                    <td>{{name}}</td>
-                                    <td>{{actual_score}}</td>
-                                    <input id="studentID" name="studentID" type="hidden" value="{{studentID}}">
-                                    <td><button onclick = "window.location.href = '/teacherScoreboard/{{quizID}}/{{studentID}}';">Results</button></td>
+                                    <th style="visibility: collapse;"></th>
+                                    <th scope="col">Quiz Name</th>
+                                    <th scope="col">Score</th>
                                 </tr>
-                            {{/each}}
-                        </tbody>
+                            </thead>
+
+                            <tbody>
+                                {{#each studentScore}}
+                                    <tr>
+                                        <td id="studentID" style="visibility:collapse;">{{studentID}}</td>
+                                        <td>{{name}}</td>
+                                        <td>{{actual_score}}</td>
+                                        <input id="studentID" name="studentID" type="hidden" value="{{studentID}}">
+                                        <td><button onclick = "window.location.href = '/teacherScoreboard/{{quizID}}/{{studentID}}';">Results</button></td>
+                                    </tr>
+                                {{/each}}
+                            </tbody>
+
+                        {{else}}
+                            <h4><span style ="font-weight: normal; text-align: center">No scores to display.</span></h4>
+                        {{/if}}
                     </table>
+                </div>
+
+                <div id="noScores">
+                    <h4><span style ="font-weight: normal; text-align: center">No scores to display.</span></h4>
+                </div>
+
+                <div id="printResults">
+                    <form>
+                        <input type="button" id="printResult" value="Save My Results" onclick="window.print()">
+                    </form>
                 </div>
 
                 <!-- Hidden divs -->
