@@ -80,9 +80,38 @@
         <div class="single_slider slider_bg_1" style="min-height:75vh; height:max-content; padding-top:5%; padding-bottom:5%;">
             <div class="container" style="text-align:center;">
 
-                
                 <div>
                     <h1 style="color:white;">Welcome Back {{user}}!</h1>
+                </div>
+                <br>
+
+                <div id="recentQuizzes">
+                    <h3>Recently Taken Quizzes</h3>
+
+                    <div>
+                        <table class="spacing" align="center">
+                            <thead>
+                                <th colspan="4" align="left">First Name</th>
+                                <th colspan="4">Last Name</th>
+                                <th colspan="4">Quiz Name</th>
+                                <th colspan="4">Date Taken</th>
+                            </thead>
+                            <tbody>
+
+                                {{#each students}}
+                                <tr>
+                                    <td colspan="4">{{firstName}}</td>
+                                    <td colspan="4">{{lastName}}</td>
+                                    <td colspan="4">{{name}}</td>
+                                    <td colspan="4">{{lastTakenDate}}</td>
+                                    <td><button onclick="fetchResults({{studentID}})" class = "results">Scoreboard</button></td> 
+                                </tr>
+                                {{/each}}
+
+                            </tbody>
+                        </table>
+                    </div>
+
                 </div>
             
             </div>
@@ -128,6 +157,8 @@
     <script src="js/jquery.magnific-popup.min.js"></script>
     <script src="js/plugins.js"></script>
     <script src="js/gijgo.min.js"></script>
+
+    <script src="frontendJS/teacherHomePage.js"></script>
 
     <script src="js/main.js"></script>
 </body>

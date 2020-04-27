@@ -3,21 +3,6 @@ module.exports = function()
 	var express = require('express');
 	var router = express.Router();
 
-	function getScores(res, mysql, id, context, complete){
-		var sql = "SELECT s.firstName,s.lastName, s.studentID, q.name, q.quizID, actual_score FROM teacher AS t LEFT JOIN quiz AS q ON t.teacherID = q.teacherID LEFT JOIN(SELECT studentID,quizID, SUM(questionPT) AS actual_score FROM student_question GROUP BY studentID, quizID) stu_quiz USING (quizID) JOIN student AS s ON stu_quiz.studentID = s.studentID WHERE t.teacherID = ?;";
-		var inserts = [id]
-		mysql.pool.query(sql, inserts, function(error, results, fields){
-			if(error){
-				console.log(error);
-				res.write(JSON.stringify(error));
-				res.end();
-			}
-	
-			context.student = results; 
-			complete(); 
-		});
-	}
-
 	function getQuizDrop(res, mysql, id, context, complete) {
 		var sql = "SELECT q.quizID, q.name FROM quiz AS q JOIN teacher AS t ON q.teacherID = t.teacherID WHERE t.teacherID = ? ORDER BY name ASC;";
 		var inserts = [id];
@@ -134,6 +119,8 @@ module.exports = function()
 			{
 				context.fromTeacherQuizID = req.session.fromTeacherQuizID;
 				context.fromTeacherQuizName = req.session.fromTeacherQuizName;
+				
+				context.fromTeacherHomeID = req.session.fromTeacherHomeID;
 
 				/* Reset information so that the "from Teacher
 				quiz ID" or from Teacher quiz name" is not populated or 
@@ -143,10 +130,11 @@ module.exports = function()
 				req.session.fromTeacherQuizPage = false;
 				req.session.fromTeacherQuizID = "";
 				req.fromTeacherQuizName = "";
+
+				req.fromTeacherHomeID = "";
 			}
 
 			var mysql = req.app.get('mysql');
-			getScores(res, mysql, teacherID, context, complete);
 			getQuizDrop(res, mysql, teacherID, context, complete);
 			getStudentDrop(res, mysql, teacherID, context, complete);
 			getQuizScores(res, mysql, teacherID, context, complete);
@@ -154,7 +142,7 @@ module.exports = function()
 
 			function complete() {
 				callbackCount++;
-				if (callbackCount >= 5) {
+				if (callbackCount >= 4) {
 					context.title = "Scoreboard";
 					res.render('teacherScoreboard', context);
 				}
@@ -215,6 +203,9 @@ module.exports = function()
 			req.session.fromTeacherQuizPage = true;
 			req.session.fromTeacherQuizID = req.body.fromTeacherQuizID;
 			req.session.fromTeacherQuizName = req.body.fromTeacherQuizName;
+
+			req.session.fromTeacherHomeID = req.body.fromTeacherHomeID;
+			// console.log(req.session);
 			
 			// Send status 200 to the client.
 			res.status(200);
