@@ -80,6 +80,7 @@
         <div class="single_slider slider_bg_1" style="min-height:75vh; height:max-content; padding-top:5%; padding-bottom:5%;">
             <div class="container" style="text-align:center;">
 
+                {{#if students}}
                 <div>
                     <h1 style="color:white;">My Students</h1>
                 </div>
@@ -87,15 +88,15 @@
                 <div>
                      <table class="spacing" align="center">
                         <thead>
-                            <th>Last Name</th>
                             <th>First Name</th>
+                            <th>Last Name</th>
                         </thead>
                         <tbody>
 
                             {{#each students}}
                             <tr>
-                                <td>{{lastName}}</td>
                                 <td>{{firstName}}</td>
+                                <td>{{lastName}}</td>
                                 <td><button onclick="fetchResults({{studentID}})" class = "results">Scoreboard</button></td>
                             </tr>
                             {{/each}}
@@ -103,6 +104,9 @@
                         </tbody>
                     </table>
                 </div>
+                {{else}}
+                    <h1 style="color: white;">No students to display.</h1>
+                {{/if}}
             
             </div>
         </div>
