@@ -138,7 +138,7 @@ function searchQuiz() {
     var table, tr, i;
     table = document.getElementById("quizTable");
     tr = table.getElementsByTagName("tr");
-    var isShowing = 'false';
+    var isShowing = false;
 
     for (i = 1; i < tr.length; i++) {
         // hide the row initially
@@ -150,12 +150,12 @@ function searchQuiz() {
         // if element is equal to filter, display
         if (cell.innerHTML == filter) {
             tr[i].style.display = "";
-            isShowing = 'true';
+            isShowing = true;
         }
     }
 
     // if no records, display message
-    if (isShowing != 'true') {
+    if (!isShowing) {
         document.getElementById("noScores").style.display = "block";
     }
 
@@ -181,7 +181,7 @@ function searchStudent() {
     var table, tr, i;
     table = document.getElementById("studentTable");
     tr = table.getElementsByTagName("tr");
-    var isShowing = 'false';
+    var isShowing = false;
 
     for (i = 1; i < tr.length; i++) {
         // hide the row initially
@@ -193,12 +193,12 @@ function searchStudent() {
         // if element is equal to filter, display
         if (cell.innerHTML == filter) {
             tr[i].style.display = "";
-            isShowing = 'true';
+            isShowing = true;
         }
     }
 
     // if no records, display message
-    if (isShowing != 'true') {
+    if (!isShowing) {
         document.getElementById("noScores").style.display = "block";
     }
 

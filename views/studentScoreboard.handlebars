@@ -80,8 +80,17 @@
                 {{#if student}}
                 <div>
                     <h1 style="color:white;">Quizzes I've Taken</h1>
+                    <br>
                     
-                    <table class="spacing" align="center">
+                    <div id="quizSortDrop">
+                        <select id="quizSort">
+                            <option value="sortQuiz">Sort By Quiz Name</option>
+                            <option value="sortScore">Sort By Score</option>
+                        </select>
+                        <button onclick="sortQuizzes()">Sort</button>
+                    </div>
+                    
+                    <table id="studentQuizzes" class="spacing" align="center">
                         <thead>
                             <th colspan="4" align="left">Quiz Name</th>
                             <th colspan="4">Score</th>
@@ -155,6 +164,8 @@
     <script src="js/jquery.form.js"></script>
     <script src="js/jquery.validate.min.js"></script>
     <script src="js/mail-script.js"></script>
+
+    <script src="frontendJS/studentScoreboard.js"></script>
 
     <script src="js/main.js"></script>
 </body>
