@@ -84,9 +84,18 @@
                 <div>
                     <h1 style="color:white;">My Students</h1>
                 </div>
+                <br>
+
+                <div id="studentSortDrop">
+                    <select id="studentSort">
+                        <option value="sortFirst">Sort By First Name</option>
+                        <option value="sortLast">Sort By Last Name</option>
+                    </select>
+                    <button onclick="sortStudents()">Sort</button>
+                </div>
 
                 <div>
-                     <table class="spacing" align="center">
+                     <table id="teacherStudents" class="spacing" align="center">
                         <thead>
                             <th>First Name</th>
                             <th>Last Name</th>
