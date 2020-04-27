@@ -3,7 +3,6 @@ document.getElementById("printResults").style.display = "none";
 document.getElementById("noScores").style.display = "none";
 document.getElementById("fromTeacherQuizID").style.display = "none";
 document.getElementById("fromTeacherQuizName").style.display = "none";
-
 document.getElementById("fromTeacherHomeID").style.display = "none";
 
 // On load, IF hiddenQuizID is NULL...
@@ -22,6 +21,7 @@ else
         document.getElementById("studentDrop").style.display = "none";
         document.getElementById("displayScoresByStudent").style.display = "none";
         document.getElementById("quizRadio").checked = true;
+        document.getElementById("printResults").style.display = "block";
         
         /* Loop through the drop-down values. IF the value matches with fromTeacherQuizID, 
         select that option and break out of the WHILE-loop. */
@@ -65,6 +65,7 @@ else
         document.getElementById("quizDrop").style.display = "none";
         document.getElementById("displayScoresByQuiz").style.display = "none";
         document.getElementById("studentRadio").checked = true;
+        document.getElementById("printResults").style.display = "block";
         
         /* Loop through the drop-down values. IF the value matches with fromTeacherHomeID, 
         select that option and break out of the WHILE-loop. */
