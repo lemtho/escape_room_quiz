@@ -54,10 +54,6 @@ app.use("/teacherHomePage", require("./teacherHomePage.js"));
 app.use("/teacherQuiz", express.static("public"));
 app.use("/teacherQuiz", require("./teacherQuiz.js"));
 
-// IF route to teacher student page, execute teacherStudent.js script.
-app.use("/teacherStudents", express.static("public"));
-app.use("/teacherStudents", require("./teacherStudents.js"));
-
 // IF route to teacher scoreboard, execute teacherScoreboard.js script.
 app.use("/teacherScoreboard", express.static("public"));
 app.use("/teacherScoreboard", require("./teacherScoreboard.js"));
@@ -69,10 +65,6 @@ app.use("/teacherProfile", require("./teacherProfile.js"));
 // IF route to log out page, execute logout.js script.
 app.use("/logout", express.static("public"));
 app.use("/logout", require("./logout.js"));
-
-// TEST: IF route to test database page, execute testDatabase.js script.
-app.use("/testDatabase", express.static("public"));
-app.use("/testDatabase", require("./testDatabase.js"));
 
 // IF route to a page that is not found, render a HTTP 404 response.
 app.use(function(req, res)

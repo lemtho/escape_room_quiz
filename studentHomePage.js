@@ -16,7 +16,7 @@ module.exports = function()
 			session data. User's first name will be displayed on page. */
 			var firstName = req.session.firstName;
 		
-			res.render("studentHomePage", {title: "Student Home Page", user: firstName});
+			res.render("studentHomePage", {title: "Student Home Page", user: firstName, studentHomePage: "true"});
 		}
 
 		// ELSE user is not signed in...

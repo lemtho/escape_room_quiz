@@ -1,258 +1,223 @@
-<!doctype html>
-<html class="no-js" lang="zxx">
-
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>{{title}}</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- <link rel="manifest" href="site.webmanifest"> -->
-    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.png">
-    <!-- Place favicon.ico in the root directory -->
-
-    <!-- CSS here -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/owl.carousel.min.css">
-    <link rel="stylesheet" href="css/magnific-popup.css">
-    <link rel="stylesheet" href="css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/themify-icons.css">
-    <link rel="stylesheet" href="css/nice-select.css">
-    <link rel="stylesheet" href="css/flaticon.css">
-    <link rel="stylesheet" href="css/gijgo.css">
-    <link rel="stylesheet" href="css/animate.css">
-    <link rel="stylesheet" href="css/slicknav.css">
-    <link rel="stylesheet" href="css/style.css">
-    <!-- <link rel="stylesheet" href="css/responsive.css"> -->
-</head>
-
-<body style="font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;">
-    
-    <!-- header-start -->
-    <div style="height:100px;">
-        <header>
-            <div class="header-area" style="background-color:rgb(89,0,179)">
-                <div class="main-header-area">
-                    <div class="container-fluid p-0">
-                        <div class="row align-items-center no-gutters" style="height:100px;">
-                            <div class="col-xl-2 col-lg-2">
-                                <div class="logo-img">
-                                    <a href="/teacherHomePage">
-                                        <img src="img/logo.png" alt="">
-                                    </a>
+        <!-- header-start -->
+        <div style="height:100px;">
+            <header>
+                <div class="header-area" style="background-color:rgb(89,0,179)">
+                    <div class="main-header-area">
+                        <div class="container-fluid p-0">
+                            <div class="row align-items-center no-gutters" style="height:100px;">
+                                <div class="col-xl-2 col-lg-2">
+                                    <div class="logo-img">
+                                        <a href="/teacherHomePage">
+                                            <img src="img/logo.png" alt="">
+                                        </a>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-xl-7 col-lg-7">
-                                <div class="main-menu  d-none d-lg-block">
-                                    <nav>
-                                        <ul id="navigation">
-                                            <li><a href="/teacherHomePage">Home</a></li>
-                                            <li><a href="/teacherQuiz">My Quizzes</a></li>
-                                            <li><a href="/teacherStudents">My Students</a></li>
-                                            <li><a class="active" href="/teacherScoreboard">Scoreboard</a></li>
-                                            <li><a href="/teacherProfile">My Profile</a></li>
-                                        </ul>
-                                    </nav>
+                                <div class="col-xl-7 col-lg-7">
+                                    <div class="main-menu  d-none d-lg-block">
+                                        <nav>
+                                            <ul id="navigation">
+                                                <li><a href="/teacherHomePage">Home</a></li>
+                                                <li><a href="/teacherQuiz">My Quizzes</a></li>
+                                                <li><a class="active" href="/teacherScoreboard">Scoreboard</a></li>
+                                                <li><a href="/teacherProfile">My Profile</a></li>
+                                            </ul>
+                                        </nav>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-xl-3 col-lg-3 d-none d-lg-block">
-                                <div>
-                                    <a href="/logout">
-                                        <i style="color:white;" class="flaticon-user"></i>
-                                        <span style="color:white;">Log Out</span>
-                                    </a>
+                                <div class="col-xl-3 col-lg-3 d-none d-lg-block">
+                                    <div>
+                                        <a href="/logout">
+                                            <i style="color:white;" class="flaticon-user"></i>
+                                            <span style="color:white;">Log Out</span>
+                                        </a>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="mobile_menu d-block d-lg-none"></div>
+                                <div class="col-12">
+                                    <div class="mobile_menu d-block d-lg-none"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </header>
-    </div>
-    <!-- header-end -->
+            </header>
+        </div>
+        <!-- header-end -->
 
-    <!-- content_area_start -->
-    <div class="slider_area ">
-        <div class="single_slider slider_bg_1" style="min-height:75vh; height:max-content; padding-top:5%; padding-bottom:5%;">
-            <div class="container" style="text-align:center;">
-                <div id="searchFilter">
-                    <b>Search By: </b>
-                    <input id="quizRadio" name="rad" type="radio" onclick="showQuizDrop()"/> Quiz Name
-                    <input id="studentRadio" name="rad" type="radio" onclick="showStudentDrop()" /> Student Name
-                </div>
-                <br>
+        <!-- content_area_start -->
+        <div class="slider_area ">
+            <div class="single_slider slider_bg_1" style="min-height:75vh; height:max-content; padding-top:5%; padding-bottom:5%;">
+                <div class="container" style="text-align:center;">
+                    <div id="searchFilter">
+                        <b>Search By: </b>
+                        <input id="quizRadio" name="rad" type="radio" onclick="showQuizDrop()"/> Quiz Name
+                        <input id="studentRadio" name="rad" type="radio" onclick="showStudentDrop()" /> Student Name
+                    </div>
+                    <br>
 
-                <div id="quizDrop">
-                    {{#if quizDrop}}
-                        <select id="quizDropdown"> 
-                            {{#each quizDrop}}
-                                <option value="{{quizID}}">{{name}}</option>
-                            {{/each}}
-                        </select>
-                        <button onclick="searchQuiz()">Search</button>
-                    {{else}}
-                        <h4><span style ="font-weight: normal; text-align: center">No scores to display.</span></h4>
-                    {{/if}}
-                </div>
-
-                <div id="studentDrop">
-                    {{#if studentDrop}}
-                        <select id="studentDropdown"> 
-                            {{#each studentDrop}}
-                                <option value="{{studentID}}">{{lastName}}, {{firstName}}</option>
-                            {{/each}}
-                        </select>
-                        <button onclick="searchStudent()">Search</button>
-                    {{else}}
+                    <div id="quizDrop">
+                        {{#if quizDrop}}
+                            <select id="quizDropdown"> 
+                                {{#each quizDrop}}
+                                    <option value="{{quizID}}">{{name}}</option>
+                                {{/each}}
+                            </select>
+                            <button onclick="searchQuiz()">Search</button>
+                        {{else}}
                             <h4><span style ="font-weight: normal; text-align: center">No scores to display.</span></h4>
-                    {{/if}}
-                </div>
+                        {{/if}}
+                    </div>
 
-                <br>
-                <div id="displayScoresByQuiz">
-                    <table id="quizTable" class="spacing" align="center">
-                        {{#if quizScore}}
-                            <div id="quizSortDrop">
-                                <select id="quizSort">
-                                    <option value="sortFirst">Sort By First Name</option>
-                                    <option value="sortLast">Sort By Last Name</option>
-                                    <option value="sortScore">Sort By Score</option>
-                                </select>
-                                <button onclick="sortStudents()">Sort</button>
-                            </div>
-
-                            <thead>
-                                <tr>
-                                    <th style="visibility: collapse;"></th>
-                                    <th>First Name</th>
-                                    <th>Last Name</th>
-                                    <th>Score</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                    {{#each quizScore}}
-                                        <tr>
-                                            <td id="quizID" style="visibility:collapse;">{{quizID}}</td>
-                                            <td>{{firstName}}</td>
-                                            <td>{{lastName}}</td>
-                                            <td>{{actual_score}}</td>
-                                            <td><button onclick = "window.location.href = '/teacherScoreboard/{{quizID}}/{{studentID}}';">Results</button></td>
-                                            <td><button onclick="deleteStudentScore({{quizID}}, {{studentID}})">Delete</button></td>
-                                        </tr>
-                                    {{/each}}
-                            </tbody> 
+                    <div id="studentDrop">
+                        {{#if studentDrop}}
+                            <select id="studentDropdown"> 
+                                {{#each studentDrop}}
+                                    <option value="{{studentID}}">{{lastName}}, {{firstName}}</option>
+                                {{/each}}
+                            </select>
+                            <button onclick="searchStudent()">Search</button>
                         {{else}}
                                 <h4><span style ="font-weight: normal; text-align: center">No scores to display.</span></h4>
                         {{/if}}
-                    </table>
-                </div>
+                    </div>
 
-                <div id="displayScoresByStudent">
-                    <table id="studentTable" class="spacing" align="center">
-                        {{#if studentScore}}
-                            <div id="studentSortDrop">
-                                <select id="studentSort">
-                                    <option value="sortQuiz">Sort By Quiz Name</option>
-                                    <option value="sortScore">Sort By Score</option>
-                                </select>
-                                <button onclick="sortQuizzes()">Sort</button>
-                            </div>
+                    <br>
+                    <div id="displayScoresByQuiz">
+                        <table id="quizTable" class="spacing" align="center">
+                            {{#if quizScore}}
+                                <div id="quizSortDrop">
+                                    <select id="quizSort">
+                                        <option value="sortFirst">Sort By First Name</option>
+                                        <option value="sortLast">Sort By Last Name</option>
+                                        <option value="sortScore">Sort By Score</option>
+                                    </select>
+                                    <button onclick="sortStudents()">Sort</button>
+                                </div>
 
-                            <thead>
-                                <tr>
-                                    <th style="visibility: collapse;"></th>
-                                    <th>Quiz Name</th>
-                                    <th>Score</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                {{#each studentScore}}
+                                <thead>
                                     <tr>
-                                        <td id="studentID" style="visibility:collapse;">{{studentID}}</td>
-                                        <td>{{name}}</td>
-                                        <td>{{actual_score}}</td>
-                                        <input id="studentID" name="studentID" type="hidden" value="{{studentID}}">
-                                        <td><button onclick = "window.location.href = '/teacherScoreboard/{{quizID}}/{{studentID}}';">Results</button></td>
+                                        <th style="visibility: collapse;"></th>
+                                        <th>First Name</th>
+                                        <th>Last Name</th>
+                                        <th>Score</th>
                                     </tr>
-                                {{/each}}
-                            </tbody>
+                                </thead>
 
-                        {{else}}
-                            <h4><span style ="font-weight: normal; text-align: center">No scores to display.</span></h4>
-                        {{/if}}
-                    </table>
+                                <tbody>
+                                        {{#each quizScore}}
+                                            <tr>
+                                                <td id="quizID" style="visibility:collapse;">{{quizID}}</td>
+                                                <td>{{firstName}}</td>
+                                                <td>{{lastName}}</td>
+                                                <td>{{actual_score}}</td>
+                                                <td><button onclick = "window.location.href = '/teacherScoreboard/{{quizID}}/{{studentID}}';">Results</button></td>
+                                                <td><button onclick="deleteStudentScore({{quizID}}, {{studentID}})">Delete</button></td>
+                                            </tr>
+                                        {{/each}}
+                                </tbody> 
+                            {{else}}
+                                    <h4><span style ="font-weight: normal; text-align: center">No scores to display.</span></h4>
+                            {{/if}}
+                        </table>
+                    </div>
+
+                    <div id="displayScoresByStudent">
+                        <table id="studentTable" class="spacing" align="center">
+                            {{#if studentScore}}
+                                <div id="studentSortDrop">
+                                    <select id="studentSort">
+                                        <option value="sortQuiz">Sort By Quiz Name</option>
+                                        <option value="sortScore">Sort By Score</option>
+                                    </select>
+                                    <button onclick="sortQuizzes()">Sort</button>
+                                </div>
+
+                                <thead>
+                                    <tr>
+                                        <th style="visibility: collapse;"></th>
+                                        <th>Quiz Name</th>
+                                        <th>Score</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    {{#each studentScore}}
+                                        <tr>
+                                            <td id="studentID" style="visibility:collapse;">{{studentID}}</td>
+                                            <td>{{name}}</td>
+                                            <td>{{actual_score}}</td>
+                                            <input id="studentID" name="studentID" type="hidden" value="{{studentID}}">
+                                            <td><button onclick = "window.location.href = '/teacherScoreboard/{{quizID}}/{{studentID}}';">Results</button></td>
+                                        </tr>
+                                    {{/each}}
+                                </tbody>
+
+                            {{else}}
+                                <h4><span style ="font-weight: normal; text-align: center">No scores to display.</span></h4>
+                            {{/if}}
+                        </table>
+                    </div>
+
+                    <div id="noScores">
+                        <h4><span style ="font-weight: normal; text-align: center">No scores to display.</span></h4>
+                    </div>
+
+                    <div id="printResults">
+                        <form>
+                            <input type="button" id="printResult" value="Save My Results" onclick="window.print()">
+                        </form>
+                    </div>
+
+                    <!-- Hidden divs -->
+                    <div id="fromTeacherQuizID">{{fromTeacherQuizID}}</div>
+                    <div id="fromTeacherQuizName">{{fromTeacherQuizName}}</div>
+                    <div id="fromTeacherHomeID">{{fromTeacherHomeID}}</div>
+                    
                 </div>
-
-                <div id="noScores">
-                    <h4><span style ="font-weight: normal; text-align: center">No scores to display.</span></h4>
-                </div>
-
-                <div id="printResults">
-                    <form>
-                        <input type="button" id="printResult" value="Save My Results" onclick="window.print()">
-                    </form>
-                </div>
-
-                <!-- Hidden divs -->
-                <div id="fromTeacherQuizID">{{fromTeacherQuizID}}</div>
-                <div id="fromTeacherQuizName">{{fromTeacherQuizName}}</div>
-                <div id="fromTeacherHomeID">{{fromTeacherHomeID}}</div>
-                
             </div>
         </div>
-    </div>
 
-    <!-- content_area_end -->
+        <!-- content_area_end -->
 
-    <!-- footer -->
-    <footer class="footer footer_bg_1">
-        <div class="copy-right_text" style="background-color:rgb(89,0,179)">
-            <div class="container">
-                <div class="footer_border"></div>
-                <div class="row">
-                    <div class="col-xl-12">
-                        <p class="copy_right text-center" style="font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;">
-                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                            Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                        </p>
+        <!-- footer -->
+        <footer class="footer footer_bg_1">
+            <div class="copy-right_text" style="background-color:rgb(89,0,179)">
+                <div class="container">
+                    <div class="footer_border"></div>
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <p class="copy_right text-center" style="font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;">
+                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                                Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </footer>
-    <!-- footer -->
+        </footer>
+        <!-- footer -->
 
 
-    <!-- JS here -->
-    <script src="js/vendor/modernizr-3.5.0.min.js"></script>
-    <script src="js/vendor/jquery-1.12.4.min.js"></script>
-    <script src="js/popper.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
-    <script src="js/owl.carousel.min.js"></script>
-    <script src="js/isotope.pkgd.min.js"></script>
-    <script src="js/ajax-form.js"></script>
-    <script src="js/waypoints.min.js"></script>
-    <script src="js/jquery.counterup.min.js"></script>
-    <script src="js/imagesloaded.pkgd.min.js"></script>
-    <script src="js/scrollIt.js"></script>
-    <script src="js/jquery.scrollUp.min.js"></script>
-    <script src="js/wow.min.js"></script>
-    <script src="js/nice-select.min.js"></script>
-    <script src="js/jquery.slicknav.min.js"></script>
-    <script src="js/jquery.magnific-popup.min.js"></script>
-    <script src="js/plugins.js"></script>
-    <script src="js/gijgo.min.js"></script>
+        <!-- JS here -->
+        <script src="js/vendor/modernizr-3.5.0.min.js"></script>
+        <script src="js/vendor/jquery-1.12.4.min.js"></script>
+        <script src="js/popper.min.js"></script>
+        <script src="/js/bootstrap.min.js"></script>
+        <script src="js/owl.carousel.min.js"></script>
+        <script src="js/isotope.pkgd.min.js"></script>
+        <script src="js/ajax-form.js"></script>
+        <script src="js/waypoints.min.js"></script>
+        <script src="js/jquery.counterup.min.js"></script>
+        <script src="js/imagesloaded.pkgd.min.js"></script>
+        <script src="js/scrollIt.js"></script>
+        <script src="js/jquery.scrollUp.min.js"></script>
+        <script src="js/wow.min.js"></script>
+        <script src="js/nice-select.min.js"></script>
+        <script src="js/jquery.slicknav.min.js"></script>
+        <script src="js/jquery.magnific-popup.min.js"></script>
+        <script src="js/plugins.js"></script>
+        <script src="js/gijgo.min.js"></script>
 
-    <script src="frontendJS/teacherScoreboard.js"></script>
+        <script src="frontendJS/teacherScoreboard.js"></script>
 
-    <script src="js/main.js"></script>
-</body>
-
-</html>
+        <script src="js/main.js"></script>
