@@ -79,21 +79,22 @@
 
     <!-- content_area_start -->
     <div id="studentHomeDiv1" class="slider_area">
-        <div id="studentHomeDiv2" class="single_slider slider_bg_1" style="height:1000px; padding-top:5%; padding-bottom:5%;">
+        <div id="studentHomeDiv2" class="single_slider slider_bg_1" style="height:max-content; padding-top:5%; padding-bottom:5%;">
             <div class="container" style="text-align:center;">
-                <div id="game" class="webgl-content" style="padding-top:1000px;">
+                <div id="game" class="webgl-content">
+                    <div style="border:solid 1px black; width:200px; height:80px;" onclick="unityInstance.SendMessage('JavascriptHook', 'TintRed')">RED</div>
+                    <div style="border:solid 1px black; width:200px; height:80px;" onclick="unityInstance.SendMessage('JavascriptHook', 'TintGreen')">GREEN</div>
+                    <div style="border:solid 1px black; width:200px; height:80px;" onclick="unityInstance.SendMessage('JavascriptHook', 'SetNumber', 56)">NUMBER</div>
+                    <div style="border:solid 1px black; width:200px; height:80px;" onclick="unityInstance.SendMessage('JavascriptHook', 'SetString', 'Hello World!')">STRING</div>
+                    <div style="border:solid 1px black; width:200px; height:80px;" onclick="unityInstance.SendMessage('JavascriptHook', 'TestJson', jsonString)">JSON OBJECT</div>
+                    <br>
+                    <br>
+                    <div id="unityContainer" style="height: 600px"></div>
                     <div class="footer">
                         <div class="webgl-logo"></div>
                         <div class="fullscreen" onclick="unityInstance.SetFullscreen(1)"></div>
-                        <div class="title">Game Experiment</div>
                     </div>
                 </div>
-                <div style="border:solid 1px black; width:200px; height:80px;" onclick="unityInstance.SendMessage('JavascriptHook', 'TintRed')">RED</div>
-                <div style="border:solid 1px black; width:200px; height:80px;" onclick="unityInstance.SendMessage('JavascriptHook', 'TintGreen')">GREEN</div>
-                <div style="border:solid 1px black; width:200px; height:80px;" onclick="unityInstance.SendMessage('JavascriptHook', 'SetNumber', 56)">NUMBER</div>
-                <div style="border:solid 1px black; width:200px; height:80px;" onclick="unityInstance.SendMessage('JavascriptHook', 'SetString', 'Hello World!')">STRING</div>
-                <div style="border:solid 1px black; width:200px; height:80px;" onclick="unityInstance.SendMessage('JavascriptHook', 'TestJson', jsonString)">JSON OBJECT</div>
-                <div id="unityContainer" style="width:900px; height: 600px"></div>
             </div>
         </div>
     </div>
