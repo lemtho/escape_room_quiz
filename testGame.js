@@ -7,7 +7,7 @@ module.exports = function()
 		var context = {};
 		var mysql = req.app.get('mysql');
 		
-		mysql.pool.query('SELECT * FROM student', function(error, rows, fields)
+		mysql.pool.query('SELECT name, quizID AS age FROM quiz WHERE quizID = 1', function(error, rows, fields)
 		{
 			if(error)
 			{
@@ -15,8 +15,8 @@ module.exports = function()
                 res.end();
 			}
 			
-			context.results = JSON.stringify(rows);
-			res.render("testDatabase", context);
+			context.quiz = rows;
+			res.render("testGame", context);
 		});
 	});
 	
