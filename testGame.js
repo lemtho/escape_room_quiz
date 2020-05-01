@@ -19,6 +19,13 @@ module.exports = function()
 			res.render("testGame", context);
 		});
 	});
+
+	router.post("/update", function(req, res){
+
+		console.log(req.body);
+
+		// Create additional commands to handle req.body.
+	});
 	
 	return router;
 }();
