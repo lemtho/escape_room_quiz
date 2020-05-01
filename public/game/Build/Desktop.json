@@ -1,6 +1,6 @@
 {
 "companyName": "DefaultCompany",
-"productName": "Game Experiment",
+"productName": "ExperimentGame",
 "productVersion": "0.1",
 "dataUrl": "Desktop.data.unityweb",
 "wasmCodeUrl": "Desktop.wasm.code.unityweb",
