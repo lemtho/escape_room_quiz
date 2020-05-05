@@ -66,6 +66,10 @@ app.use("/teacherProfile", require("./teacherProfile.js"));
 app.use("/logout", express.static("public"));
 app.use("/logout", require("./logout.js"));
 
+// TEST: IF route to test game page, execute testGame.js script.
+app.use("/testGame", express.static("public"));
+app.use("/testGame", require("./testGame.js"));
+
 // IF route to a page that is not found, render a HTTP 404 response.
 app.use(function(req, res)
 {
