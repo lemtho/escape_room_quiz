@@ -16,7 +16,7 @@
                                     <div class="main-menu  d-none d-lg-block">
                                         <nav>
                                             <ul id="navigation">
-                                                <li><a class="active" href="/studentHomePage">Home</a></li>
+                                                <li><a href="/studentHomePage">Home</a></li>
                                                 <li><a href="/studentScoreboard">My Scores</a></li>
                                                 <li><a href="/studentProfile">My Profile</a></li>
                                             </ul>
@@ -47,22 +47,21 @@
             <div id="studentHomeDiv2" class="single_slider slider_bg_1" style="min-height:100vh; height:max-content; padding-top:5%; padding-bottom:5%;">
                 <div class="container" style="text-align:center;">
                     <div id="studentHomeDiv3">
-                        <h1 style="color:white;">Welcome Back {{user}}!</h1>
+                        <h1 style="color:white;">2kool4skool</h1>
                         <br>
                         <br>
                         <br>
                     </div>
-                    <div id="studentHomeDiv4" style="text-align:center;">
-                        <h2 style="color:white;">Join Game</h2>
-                        <br>
-                        <!--The following form element has been exercpted and modified from https://getbootstrap.com/docs/4.0/components/forms/ -->
-                        <form class="form-inline" style="display:inline-flex;">
-                            <div class="form-group mx-sm-3 mb-2">
-                                <input type="text" class="form-control" style="width:200px; height:75px" id="quizID" name="quizID" placeholder="Enter quiz code">
-                            </div>
-                            <button class="btn btn-primary mb-2" style="width:100px; height:75px;" id="goButton">Go!</button>
-                            </form>
+                    <div id="game" class="webgl-content">
+                        <div id="unityContainer" style="height: 540px"></div>
+                        <div class="footer">
+                            <div class="webgl-logo"></div>
+                            <div class="fullscreen" onclick="unityInstance.SetFullscreen(1)"></div>
+                        </div>
                     </div>
+                    <br>
+                    <p id="studentID">{{studentID}}</p>
+                    <p id="quizID">{{quizID}}</p>
                 </div>
             </div>
         </div>
@@ -109,4 +108,11 @@
         <script src="js/main.js"></script>
 
         <!-- Front-end JS scripts here -->
-        <script src="frontendJS/studentHomePage.js"></script>
+        <script src="frontendJS/studentGame.js"></script>
+
+        <!-- Unity Game Engine scripts here -->
+        <script src="game/TemplateData/UnityProgress.js"></script>
+        <script src="game/Build/UnityLoader.js"></script>
+        <script>
+            var unityInstance = UnityLoader.instantiate("unityContainer", "game/Build/Desktop.json", {onProgress: UnityProgress});
+        </script>
