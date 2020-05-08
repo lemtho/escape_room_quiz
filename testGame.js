@@ -7,15 +7,19 @@ module.exports = function()
 		var context = {};
 		var mysql = req.app.get('mysql');
 		
-		mysql.pool.query('SELECT name, quizID AS age FROM quiz WHERE quizID = 1', function(error, rows, fields)
+		mysql.pool.query("SELECT question, type from question WHERE quizID = 4", function(error, results, fields)
 		{
-			if(error)
+			if (error)
 			{
 				res.write(JSON.stringify(error));
                 res.end();
 			}
 			
-			context.quiz = rows;
+			context.question = results;
+			
+			// Convert JSON object to JSON string and store inside context object.
+			context.JSONString = JSON.stringify(results);
+			
 			res.render("testGame", context);
 		});
 	});

@@ -37,12 +37,26 @@ module.exports = function()
 		// IF user is already signed in and quiz ID is valid...
 		if (req.session.studentID != "" & req.session.quizID != "")
 		{
+			// Declare and initialize an object called context.
+			var context = {};
+			
 			/* Declare a local variable that stores the user's id and user's first name obtained from 
 			session data. User's first name will be displayed on page. */
 			var studentID = req.session.studentID;
 			var quizID = req.session.quizID;
+
+			// Store studentID, quizID, and web page title inside context object.
+			context.title = "Student Game Page";
+			context.studentID = studentID;
+			context.quizID = quizID;
+
+			/* Query the database for the questions found under the quizID and store the results 
+			inside context object. */
+			//
+			//
+			//
 		
-			res.render("studentGame", {title: "Student Game Page", studentID: studentID, quizID: quizID});
+			res.render("studentGame", context);
 		}
 
 		// ELSE user is not signed in or have valid quiz code...

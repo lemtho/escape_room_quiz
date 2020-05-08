@@ -51,7 +51,7 @@
                                 <div class="main-menu  d-none d-lg-block">
                                     <nav>
                                         <ul id="navigation">
-                                            <li><a class="active" href="/studentHomePage">Home</a></li>
+                                            <li><a href="/studentHomePage">Home</a></li>
                                             <li><a href="/studentScoreboard">My Scores</a></li>
                                             <li><a href="/studentProfile">My Profile</a></li>
                                         </ul>
@@ -82,13 +82,7 @@
         <div id="studentHomeDiv2" class="single_slider slider_bg_1" style="height:max-content; padding-top:5%; padding-bottom:5%;">
             <div class="container" style="text-align:center;">
                 <div id="game" class="webgl-content">
-                    <div style="border:solid 1px black; width:200px; height:80px;" onclick="unityInstance.SendMessage('JavascriptHook', 'TintRed')">RED</div>
-                    <div style="border:solid 1px black; width:200px; height:80px;" onclick="unityInstance.SendMessage('JavascriptHook', 'TintGreen')">GREEN</div>
-                    <div style="border:solid 1px black; width:200px; height:80px;" onclick="unityInstance.SendMessage('JavascriptHook', 'SetNumber', 56)">NUMBER</div>
-                    <div style="border:solid 1px black; width:200px; height:80px;" onclick="unityInstance.SendMessage('JavascriptHook', 'SetString', 'Hello World!')">STRING</div>
-                    <div style="border:solid 1px black; width:200px; height:80px;" onclick="unityInstance.SendMessage('JavascriptHook', 'TestJson', jsonString)">JSON OBJECT</div>
-                    <br>
-                    <br>
+                    <p id="jsonString">{{JSONString}}</p>
                     <div id="unityContainer" style="height: 600px"></div>
                     <div class="footer">
                         <div class="webgl-logo"></div>
@@ -98,12 +92,6 @@
             </div>
         </div>
     </div>
-
-    {{#each quiz}}
-        <div id="quizName">{{name}}</div>
-        <div id="quizID">{{age}}</div>
-    {{/each}}
-
     <!-- content_area_end -->
 
     <!-- footer -->
@@ -145,9 +133,6 @@
     <script src="js/plugins.js"></script>
     <script src="js/gijgo.min.js"></script>
     <script src="js/main.js"></script>
-    
-    <!-- Front-end JS scripts here -->
-    <script src="frontendJS/testGame.js"></script>
 
     <!-- Unity Game Engine scripts here -->
     <script src="game/TemplateData/UnityProgress.js"></script>
@@ -155,6 +140,9 @@
     <script>
         var unityInstance = UnityLoader.instantiate("unityContainer", "game/Build/Desktop.json", {onProgress: UnityProgress});
     </script>
+
+    <!-- Front-end JS scripts here -->
+    <script src="frontendJS/testGame.js"></script>
 </body>
 
 </html>
