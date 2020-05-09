@@ -15,11 +15,9 @@ module.exports = function()
                 res.end();
 			}
 			
-			context.question = results;
-			
 			// Convert JSON object to JSON string and store inside context object.
 			context.JSONString = JSON.stringify(results);
-			
+
 			res.render("testGame", context);
 		});
 	});
