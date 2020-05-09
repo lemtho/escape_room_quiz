@@ -17,7 +17,7 @@ module.exports = function()
 			var studentID = req.session.studentID;
 			var firstName = req.session.firstName;
 		
-			res.render("studentHomePage", {title: "Student Home Page", id: studentID, user: firstName, studentHomePage: "true"});
+			res.render("studentHomePage", {title: "Student Home Page", id: studentID, user: firstName});
 		}
 
 		// ELSE user is not signed in...
@@ -37,26 +37,37 @@ module.exports = function()
 		// IF user is already signed in and quiz ID is valid...
 		if (req.session.studentID != "" & req.session.quizID != "")
 		{
+			var mysql = req.app.get("mysql");
+			
 			// Declare and initialize an object called context.
 			var context = {};
 			
 			/* Declare a local variable that stores the user's id and user's first name obtained from 
-			session data. User's first name will be displayed on page. */
+			session data. */
 			var studentID = req.session.studentID;
 			var quizID = req.session.quizID;
 
-			// Store studentID, quizID, and web page title inside context object.
+			// Store studentID, quizID, web page title, studentGamePage boolean inside context object.
 			context.title = "Student Game Page";
 			context.studentID = studentID;
 			context.quizID = quizID;
+			context.studentGamePage = "true"
 
 			/* Query the database for the questions found under the quizID and store the results 
 			inside context object. */
-			//
-			//
-			//
-		
-			res.render("studentGame", context);
+			mysql.pool.query("SELECT question, type from question WHERE quizID = ?", [quizID], function(error, results, fields)
+			{
+				if (error)
+				{
+					res.write(JSON.stringify(error));
+					res.end();
+				}
+				
+				// Convert JSON object to JSON string and store inside context object.
+				context.JSONString = JSON.stringify(results);
+
+				res.render("studentGame", context);
+			});
 		}
 
 		// ELSE user is not signed in or have valid quiz code...
