@@ -55,7 +55,7 @@ module.exports = function()
 
 			/* Query the database for the questions found under the quizID and store the results 
 			inside context object. */
-			mysql.pool.query("SELECT question, type from question WHERE quizID = ?", [quizID], function(error, results, fields)
+			mysql.pool.query("SELECT * from question WHERE quizID = ?", [quizID], function(error, results, fields)
 			{
 				if (error)
 				{
