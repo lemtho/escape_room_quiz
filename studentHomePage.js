@@ -103,7 +103,7 @@ module.exports = function()
 				res.redirect("/studentHomePage/playGame");
 			}
 
-			/* ELSE query did not return a reuslt. Send a HTTP 400 status code and error message
+			/* ELSE, query did not return a result. Send a HTTP 400 status code and error message
 			to client. */
 			else
 			{

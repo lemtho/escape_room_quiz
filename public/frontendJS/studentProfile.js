@@ -1,7 +1,7 @@
-// onload hide update table/button
+// onload hide update table/button and password rule span
 document.getElementById("updateNameForm").style.display = "none";
 document.getElementById("changePasswordForm").style.display = "none";
-
+document.getElementById("passwordRule").style.display = "none";
 
 // edit name button is clicked
 document.getElementById("editNameButton").addEventListener("click", function(appear)
@@ -39,7 +39,10 @@ document.getElementById("changePasswordButton").addEventListener("click", functi
 
 function updatePassword(){
     if (document.getElementById('newPassword').value != document.getElementById('confirmPassword').value) {
-        alert('Password does not match');
+        alert('Password does not match! Please reenter.');
+    }
+    else if (document.getElementById('newPassword').value.length > 12 | document.getElementById('newPassword').value.search(" ") != -1) {
+        alert("The password you entered is invalid. Please enter a different password up to 12 characters and with no spaces.");
     }
     else {
         $.ajax({
@@ -51,4 +54,11 @@ function updatePassword(){
             }
         })
     }
+};
+
+/* Function definition that displays the span element that consists of the password restrictions 
+when user updates password. */
+function displayPasswordRule()
+{
+    document.getElementById("passwordRule").style.display = "block";
 };

@@ -35,7 +35,7 @@ module.exports = function()
 			}
 		}
 		else {
-			req.redirect("/");
+			res.redirect("/");
 		}
 	});
 

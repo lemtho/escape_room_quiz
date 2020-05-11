@@ -1,8 +1,9 @@
-// On load, hide loginHeader, createAccountHeader, loginSection, and createAccountSection.
+// On load, hide loginHeader, createAccountHeader, loginSection, createAccountSection, and passwordRule.
 document.getElementById("loginHeader").style.display = "none";
 document.getElementById("createAccountHeader").style.display = "none";
 document.getElementById("loginSection").style.display = "none";
 document.getElementById("createAccountSection").style.display = "none";
+document.getElementById("passwordRule").style.display = "none";
 
 // IF "Log In" button is clicked...
 document.getElementById("signInButton").addEventListener("click", function(appear)
@@ -173,3 +174,10 @@ document.getElementById("createAccountButton").addEventListener("click", functio
 
     createAccount.preventDefault();
 });
+
+/* Function definition that displays the span element that consists of the password restrictions 
+when user creates password. */
+function displayPasswordRule()
+{
+    document.getElementById("passwordRule").style.display = "block";
+};

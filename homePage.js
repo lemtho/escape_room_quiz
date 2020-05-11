@@ -131,25 +131,36 @@ module.exports = function()
 				// ELSE email does not exist...
 				else
 				{
-					// Add student account information in database.
-					mysql.pool.query("INSERT INTO `student` (`firstName`, `lastName`, `email`, `password`, `userType`) VALUES (?, ?, ?, ?, ?);", [firstName, lastName, email, password, accountType], function(err, results, fields)
+					// Check for valid password. IF password is valid...
+					if (password.length <= 12 & password.search(" ") == -1)
 					{
-						// Get the student ID from querying the database.
-						mysql.pool.query("SELECT `studentID`, `firstName`, `userType` FROM `student` WHERE `email` = ? AND `password` = ?;", [email, password], function(err, rows, fields)
-						{	
-							// IF query returned a result...
-							if (rows.length > 0)
+						// Add student account information in database.
+						mysql.pool.query("INSERT INTO `student` (`firstName`, `lastName`, `email`, `password`, `userType`) VALUES (?, ?, ?, ?, ?);", [firstName, lastName, email, password, accountType], function(err, results, fields)
+						{
+							// Get the student ID from querying the database.
+							mysql.pool.query("SELECT `studentID`, `firstName`, `userType` FROM `student` WHERE `email` = ? AND `password` = ?;", [email, password], function(err, rows, fields)
 							{	
-								// Store student ID, student's first name, and user type in sessions data.
-								req.session.studentID = rows[0].studentID;
-								req.session.firstName = rows[0].firstName;
-								req.session.accountType = rows[0].userType;
-								
-								// Redirect user to student home page.
-								res.redirect("/studentHomePage");
-							}
+								// IF query returned a result...
+								if (rows.length > 0)
+								{	
+									// Store student ID, student's first name, and user type in sessions data.
+									req.session.studentID = rows[0].studentID;
+									req.session.firstName = rows[0].firstName;
+									req.session.accountType = rows[0].userType;
+									
+									// Redirect user to student home page.
+									res.redirect("/studentHomePage");
+								}
+							});
 						});
-					});
+					}
+
+					// ELSE, password is invald...
+					else
+					{
+						// Send a HTTP 400 status code and error message to client.
+						res.status(400).send("The password you entered is invalid. Please enter a different password up to 12 characters and with no spaces.");
+					}
 				}
 			});
 		}
@@ -170,25 +181,36 @@ module.exports = function()
 				// ELSE email does not exist...
 				else
 				{
-					// Add teacher account information in database.
-					mysql.pool.query("INSERT INTO `teacher` (`firstName`, `lastName`, `email`, `password`, `userType`) VALUES (?, ?, ?, ?, ?);", [firstName, lastName, email, password, accountType], function(err, results, fields)
+					// Check for valid password. IF password is valid...
+					if (password.length <= 12 & password.search(" ") == -1)
 					{
-						// Get the teacher ID from querying the database.
-						mysql.pool.query("SELECT `teacherID`, `firstName`, `userType` FROM `teacher` WHERE `email` = ?;", [email], function(err, rows, fields)
+						// Add teacher account information in database.
+						mysql.pool.query("INSERT INTO `teacher` (`firstName`, `lastName`, `email`, `password`, `userType`) VALUES (?, ?, ?, ?, ?);", [firstName, lastName, email, password, accountType], function(err, results, fields)
 						{
-							// IF query returned a result...
-							if (rows.length > 0)
+							// Get the teacher ID from querying the database.
+							mysql.pool.query("SELECT `teacherID`, `firstName`, `userType` FROM `teacher` WHERE `email` = ?;", [email], function(err, rows, fields)
 							{
-								// Store teacher ID, teacher's first name, and user type in sessions data.
-								req.session.teacherID = rows[0].teacherID;
-								req.session.firstName = rows[0].firstName;
-								req.session.accountType = rows[0].userType;
-						
-								// Redirect user to teacher home page.
-								res.redirect("/teacherHomePage");
-							}
+								// IF query returned a result...
+								if (rows.length > 0)
+								{
+									// Store teacher ID, teacher's first name, and user type in sessions data.
+									req.session.teacherID = rows[0].teacherID;
+									req.session.firstName = rows[0].firstName;
+									req.session.accountType = rows[0].userType;
+							
+									// Redirect user to teacher home page.
+									res.redirect("/teacherHomePage");
+								}
+							});
 						});
-					});
+					}
+
+					// ELSE, password is invald...
+					else
+					{
+						// Send a HTTP 400 status code and error message to client.
+						res.status(400).send("The password you entered is invalid. Please enter a different password up to 12 characters and with no spaces.");
+					}
 				}
 			});
 		}
