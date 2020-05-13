@@ -35,7 +35,7 @@ module.exports = function()
 		// console.log(req.session);
 		
 		// IF user is already signed in and quiz ID is valid...
-		if (req.session.studentID != "" & req.session.quizID != "")
+		if (req.session.studentID > 0 & req.session.quizID > 0)
 		{
 			var mysql = req.app.get("mysql");
 			
@@ -109,6 +109,37 @@ module.exports = function()
 			{
 				res.status(400).send("Invalid quiz code! Please try again.")
 			} 
+		});
+	});
+
+	// Once the game sends data to the server, execute the commands in this route.
+	router.post("/sendResults", function(req, res){
+
+		var mysql = req.app.get("mysql");
+		
+		// TEST: Output to console data received from the game.
+		console.log(req.body);
+
+		/* Declare and store values from the request to these local variables that will
+		be referenced in the query to send to the database. */
+		var studentID = req.body.studentID;
+		var questionID = req.body.questionID;
+		var studentAnswer = req.body.studentAnswer;
+		var questionPT = req.body.questionPT;
+		var dateTaken = req.body.dateTaken;
+		var quizID = req.body.quizID;
+
+		/* Create a query to INSERT a record into the student_question table in the database
+		with the following values extracted from the request. */
+		mysql.pool.query("INSERT INTO student_question VALUES (?, ?, ?, ?, ?, ?);", [studentID, questionID, studentAnswer, questionPT, dateTaken, quizID], function(error, results, fields)
+		{
+			if (error)
+			{
+				res.write(JSON.stringify(error));
+				// TEST: Output error message in console.
+				// console.log(JSON.stringify(error));
+				res.end();
+			}
 		});
 	});
 	
