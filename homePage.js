@@ -205,7 +205,7 @@ module.exports = function()
 						});
 					}
 
-					// ELSE, password is invald...
+					// ELSE, password is invali d...
 					else
 					{
 						// Send a HTTP 400 status code and error message to client.
@@ -215,7 +215,7 @@ module.exports = function()
 			});
 		}
 
-		// ELSE user left at least one required field blank...
+		// ELSE, user left at least one required field blank...
 		else
 		{
 			// Send a HTTP 400 status code and error message to client.
