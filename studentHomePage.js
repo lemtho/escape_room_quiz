@@ -98,8 +98,8 @@ module.exports = function()
 		// Convert quiz code to quiz ID.
 		quizID = (quizCode - 89) / 273;
 
-		// Check the database whether quizID exists.
-		mysql.pool.query("SELECT `name` FROM `quiz` WHERE `quizID` = ?;", [quizID], function(err, results, fields)
+		// Check the database whether quizID exists and whether that quizID is published.
+		mysql.pool.query("SELECT name FROM quiz WHERE quizID = ? and published = ?;", [quizID, "Y"], function(err, results, fields)
 		{
 			// IF query returned a result...
 			if (results.length > 0)
