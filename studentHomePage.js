@@ -3,10 +3,6 @@ module.exports = function()
 	var express = require("express");
 	var router = express.Router();
 	var session = require("express-session");
-
-	// Declare additional variables used under this function().
-	var questionsAnswered = 0; // 0 for false.
-	var quizID;
 	
 	router.get("/", function(req, res){
 		
@@ -95,8 +91,8 @@ module.exports = function()
 		var quizCode = req.body.quizID;
 		var studentID = req.session.studentID;
 
-		// Convert quiz code to quiz ID.
-		quizID = (quizCode - 89) / 273;
+		// Convert quiz code and store in local variable called quiz ID.
+		var quizID = (quizCode - 89) / 273;
 
 		// Check the database whether quizID exists and whether that quizID is published.
 		mysql.pool.query("SELECT name FROM quiz WHERE quizID = ? and published = ?;", [quizID, "Y"], function(err, results, fields)
@@ -183,7 +179,7 @@ module.exports = function()
 		var mysql = req.app.get("mysql");
 
 		// TEST: Output to console data received from the game.
-		console.log(req.body);
+		// console.log(req.body);
 
 		/* Declare and store values from the request to these local variables that will
 		be referenced in the query to send to the database. */
@@ -248,30 +244,8 @@ module.exports = function()
 					// Save the session data.
 					req.session.save();
 				}
-
-				// Set questionsAnswered flag value to 1. 1 = true.
-				questionsAnswered = 1;
-
-				// TEST: Output to console once server sets questionsAnswered flag to 1.
-				console.log("Set questionsAnswered to 1.");
 			}
 		});
-	});
-
-	router.post("/checkGameCompleted", function(req, res){
-
-		// IF the user answered the last question...
-		if (questionsAnswered == 1)
-		{
-			// TEST: Output to console that program will execute the command under this condition. 
-			console.log("Redirecting user to the quiz results page...");
-
-			// Reset questionsAnswered to 0.
-			questionsAnswered = 0;
-			
-			// Redirect user to student quiz results page for that quizID under studentID.
-			res.redirect("/studentScoreboard/" + quizID + "/" + req.session.studentID);
-		}
 	});
 	
 	return router;

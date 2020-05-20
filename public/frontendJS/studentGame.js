@@ -2,9 +2,6 @@
 document.getElementById("studentID").style.display = "none";
 document.getElementById("jsonString").style.display = "none";
 
-// On load, call the notifyGameComplete() function.
-notifyGameComplete();
-
 // Get the student ID.
 var studentID = document.getElementById("studentID").textContent;
 
