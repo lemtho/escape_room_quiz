@@ -806,8 +806,8 @@ function sortStudents() {
             for (i = 1; i < (rows.length - 1); i++) {
                 shouldSwitch = false;
 
-                x = rows[i].getElementsByTagName("td")[1];
-                y = rows[i + 1].getElementsByTagName("td")[1];
+                x = rows[i].getElementsByTagName("td")[2];
+                y = rows[i + 1].getElementsByTagName("td")[2];
 
                 if (dir == "asc") {
                     if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
