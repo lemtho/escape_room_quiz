@@ -150,7 +150,7 @@ module.exports = function()
 		
 		/* Create a query to INSERT a record into the student_question table in the database
 		with the following values extracted from the request. */
-		mysql.pool.query("INSERT INTO student_question VALUES (?, ?, ?, ?, ?, ?);", [studentID, questionID, studentAnswer, questionPT, dateTaken, quizID], function(error, results, fields)
+		mysql.pool.query("INSERT INTO student_question VALUES (?, ?, ?, ?, ?, ?, ?);", [studentID, questionID, studentAnswer, questionPT, dateTaken, quizID, 1], function(error, results, fields)
 		{
 			if (error)
 			{
@@ -225,7 +225,7 @@ module.exports = function()
 		
 		/* Create a query to INSERT a record into the student_question table in the database
 		with the following values extracted from the request. */
-		mysql.pool.query("INSERT INTO student_question VALUES (?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?);", [studentID, questionID2, studentAnswer2, questionPT2, dateTaken, quizID, studentID, questionID3, studentAnswer3, questionPT3, dateTaken, quizID, studentID, questionID4, studentAnswer4, questionPT4, dateTaken, quizID, studentID, questionID5, studentAnswer5, questionPT5, dateTaken, quizID, studentID, questionID6, studentAnswer6, questionPT6, dateTaken, quizID, studentID, questionID7, studentAnswer7, questionPT7, dateTaken, quizID, studentID, questionID8, studentAnswer8, questionPT8, dateTaken, quizID, studentID, questionID9, studentAnswer9, questionPT9, dateTaken, quizID, studentID, questionID10, studentAnswer10, questionPT10, dateTaken, quizID], function(error, results, fields)
+		mysql.pool.query("INSERT INTO student_question VALUES (?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?);", [studentID, questionID2, studentAnswer2, questionPT2, dateTaken, quizID, 2, studentID, questionID3, studentAnswer3, questionPT3, dateTaken, quizID, 3, studentID, questionID4, studentAnswer4, questionPT4, dateTaken, quizID, 4, studentID, questionID5, studentAnswer5, questionPT5, dateTaken, quizID, 5, studentID, questionID6, studentAnswer6, questionPT6, dateTaken, quizID, 6, studentID, questionID7, studentAnswer7, questionPT7, dateTaken, quizID, 7, studentID, questionID8, studentAnswer8, questionPT8, dateTaken, quizID, 8, studentID, questionID9, studentAnswer9, questionPT9, dateTaken, quizID, 9, studentID, questionID10, studentAnswer10, questionPT10, dateTaken, quizID, 10], function(error, results, fields)
 		{	if (error)
 			{
 				res.write(JSON.stringify(error));

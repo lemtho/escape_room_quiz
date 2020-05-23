@@ -64,7 +64,7 @@ module.exports = function()
 	}
 
 	function getStudentResults(res, mysql, qid, sid, context, complete) {
-		var sql = "SELECT s.firstName, s.lastName, quest.questionID, quest.question, quest.answer, studentAnswer, questionPt, q.name FROM student AS s LEFT JOIN (SELECT questionID, studentID, studentAnswer, questionPT FROM student_question WHERE quizID = ?) sq USING (studentID) JOIN question AS quest ON sq.questionID = quest.questionID JOIN quiz AS q ON quest.quizID = q.quizID WHERE studentID = ?;";
+		var sql = "SELECT s.firstName, s.lastName, quest.questionID, quest.question, quest.answer, questionOrder, studentAnswer, questionPt, q.name FROM student AS s LEFT JOIN (SELECT questionID, studentID, studentAnswer, questionPT, questionOrder FROM student_question WHERE quizID = ?) sq USING (studentID) JOIN question AS quest ON sq.questionID = quest.questionID JOIN quiz AS q ON quest.quizID = q.quizID WHERE studentID = ? ORDER BY questionOrder ASC;";
 		var inserts = [qid, sid];
 		mysql.pool.query(sql, inserts, function(error, results, fields) {
 			if (error) {
@@ -109,29 +109,47 @@ module.exports = function()
 	}
 
 	router.get("/", function(req, res){
+		
+		// TEST: Print to console sessions data.
+		// console.log(req.session);
+
 		if (req.session.teacherID) {
 			var teacherID = req.session.teacherID;
 			var callbackCount = 0;
 			var context = {};
 
-			// If this routed originated from teacherQuiz page...
+			// If this route originated from teacherQuiz page...
 			if (req.session.fromTeacherQuizPage == true)
 			{
 				context.fromTeacherQuizID = req.session.fromTeacherQuizID;
 				context.fromTeacherQuizName = req.session.fromTeacherQuizName;
-				
 				context.fromTeacherHomeID = req.session.fromTeacherHomeID;
 
+				// TEST: Learn sessions data...manipulate sessions data.
 				/* Reset information so that the "from Teacher
 				quiz ID" or from Teacher quiz name" is not populated or 
 				that the server does not think every time the user is redirected 
 				from the teacherQuiz page each time user visits the 
 				teacherScoreboard page. */
-				req.session.fromTeacherQuizPage = false;
-				req.session.fromTeacherQuizID = "";
-				req.fromTeacherQuizName = "";
+				// req.session.fromTeacherQuizPage = false;
+				// req.session.fromTeacherQuizID = "";
+				// req.session.fromTeacherQuizName = "";
+				// req.session.fromTeacherHomeID = "";
 
-				req.fromTeacherHomeID = "";
+				context.fromTeacherScoreboardPage = req.session.fromTeacherScoreboardPage;
+			}
+
+			// ELSE IF this route originated from teacherScoreboard page...
+			else // if (req.session.fromTeacherScoreboardPage == true)
+			{
+				// console.log("I am inside fromTeacherScoreboardPage in the GET route!");
+				
+				context.fromTeacherScoreboardPage = req.session.fromTeacherScoreboardPage;
+				context.radioName = req.session.radioName;
+				context.quizButton = req.session.quizButton;
+				context.studentButton = req.session.studentButton;
+				context.sortStudentButton = req.session.sortStudentButton;
+				context.sortQuizButton = req.session.sortQuizButton;
 			}
 
 			var mysql = req.app.get('mysql');
@@ -144,6 +162,7 @@ module.exports = function()
 				callbackCount++;
 				if (callbackCount >= 4) {
 					context.title = "Scoreboard";
+
 					res.render('teacherScoreboard', context);
 				}
 			}
@@ -190,16 +209,41 @@ module.exports = function()
                 res.status(202).end();
             }
         })
-    })
-	// Route to teacherScoreboard page from teacherQuiz page.
+	})
+	
+	// Execute route to teacherScoreboard page based on POST method...
 	router.post("/", function(req, res)
 	{
 		// TEST: Output request sent from the client.
 		// console.log(req.body);
 		
-		if (req.session.teacherID) 
+		// IF post request originated from teacherScoreboard page...
+		if (req.body.fromTeacherScoreboardPage == true)
+		{
+			// TEST: Output to console that program is inside fromTeacherScoreboard branch.
+			// console.log("I am inside fromTeacherScoreboard branch!");
+
+			// Store or update the following data in session.
+			req.session.fromTeacherQuizPage = false;
+			req.session.fromTeacherScoreboardPage = req.body.fromTeacherScoreboardPage;
+			req.session.radioName = req.body.radioName;
+			req.session.quizButton = req.body.quizButton;
+			req.session.studentButton = req.body.studentButton;
+			req.session.sortStudentButton = req.body.sortStudentButton;
+			req.session.sortQuizButton = req.body.sortQuizButton;
+
+			// TEST: Output to console the updated sessions data.
+			// console.log(req.session);
+
+			// Save the session data.
+			req.session.save();
+		}
+		
+		// ELSE, post request originated from teacherQuiz page...
+		else
 		{
 			// Store or update the following data in session.
+			req.session.fromTeacherScoreboardPage = false;
 			req.session.fromTeacherQuizPage = true;
 			req.session.fromTeacherQuizID = req.body.fromTeacherQuizID;
 			req.session.fromTeacherQuizName = req.body.fromTeacherQuizName;
@@ -213,10 +257,7 @@ module.exports = function()
 			// Forcefully end the response process.
 			res.end();
 		}
-		
-		else {
-			res.redirect("/");
-		}
+
 	});
 	
 	return router;

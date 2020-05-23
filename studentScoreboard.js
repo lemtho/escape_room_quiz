@@ -20,7 +20,7 @@ module.exports = function()
     }
     
     function getStudentResults(res, mysql, qid, sid, context, complete) {
-		var sql = "SELECT s.firstName, s.lastName, quest.questionID, quest.question, quest.answer, studentAnswer, questionPt, q.name FROM student AS s LEFT JOIN (SELECT questionID, studentID, studentAnswer, questionPT FROM student_question WHERE quizID = ?) sq USING (studentID) JOIN question AS quest ON sq.questionID = quest.questionID JOIN quiz AS q ON quest.quizID = q.quizID WHERE studentID = ?;";
+		var sql = "SELECT s.firstName, s.lastName, quest.questionID, quest.question, quest.answer, questionOrder, studentAnswer, questionPt, q.name FROM student AS s LEFT JOIN (SELECT questionID, studentID, studentAnswer, questionPT, questionOrder FROM student_question WHERE quizID = ?) sq USING (studentID) JOIN question AS quest ON sq.questionID = quest.questionID JOIN quiz AS q ON quest.quizID = q.quizID WHERE studentID = ? ORDER BY questionOrder ASC;";
 		var inserts = [qid, sid];
 		mysql.pool.query(sql, inserts, function(error, results, fields) {
 			if (error) {

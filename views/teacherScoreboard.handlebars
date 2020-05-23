@@ -49,8 +49,8 @@
                 <div class="container" style="text-align:center;">
                     <div id="searchFilter">
                         <b>Search By: </b>
-                        <input id="quizRadio" name="rad" type="radio" onclick="showQuizDrop()"/> Quiz Name
-                        <input id="studentRadio" name="rad" type="radio" onclick="showStudentDrop()" /> Student Name
+                        <input id="quizRadio" name="rad" type="radio" value="Quiz Name" onclick="showQuizDrop()"/> Quiz Name
+                        <input id="studentRadio" name="rad" type="radio" value="Student Name" onclick="showStudentDrop()" /> Student Name
                     </div>
                     <br>
 
@@ -61,7 +61,7 @@
                                     <option value="{{quizID}}">{{name}}</option>
                                 {{/each}}
                             </select>
-                            <button onclick="searchQuiz()">Search</button>
+                            <button id="searchQuizButton" onclick="searchQuiz()">Search</button>
                         {{else}}
                             <h4><span style ="font-weight: normal; text-align: center">No scores to display.</span></h4>
                         {{/if}}
@@ -74,7 +74,7 @@
                                     <option value="{{studentID}}">{{lastName}}, {{firstName}}</option>
                                 {{/each}}
                             </select>
-                            <button onclick="searchStudent()">Search</button>
+                            <button id="searchStudentButton" onclick="searchStudent()">Search</button>
                         {{else}}
                                 <h4><span style ="font-weight: normal; text-align: center">No scores to display.</span></h4>
                         {{/if}}
@@ -90,7 +90,7 @@
                                         <option value="sortLast">Sort By Last Name</option>
                                         <option value="sortScore">Sort By Score</option>
                                     </select>
-                                    <button onclick="sortStudents()">Sort</button>
+                                    <button id="sortStudentButton" onclick="sortStudents()">Sort</button>
                                 </div>
 
                                 <thead>
@@ -128,7 +128,7 @@
                                         <option value="sortQuiz">Sort By Quiz Name</option>
                                         <option value="sortScore">Sort By Score</option>
                                     </select>
-                                    <button onclick="sortQuizzes()">Sort</button>
+                                    <button id="sortQuizButton" onclick="sortQuizzes()">Sort</button>
                                 </div>
 
                                 <thead>
@@ -171,6 +171,12 @@
                     <div id="fromTeacherQuizID">{{fromTeacherQuizID}}</div>
                     <div id="fromTeacherQuizName">{{fromTeacherQuizName}}</div>
                     <div id="fromTeacherHomeID">{{fromTeacherHomeID}}</div>
+                    <div id="fromTeacherScoreboardPage">{{fromTeacherScoreboardPage}}</div>
+                    <div id="radioNameFromServer">{{radioName}}</div>
+                    <div id="quizButtonFromServer">{{quizButton}}</div>
+                    <div id="studentButtonFromServer">{{studentButton}}</div>
+                    <div id="sortStudentButtonFromServer">{{sortStudentButton}}</div>
+                    <div id="sortQuizButtonFromServer">{{sortQuizButton}}</div>
                     
                 </div>
             </div>
