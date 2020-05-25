@@ -52,6 +52,14 @@
                         {{quizID}}
                     </div>
                     <div>
+                        <form id = "edit_quizname" action = "/teacherQuiz/{{quizID}}" method = "patch">
+                        <b>Quiz Name: </b><input type = "text" name = "quizName" value = "{{name}}">
+                        <button onclick = "updateName({{quizID}})" class = "edit">Update</button>
+                        </form>
+                        
+                        
+                    </div>
+                    <div>
                         <!--<h1 style="color:white;">PUT STUFF HERE</h1>-->
                         <table class = "spacing">
                             <tbody>
@@ -123,7 +131,10 @@
                             </tbody>
                         </table>
                     </div>
-                
+                 <div>
+                    <br>
+                    <button onclick = "window.location.href = '/teacherQuiz';" class = "create">Done</button>
+                </div>
                 </div>
             </div>
         </div>

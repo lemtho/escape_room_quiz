@@ -9,6 +9,18 @@ function addQuestion(id){
     });
 };
 
+function updateName(id){
+    $.ajax({
+        url: '/teacherQuiz/Quiz/' + id,
+        type: 'PATCH',
+        dataType: 'json',
+        data: $('#edit_quizname').serialize(),
+        success: function(result){
+            window.location.href = 'teacherQuiz/' + id; 
+        }
+    });
+}; 
+
 //Hide add question form on load
 document.getElementById("add_Question").style.display ="none";
 document.getElementById("SAQuestion").style.display ="none";
