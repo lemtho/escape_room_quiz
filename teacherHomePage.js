@@ -3,7 +3,7 @@ module.exports = function()
 	var express = require('express');
 	var router = express.Router();
 	
-	function getRecentQuizzes(res, mysql, id, context, complete) {
+	function getRecentQuizScores(res, mysql, id, context, complete) {
 		var sql = "SELECT s.studentID, s.firstName, s.lastName, q.quizID, q.name, DATE_FORMAT(dateTaken, '%m/%d/%Y') AS lastTakenDate FROM teacher AS t LEFT JOIN quiz AS q ON t.teacherID = q.teacherID JOIN (SELECT studentID, quizID, dateTaken FROM student_question GROUP BY dateTaken, studentID, quizID) sq USING (quizID) JOIN student AS s ON sq.studentID = s.studentID WHERE t.teacherID = ? ORDER BY lastTakenDate DESC;";
 		var inserts = [id];
 		mysql.pool.query(sql, inserts, function(error, results, fields) {
@@ -14,6 +14,21 @@ module.exports = function()
 			}
 
 			context.students = results;
+			complete();
+		});
+	}
+
+	function getRecentlyCreatedQuizzes(res, mysql, id, context, complete) {
+		var sql = "SELECT name AS quizName, DATE_FORMAT(dateCreated, '%m/%d/%Y') AS dateCreated FROM quiz WHERE teacherID = ? ORDER BY dateCreated DESC;";
+		var inserts = [id];
+		mysql.pool.query(sql, inserts, function(error, results, fields) {
+			if (error) {
+				console.log(error);
+				res.write(JSON.stringify(error));
+				res.end();
+			}
+
+			context.quizzes = results;
 			complete();
 		});
 	}
@@ -31,11 +46,12 @@ module.exports = function()
 			var callbackCount = 0;
 			var context = {};
 			var mysql = req.app.get('mysql');
-			getRecentQuizzes(res, mysql, teacherID, context, complete);
+			getRecentQuizScores(res, mysql, teacherID, context, complete);
+			getRecentlyCreatedQuizzes(res, mysql, teacherID, context, complete);
 
 			function complete() {
 				callbackCount++;
-				if (callbackCount >= 1) {
+				if (callbackCount >= 2) {
 					context.title = "Teacher Home Page";
 					context.user = firstName;
 					res.render('teacherHomePage', context);

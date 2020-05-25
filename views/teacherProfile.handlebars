@@ -50,7 +50,7 @@
                     <div>
                         <h1 style="color:white;">My Profile</h1>
                     </div>
-                    
+                    {{#each teacher}}
                     <div>
                             <table id="nameTable" class="spacing" align="center">
                             <thead>
@@ -59,7 +59,7 @@
                             </thead>
                             <tbody>
 
-                                {{#each teacher}}
+                               
                                 <tr>
                                     <td>{{firstName}}</td>
                                     <td>{{lastName}}</td>
@@ -67,7 +67,7 @@
                                         <button type="button" id="editNameButton">Edit Name</button>
                                     </td>
                                 </tr>
-                                {{/each}}
+                                
 
                             </tbody>
                         </table>
@@ -75,10 +75,10 @@
 
                     <div id="updateNameForm">
                             <form id = "updateName" action = "/teacherProfile" method = "post">
-                                <b>First name: </b><input type = "text" name = "newFirstName" value = "{{firstName}}"><br><br>
-                                <b>Last name: </b><input type = "text" name = "newLastName" value = "{{lastName}}"><br><br>
+                                <b>First name: </b><input type = "text" id="newFirst" name = "newFirstName" placeholder="{{firstName}}" value = "{{firstName}}"><br><br>
+                                <b>Last name: </b><input type = "text" id="newLast" name = "newLastName" placeholder="{{lastName}}" value = "{{lastName}}"><br><br>
                             </form>
-                            <button onclick = "updateName()">Update</button>
+                            <button id="updateNameButton" onclick = "updateName()">Update</button>
                         </div>
                     <hr />
 
@@ -92,8 +92,9 @@
                                 <span id="passwordRule" style="color:red; font-size:14px;">Password Restrictions: Maximum 12 characters with no spaces.</span><br>
                                 <b>Confirm New Password: </b><input id="confirmPassword" type = "password" value=""><br><br>
                             </form>
-                            <button onclick = "updatePassword()">Update</button>
-                    </div>      
+                            <button id="updatePasswordButton" onclick = "updatePassword()">Update</button>
+                    </div>
+                    {{/each}}
                 
                 </div>
             </div>
