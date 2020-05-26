@@ -47,42 +47,41 @@
         <div class="slider_area" style="min-height:100vh;">
             <div class="single_slider slider_bg_1" style="min-height:100vh; height:max-content; padding-top:5%; padding-bottom:5%;">
                 <div class="container" style="text-align:center;">
-
-                    
-                    <div>
-                        <!--<h1 style="color:white;">PUT STUFF HERE</h1>-->
-                        <table class = "spacing">
+                    <div> 
+                    {{#if quiz}}
+                        <table class = "table table-dark" style="background-color:rgba(90, 0, 179, 0.5); color:black;">
                             <thead>
-                                <th colspan="2" align="left"><h2>Quiz Code</h2></th>
-                                <th colspan="4" align = "left"><h2>Quiz Name</h2></th>
-                                <th colspan="4"><h2>Number of Questions</h2></th>
-                                <th colspan="4"><h2>Number Taken</h2></th>
+                                <th style="border:unset;" colspan="2" align="left"><h3>Quiz Code</h3></th>
+                                <th style="border:unset;" colspan="4" align = "left"><h3>Quiz Name</h3></th>
+                                <th style="border:unset;" colspan="4"><h3>Number of Questions</h3></th>
+                                <th style="border:unset;" colspan="4"><h3>Number Taken</h3></th>
+                                <th style="border:unset;" colspan="3"><h3>Action</h3></th>
                             </thead>
                             <tbody>
-                                {{#if quiz}}
                                 {{#each quiz}}
                                         <tr>
-                                            <td colspan="2">{{id}}</td>
-                                            <td colspan="4">{{name}}</td>
-                                            <td colspan="4">{{numQuestion}}</td>
-                                            <td class = "cannot_change" colspan="4">{{num_taken}}</td>
+                                            <td style="border:unset;" colspan="2">{{id}}</td>
+                                            <td style="border:unset;" colspan="4">{{name}}</td>
+                                            <td style="border:unset;" colspan="4">{{numQuestion}}</td>
+                                            <td style="border:unset;" class = "cannot_change" colspan="4">{{num_taken}}</td>
                                             {{#showResult num_taken}}
-                                            <td><button onclick="fetchResults({{id}},'{{name}}')" class = "results">Results</button></td>
+                                            <td style="border:unset;"><button class="btn btn-primary btn-sm" onclick="fetchResults({{id}},'{{name}}')">Results</button></td>
                                             {{/showResult}}
                                             {{#editdel num_taken}}
-                                            <td><button onclick = "window.location.href = '/teacherQuiz/{{id}}';" class = "edit">Edit</button></td>
-                                            <td><button onclick = "deleteQuiz({{id}})" class = "delete">Delete</button></td>
+                                            <td style="border:unset;"><button class="btn btn-primary btn-sm" style="background-color:rgba(45,226,84, 0.75);" onclick = "">Publish</button></td>
+                                            <td style="border:unset;"><button class="btn btn-primary btn-sm" onclick = "window.location.href = '/teacherQuiz/{{id}}';">Edit</button></td>
+                                            <td style="border:unset;"><button class="btn btn-primary btn-sm" style="background-color: rgba(255, 0, 0, 0.75);" onclick = "deleteQuiz({{id}})">Delete</button></td>
                                             {{/editdel}}
                                         </tr>
                                 {{/each}}
-                                {{else}}
-                                    <tr><td colspan = "10"><h4><span style ="font-weight: normal; text-align: center">You don't have any quiz. Click on "Create New Quiz" to get started.</span></h4></td></tr>
-                                {{/if}}
-                                    <tr><td colspan = "8" align = "right"><button onclick = "window.location.href = '/teacherQuiz/createQuiz';" class = "create">Create New Quiz</button></td></tr>
                             </tbody>
                         </table>
+                    {{else}}
+                        <h4><span style ="font-weight: normal; text-align: center">You don't have any quiz. Click on "Create New Quiz" to get started.</span></h4>
+                    {{/if}}
+                        <br>
+                        <button onclick = "window.location.href = '/teacherQuiz/createQuiz';" class="btn btn-primary btn-sm" style="font-weight: bold;">Create New Quiz</button>
                     </div>
-                
                 </div>
             </div>
         </div>

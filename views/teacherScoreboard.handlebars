@@ -48,7 +48,7 @@
             <div class="single_slider slider_bg_1" style="min-height:100vh; height:max-content; padding-top:5%; padding-bottom:5%;">
                 <div class="container" style="text-align:center;">
                     <div id="searchFilter">
-                        <b>Search By: </b>
+                        <span style="color:white; font-weight:bold;">Search By:</span>
                         <input id="quizRadio" name="rad" type="radio" value="Quiz Name" onclick="showQuizDrop()"/> Quiz Name
                         <input id="studentRadio" name="rad" type="radio" value="Student Name" onclick="showStudentDrop()" /> Student Name
                     </div>
@@ -61,7 +61,7 @@
                                     <option value="{{quizID}}">{{name}}</option>
                                 {{/each}}
                             </select>
-                            <button id="searchQuizButton" onclick="searchQuiz()">Search</button>
+                            <button id="searchQuizButton" class="btn btn-primary btn-sm" onclick="searchQuiz()">Search</button>
                         {{else}}
                             <h4><span style ="font-weight: normal; text-align: center">No scores to display.</span></h4>
                         {{/if}}
@@ -74,7 +74,7 @@
                                     <option value="{{studentID}}">{{lastName}}, {{firstName}}</option>
                                 {{/each}}
                             </select>
-                            <button id="searchStudentButton" onclick="searchStudent()">Search</button>
+                            <button id="searchStudentButton" class="btn btn-primary btn-sm" onclick="searchStudent()">Search</button>
                         {{else}}
                                 <h4><span style ="font-weight: normal; text-align: center">No scores to display.</span></h4>
                         {{/if}}
@@ -90,7 +90,7 @@
                                         <option value="sortLast">Sort By Last Name</option>
                                         <option value="sortScore">Sort By Score</option>
                                     </select>
-                                    <button id="sortStudentButton" onclick="sortStudents()">Sort</button>
+                                    <button id="sortStudentButton" class="btn btn-primary btn-sm" onclick="sortStudents()">Sort</button>
                                 </div>
 
                                 <thead>
@@ -99,9 +99,10 @@
                                         <th>First Name</th>
                                         <th>Last Name</th>
                                         <th>Score</th>
+                                        <th colspan="2">Action</th>
                                     </tr>
                                 </thead>
-
+                                <br>
                                 <tbody>
                                         {{#each quizScore}}
                                             <tr>
@@ -109,8 +110,8 @@
                                                 <td>{{firstName}}</td>
                                                 <td>{{lastName}}</td>
                                                 <td>{{actual_score}}</td>
-                                                <td><button onclick = "window.location.href = '/teacherScoreboard/{{quizID}}/{{studentID}}';">Results</button></td>
-                                                <td><button onclick="deleteStudentScore({{quizID}}, {{studentID}})">Delete</button></td>
+                                                <td><button onclick = "window.location.href = '/teacherScoreboard/{{quizID}}/{{studentID}}';" class="btn btn-primary btn-sm">Results</button></td>
+                                                <td><button onclick="deleteStudentScore({{quizID}}, {{studentID}})" class="btn btn-primary btn-sm" style="background-color: rgba(255, 0, 0, 0.75);">Delete</button></td>
                                             </tr>
                                         {{/each}}
                                 </tbody> 
@@ -118,8 +119,8 @@
                                     <h4><span style ="font-weight: normal; text-align: center">No scores to display.</span></h4>
                             {{/if}}
                         </table>
+                        <br>
                     </div>
-
                     <div id="displayScoresByStudent">
                         <table id="studentTable" class="spacing" align="center">
                             {{#if studentScore}}
@@ -128,14 +129,15 @@
                                         <option value="sortQuiz">Sort By Quiz Name</option>
                                         <option value="sortScore">Sort By Score</option>
                                     </select>
-                                    <button id="sortQuizButton" onclick="sortQuizzes()">Sort</button>
+                                    <button id="sortQuizButton" class="btn btn-primary btn-sm" onclick="sortQuizzes()">Sort</button>
                                 </div>
-
+                                <br>
                                 <thead>
                                     <tr>
                                         <th style="visibility: collapse;"></th>
                                         <th>Quiz Name</th>
                                         <th>Score</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
 
@@ -146,7 +148,7 @@
                                             <td>{{name}}</td>
                                             <td>{{actual_score}}</td>
                                             <input id="studentID" name="studentID" type="hidden" value="{{studentID}}">
-                                            <td><button onclick = "window.location.href = '/teacherScoreboard/{{quizID}}/{{studentID}}';">Results</button></td>
+                                            <td><button onclick = "window.location.href = '/teacherScoreboard/{{quizID}}/{{studentID}}';" class="btn btn-primary btn-sm">Results</button></td>
                                         </tr>
                                     {{/each}}
                                 </tbody>
@@ -155,15 +157,16 @@
                                 <h4><span style ="font-weight: normal; text-align: center">No scores to display.</span></h4>
                             {{/if}}
                         </table>
+                        <br>
                     </div>
 
                     <div id="noScores">
                         <h4><span style ="font-weight: normal; text-align: center">No scores to display.</span></h4>
                     </div>
-
+                    
                     <div id="printResults">
                         <form>
-                            <input id="printPageButton" type="button" id="printResult" value="Save My Results" onclick="window.print()">
+                            <input id="printPageButton" type="button" class="btn btn-primary btn-sm" style="font-weight: bold;" id="printResult" value="Save My Results" onclick="window.print()">
                         </form>
                     </div>
 

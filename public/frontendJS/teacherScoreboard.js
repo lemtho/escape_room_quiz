@@ -291,7 +291,7 @@ document.getElementById("quizRadio").addEventListener("click", function(addToSes
         // console.log(req);
         
         /* IF response from server is good and the response has completed, 
-        redirect user to the responseURL site. (i.e., student or teacher home page). */
+        do nothing. */
         if (req.readyState == 4 & req.status == 200)
         {
             window.location = req.responseURL;
@@ -310,8 +310,6 @@ document.getElementById("quizRadio").addEventListener("click", function(addToSes
 
     // Send data with the request.
     req.send(data);
-
-    // addToSessionData.preventDefault();
 });
 
 // When the user clicks on the "Search" button under "Quiz Name" radio selection...
@@ -350,7 +348,7 @@ document.getElementById("searchQuizButton").addEventListener("click", function(a
         // console.log(req);
         
         /* IF response from server is good and the response has completed, 
-        redirect user to the responseURL site. (i.e., student or teacher home page). */
+        do nothing. */
         if (req.readyState == 4 & req.status == 200)
         {
             window.location = req.responseURL;
@@ -369,8 +367,6 @@ document.getElementById("searchQuizButton").addEventListener("click", function(a
 
     // Send data with the request.
     req.send(data);
-
-    // addToSessionData.preventDefault();
 });
 
 // When the user clicks on the "Sort" button under "Quiz Name" radio selection...
@@ -410,7 +406,7 @@ document.getElementById("sortStudentButton").addEventListener("click", function(
         // console.log(req);
         
         /* IF response from server is good and the response has completed, 
-        redirect user to the responseURL site. (i.e., student or teacher home page). */
+        do nothing. */
         if (req.readyState == 4 & req.status == 200)
         {
             window.location = req.responseURL;
@@ -429,8 +425,6 @@ document.getElementById("sortStudentButton").addEventListener("click", function(
 
     // Send data with the request.
     req.send(data);
-
-    // addToSessionData.preventDefault();
 });
 
 // When the user clicks on "Student Name" radio selection...
@@ -468,7 +462,7 @@ document.getElementById("studentRadio").addEventListener("click", function(addTo
         // console.log(req);
         
         /* IF response from server is good and the response has completed, 
-        redirect user to the responseURL site. (i.e., student or teacher home page). */
+        do nothing. */
         if (req.readyState == 4 & req.status == 200)
         {
             window.location = req.responseURL;
@@ -487,8 +481,6 @@ document.getElementById("studentRadio").addEventListener("click", function(addTo
 
     // Send data with the request.
     req.send(data);
-
-    // addToSessionData.preventDefault();
 });
 
 // When the user clicks on the "Search" button under "Student Name" radio selection...
@@ -527,7 +519,7 @@ document.getElementById("searchStudentButton").addEventListener("click", functio
         // console.log(req);
         
         /* IF response from server is good and the response has completed, 
-        redirect user to the responseURL site. (i.e., student or teacher home page). */
+        do nothing. */
         if (req.readyState == 4 & req.status == 200)
         {
             window.location = req.responseURL;
@@ -546,8 +538,6 @@ document.getElementById("searchStudentButton").addEventListener("click", functio
 
     // Send data with the request.
     req.send(data);
-
-    // addToSessionData.preventDefault();
 });
 
 // When the user clicks on the "Sort" button under "Student Name" radio selection...
@@ -587,7 +577,7 @@ document.getElementById("sortQuizButton").addEventListener("click", function(add
         // console.log(req);
         
         /* IF response from server is good and the response has completed, 
-        redirect user to the responseURL site. (i.e., student or teacher home page). */
+        do nothing. */
         if (req.readyState == 4 & req.status == 200)
         {
             window.location = req.responseURL;
@@ -606,8 +596,6 @@ document.getElementById("sortQuizButton").addEventListener("click", function(add
 
     // Send data with the request.
     req.send(data);
-
-    // addToSessionData.preventDefault();
 });
 
 // Helper function definitions below.

@@ -59,22 +59,20 @@
                                     <tr>
                                         <th style="visibility: collapse;">date</th>
                                         <th style="visibility: collapse;">activity</th>
-                                        <th style="visibility: collapse;">link</th>
                                     </tr>
                                 </thead>
 
                                 <tbody>
                                     {{#each students}}
                                     <tr>
-                                            <td>{{lastTakenDate}}</td>
-                                            <td><b>{{firstName}} {{lastName}}</b> completed <b>{{name}}</b> quiz!</td>
-                                            <td><button onclick="fetchResults({{studentID}})" class = "results">Scoreboard</button></td>
+                                            <td>On {{lastTakenDate}}</td>
+                                            <td><a href="" onclick="fetchResults({{studentID}})"><span style="color:rgb(181,147,91); font-weight:bold;">{{firstName}} {{lastName}}</span> completed <span style="color:rgb(45,226,84); font-weight:bold;">{{name}}</span> quiz.</a></td>
                                     </tr>
                                     {{/each}}
                                     {{#each quizzes}}
                                     <tr>
-                                            <td>{{dateCreated}}</td>
-                                            <td><b>{{quizName}}</b> quiz created!</td>
+                                            <td>On {{dateCreated}}</td>
+                                            <td><span style="color:rgb(45,226,84); font-weight:bold;">{{quizName}}</span> quiz was created.</td>
                                     </tr>
                                     {{/each}}
                                 </tbody>
@@ -83,7 +81,7 @@
 
 
                     <div id="sortedActivities" style="text-align: center;">
-                        <h2>Recent Activity</h2>
+                        <h2 style="text-decoration:underline;">Recent Activity</h2>
                         <table id="sortedTable" class="spacing" style="text-align: left;" align="center">
                             
                         </table>
