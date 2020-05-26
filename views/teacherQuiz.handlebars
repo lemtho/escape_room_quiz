@@ -70,7 +70,7 @@
                                             <td style="border:unset;"><button class="btn btn-primary btn-sm" onclick="fetchResults({{id}},'{{name}}')">Results</button></td>
                                             {{/showResult}}
                                             {{#editdel published}}
-                                            <td style="border:unset;"><button class="btn btn-primary btn-sm" style="background-color:rgba(45,226,84, 0.75);" onclick = "">Publish</button></td>
+                                            <td style="border:unset;"><button class="btn btn-primary btn-sm" style="background-color:rgba(45,226,84, 0.75);" onclick = "publishQuiz({{numQuestion}}, {{id}})">Publish</button></td>
                                             <td style="border:unset;"><button class="btn btn-primary btn-sm" onclick = "window.location.href = '/teacherQuiz/{{id}}';">Edit</button></td>
                                             <td style="border:unset;"><button class="btn btn-primary btn-sm" style="background-color: rgba(255, 0, 0, 0.75);" onclick = "deleteQuiz({{id}})">Delete</button></td>
                                             {{/editdel}}

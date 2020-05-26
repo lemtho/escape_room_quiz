@@ -276,6 +276,25 @@ module.exports = function()
             }
         });
     });
+
+    // update "published" attribute
+    router.patch("/:id", function(req, res){
+        var mysql = req.app.get('mysql');
+        var sql = 'UPDATE quiz SET published = "Y" WHERE quizID = ?';
+        var inserts = [req.params.id];
+        
+        sql = mysql.pool.query(sql, inserts, function(error, results){
+            if(error){
+                console.log(error);
+                res.write(JSON.stringify(error));
+                res.end(); 
+            }
+            else{
+                    //console.log("success");
+                    res.end();
+            }
+        });
+    });
     
 	return router;
 }();
