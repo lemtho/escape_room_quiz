@@ -53,6 +53,7 @@ else
         var table, tr, i;
         table = document.getElementById("quizTable");
         tr = table.getElementsByTagName("tr");
+        var isShowing = false;
 
         for (i = 1; i < tr.length; i++) {
             // Hide the row initially
@@ -63,7 +64,23 @@ else
 
             if (cell.innerHTML == filter) {
                 tr[i].style.display = "";
+                isShowing = true;
             }
+        }
+
+        // if no records, display message
+        if (!isShowing) 
+        {
+            document.getElementById("displayScoresByQuiz").style.display = "none";
+            document.getElementById("printResults").style.display = "none";
+            document.getElementById("noScores").style.display = "block";
+        }
+
+        // show table and print button
+        else 
+        {
+            document.getElementById("displayScoresByQuiz").style.display = "block";
+            document.getElementById("printResults").style.display = "block";
         }
     }
 

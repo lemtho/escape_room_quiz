@@ -15,6 +15,7 @@ function sortTable()
     // store table data into array
     var array = [];
     var headers = [];
+    var i;
     
     // get table headers into array
     $('#activityTable th').each(function(index, item) {
@@ -40,9 +41,25 @@ function sortTable()
     // display array as table sorted by date if entries exist
     if (array[0] != null)
     {
-        document.getElementById("sortedActivities").style.display = "block";
-        var sortedTable = document.getElementById("sortedTable");
-        generateTable(sortedTable, array);
+        // only show the 10 latest activities
+        if (array.length > 10)
+        {
+            var activityArray = [];
+            for (i = 0; i < 10; i++)
+            {
+                activityArray[i] = array[i];
+            }
+
+            document.getElementById("sortedActivities").style.display = "block";
+            var sortedTable = document.getElementById("sortedTable");
+            generateTable(sortedTable, activityArray);
+        }
+        else
+        {
+            document.getElementById("sortedActivities").style.display = "block";
+            var sortedTable = document.getElementById("sortedTable");
+            generateTable(sortedTable, array);
+        }
     }
 }
 
