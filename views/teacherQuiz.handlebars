@@ -55,19 +55,21 @@
                                 <th style="border:unset;" colspan="4" align = "left"><h3>Quiz Name</h3></th>
                                 <th style="border:unset;" colspan="4"><h3>Number of Questions</h3></th>
                                 <th style="border:unset;" colspan="4"><h3>Number Taken</h3></th>
+                                <th style="border:unset;" colspan="4"><h3>Published</h3></th>
                                 <th style="border:unset;" colspan="3"><h3>Action</h3></th>
                             </thead>
                             <tbody>
                                 {{#each quiz}}
                                         <tr>
-                                            <td style="border:unset;" colspan="2">{{id}}</td>
+                                            <td style="border:unset;" colspan="2">{{calcCode published id}}</td>
                                             <td style="border:unset;" colspan="4">{{name}}</td>
                                             <td style="border:unset;" colspan="4">{{numQuestion}}</td>
-                                            <td style="border:unset;" class = "cannot_change" colspan="4">{{num_taken}}</td>
-                                            {{#showResult num_taken}}
+                                            <td style="border:unset;" colspan="4">{{num_taken}}</td>
+                                            <td style="border:unset;" colspan="4">{{published}}</td>
+                                            {{#showResult published}}
                                             <td style="border:unset;"><button class="btn btn-primary btn-sm" onclick="fetchResults({{id}},'{{name}}')">Results</button></td>
                                             {{/showResult}}
-                                            {{#editdel num_taken}}
+                                            {{#editdel published}}
                                             <td style="border:unset;"><button class="btn btn-primary btn-sm" style="background-color:rgba(45,226,84, 0.75);" onclick = "">Publish</button></td>
                                             <td style="border:unset;"><button class="btn btn-primary btn-sm" onclick = "window.location.href = '/teacherQuiz/{{id}}';">Edit</button></td>
                                             <td style="border:unset;"><button class="btn btn-primary btn-sm" style="background-color: rgba(255, 0, 0, 0.75);" onclick = "deleteQuiz({{id}})">Delete</button></td>

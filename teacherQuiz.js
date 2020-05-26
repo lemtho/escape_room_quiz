@@ -7,7 +7,7 @@ module.exports = function()
 	
 	// Function to pull all quizzes under a teacher
 	function getQuiz(res, mysql, context, id, complete){
-        var sql = 'SELECT q.quizID AS id, q.name AS name, IFNULL(q.numQuestion, 0) AS numQuestion, IFNULL(num_taken, 0) AS num_taken FROM quiz AS q LEFT JOIN (SELECT quizID, count(distinct quizID, studentID) AS num_taken FROM student_question GROUP BY quizID) stu_num USING (quizID) WHERE teacherID = ?';
+        var sql = 'SELECT q.quizID AS id, q.name AS name, IFNULL(q.numQuestion, 0) AS numQuestion, IFNULL(num_taken, 0) AS num_taken, q.published FROM quiz AS q LEFT JOIN (SELECT quizID, count(distinct quizID, studentID) AS num_taken FROM student_question GROUP BY quizID) stu_num USING (quizID) WHERE teacherID = ?';
         var insert = [id];
         sql = mysql.pool.query(sql, insert, function(error, results, fields){
             if(error){
@@ -46,7 +46,7 @@ module.exports = function()
                 res.write(JSON.stringify(error));
                 res.end();
             }
-            console.log(results);
+            
             context.name = results[0].name;
             complete(); 
         });
@@ -107,7 +107,6 @@ module.exports = function()
     router.get('/:id', function(req, res){
         if(req.session.teacherID)
         {
-            console.log("id" + req.params.id);
             var callbackCount = 0;
             var context = {};
             context.jsscripts = ["editQuizPage.js"];
@@ -163,7 +162,7 @@ module.exports = function()
         var mysql = req.app.get('mysql');
         var sql = 'UPDATE quiz SET name = ? WHERE quizID = ?';
         var inserts = [req.body.quizName, req.params.id];
-        console.log("name in body" + req.body.quizName);
+        
         sql = mysql.pool.query(sql, inserts, function(error, results){
             if(error){
                 console.log(error);
