@@ -49,6 +49,9 @@
                 <div class="container" style="text-align:center;">
                     <div> 
                     {{#if quiz}}
+                    <span style="font-weight: bold; color: black; text-align: center">
+                        Please note that a quiz must have a minimum of 10 questions. When you are ready to publish the quiz, click on "Publish" button and a quiz code will be generated for you to distribute to your students. Once a quiz is published, that quiz cannot be modified.                    <br>
+                    <br>
                         <table class = "table table-dark" style="background-color:rgba(90, 0, 179, 0.5); color:black;">
                             <thead>
                                 <th style="border:unset;" colspan="2" align="left"><h3>Quiz Code</h3></th>
@@ -79,7 +82,7 @@
                             </tbody>
                         </table>
                     {{else}}
-                        <h4><span style ="font-weight: normal; text-align: center">You don't have any quiz. Click on "Create New Quiz" to get started.</span></h4>
+                        <span style ="font-weight: bold; color:black; text-align: center">You don't have any quiz. Click on "Create New Quiz" to get started.</span>
                     {{/if}}
                         <br>
                         <button onclick = "window.location.href = '/teacherQuiz/createQuiz';" class="btn btn-primary btn-sm" style="font-weight: bold;">Create New Quiz</button>

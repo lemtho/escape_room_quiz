@@ -48,14 +48,11 @@
             <div class="single_slider slider_bg_1" style="min-height:100vh; height:max-content; padding-top:5%; padding-bottom:5%;">
                 <div class="container" style="text-align:left;">
                     <p id="quizID" style="display: none;">{{quizID}}</p>
-                    <span style="font-weight: bold; color: black;">Please click on the "Update" button on each question or quiz name that was modified.</span>
-                    <br>
-                    <br>
-                    <br>
                     <div>
                         <table class = "spacing">
                             <tbody>
-                                {{#if question}}
+                                <span style="font-weight: bold; color: black;">Please click on the "Update" button on each question or quiz name that was modified.</span>
+                                <tr></tr>
                                 <tr>
                                     <td>
                                         <form id = "edit_quizname" action = "/teacherQuiz/{{quizID}}" method = "patch">
@@ -64,12 +61,13 @@
                                         </form>
                                     </td>
                                 </tr>
+                                    {{#if question}}
                                     <tr></tr>
                                     {{#each question}}   
                                         <tr>
                                             <td>
                                                 <form id = "edit_question{{questionID}}" action = "/teacherQuiz/Quiz/" method = "put"><br>
-                                                    <span style="font-weight:bold;">Q{{inc @index "qNum"}}. </span><input type = "text" name = "question" size="40" value = "{{question}}">
+                                                    <span style="font-weight:bold;">Q{{inc @index "qNum"}}. </span><input type = "text" name = "question" size="50" value = "{{question}}">
                                                     <span style="font-weight:bold;">Answer: </span><input type = "text" name = "answer" value = "{{answer}}"><br><br>
                                                     {{#showChoices type}}
                                                         <span style="font-weight:bold;">Incorrect Answer(s): </span><input type = "text" name = "choiceA" value = "{{choiceA}}">
@@ -92,7 +90,8 @@
                                         </td>
                                     {{/each}}
                                 {{else}}
-                                    <tr id = "noQuestion"><td colspan = "20"><h4><span style ="font-weight: normal; text-align: center">The quiz has no questions. Click on "Add Question" to get started.</span></h4></td></tr>
+                                    <tr></tr>
+                                    <tr id = "noQuestion"><td colspan = "20"><span style ="font-weight: bold; color:black">The quiz has no questions. Click on "Add Question" to get started.</span></td></tr>
                                 {{/if}}
                                 <tr>
                                     <td>
@@ -104,7 +103,7 @@
                                                 {{else}}
                                                     <span style="font-weight: bold;">Q1.</span>
                                                 {{/if}}
-                                                <input type = "text" name = "newWording" size="40" placeholder = "Enter your question here...">
+                                                <input type = "text" name = "newWording" size="50" placeholder = "Enter your question here...">
                                                 <span style="font-weight:bold;">Type: </span><input type = "radio" id = "SAType" name = "newType" onclick="showQuestion(0)"value ="SA"> Short Answer
                                                         <input type = "radio" id = "TFType" name = "newType" onclick="showQuestion(1)" value ="TF"> True/False
                                                         <input type = "radio" id = "MCType" name = "newType" onclick="showQuestion(2)" value = "MC"> Multiple Choice<br><br>
@@ -130,6 +129,7 @@
                                         </form>
                                     </td>
                                 </tr>
+                                <tr></tr>
                                 <tr><td><button class="btn btn-primary btn-sm" id = "newQuestion">Add New Question</button></td></tr>
                                 <tr></tr>
                                 <tr><td><button onclick = "window.location.href = '/teacherQuiz';" class="btn btn-primary btn-sm" style="background-color:rgba(45,226,84, 0.75);">Done</button>
@@ -184,5 +184,3 @@
 
         <!-- Front-end JS scripts here -->
         <script src="frontendJS/editQuizPage.js"></script>
-
-        <!-- Testing! -->
