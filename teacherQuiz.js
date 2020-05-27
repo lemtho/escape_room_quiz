@@ -138,9 +138,8 @@ module.exports = function()
         var inserts = [req.body.quizName, teacherID, curTime];
         sql = mysql.pool.query(sql, inserts, function(error, results, fields){
             if(error){
-                console.log(error);
-                res.write(JSON.stringify(error));
-                res.end();
+                // console.log(error);
+                res.status(400).send("Error! The name of the quiz you wanted to update already exists. Please update quiz with another name."); 
 			}
 			else{
                 var context = {};
@@ -158,20 +157,19 @@ module.exports = function()
     });
 
     // Update quiz name in edit quiz page
-    router.patch("/Quiz/:id", function(req, res){
+    router.post("/Quiz/:id", function(req, res){
         var mysql = req.app.get('mysql');
         var sql = 'UPDATE quiz SET name = ? WHERE quizID = ?';
-        var inserts = [req.body.quizName, req.params.id];
+        var inserts = [req.body.quizName, req.body.quizID];
         
         sql = mysql.pool.query(sql, inserts, function(error, results){
             if(error){
-                console.log(error);
-                res.write(JSON.stringify(error));
-                res.end(); 
+                // console.log(error);
+                res.status(400).send("Error! The name of the quiz you wanted to update already exists. Please update quiz with another name."); 
             }
             else{
-                    console.log("success");
-                    res.end();
+                    // console.log("success");
+                    res.redirect('/teacherQuiz/' + req.body.quizID);
             }
         });
     });

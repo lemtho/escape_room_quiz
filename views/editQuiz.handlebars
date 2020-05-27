@@ -55,9 +55,9 @@
                                 <tr></tr>
                                 <tr>
                                     <td>
-                                        <form id = "edit_quizname" action = "/teacherQuiz/{{quizID}}" method = "patch">
-                                            <span style="font-weight:bold;"><i>Quiz Name: </i></span><input type = "text" name = "quizName" value = "{{name}}">
-                                            <button onclick = "updateName({{quizID}})" class="btn btn-primary btn-sm">Update</button>
+                                        <form id = "edit_quizname" action = "/teacherQuiz/{{quizID}}">
+                                            <span style="font-weight:bold;"><i>Quiz Name: </i></span><input id="quizNameID" type = "text" name = "quizName" value = "{{name}}">
+                                            <button id="updateQuizNameButton" class="btn btn-primary btn-sm">Update</button>
                                         </form>
                                     </td>
                                 </tr>
