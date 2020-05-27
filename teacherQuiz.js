@@ -157,7 +157,7 @@ module.exports = function()
     });
 
     // Update quiz name in edit quiz page
-    router.post("/Quiz/:id", function(req, res){
+    router.post("/Quiz/updateName/:id", function(req, res){
         var mysql = req.app.get('mysql');
         var sql = 'UPDATE quiz SET name = ? WHERE quizID = ?';
         var inserts = [req.body.quizName, req.body.quizID];

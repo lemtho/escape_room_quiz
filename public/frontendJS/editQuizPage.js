@@ -29,7 +29,7 @@ document.getElementById("updateQuizNameButton").addEventListener("click", functi
     var req = new XMLHttpRequest();
 
     // Define the URL to send data to.
-    var url = "/teacherQuiz/Quiz/" + quizID;
+    var url = "/teacherQuiz/Quiz/updateName/" + quizID;
 
     // Open a connection.
     req.open("POST", url, true);
