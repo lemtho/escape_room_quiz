@@ -117,6 +117,7 @@ module.exports = function()
             function complete(){
                 callbackCount++;
                 if(callbackCount >= 2){
+                    context.title = "Edit Quiz"
                     res.render('editQuiz', context);
                 }
             }
