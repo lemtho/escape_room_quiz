@@ -218,7 +218,16 @@ module.exports = function()
         else if(req.body.type == 'TF')
         {
             var sql = 'UPDATE question SET question = ?, answer = ?, choiceA = ? WHERE questionID = ?';
-            var inserts = [req.body.question, req.body.answer, req.body.choiceA, req.params.id];
+            if(req.body.answer == 'True')
+            {
+                var TFchoiceA = 'False';
+            }
+            else
+            {
+                var TFchoiceA = 'True';
+            }
+
+            var inserts = [req.body.question, req.body.answer, TFchoiceA, req.params.id];
         }
         else if(req.body.type == 'MC')
         {

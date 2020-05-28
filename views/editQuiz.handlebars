@@ -68,14 +68,24 @@
                                             <td>
                                                 <form id = "edit_question{{questionID}}" action = "/teacherQuiz/Quiz/" method = "put"><br>
                                                     <span style="font-weight:bold;">Q{{inc @index "qNum"}}. </span><input type = "text" name = "question" size="50" value = "{{question}}">
-                                                    <span style="font-weight:bold;">Answer: </span><input type = "text" name = "answer" value = "{{answer}}"><br><br>
                                                     {{#showChoices type}}
-                                                        <span style="font-weight:bold;">Incorrect Answer(s): </span><input type = "text" name = "choiceA" value = "{{choiceA}}">
+                                                    <span style="font-weight:bold;">Answer: </span><input type = "text" name = "answer" value = "{{answer}}"><br><br>
                                                     {{#showMCChoices type}}
+                                                        <span style="font-weight:bold;">Incorrect Answer(s): </span><input type = "text" name = "choiceA" value = "{{choiceA}}">
                                                         <span style="font-weight:bold;">                     </span><input type = "text" name = "choiceB" value = "{{choiceB}}">
                                                         <span style="font-weight:bold;">                     </span><input type = "text" name = "choiceC" value = "{{choiceC}}">
                                                     {{/showMCChoices}}
                                                     {{/showChoices}}
+                                                    {{#showTFAnswer type}}
+                                                        {{#checkTAnswer answer}}
+                                                        <span style="font-weight:bold;">Answer: </span><input type = "radio" id= "QTAnswer" name = "answer" value = "True" checked> True</label>
+                                                                    <input type = "radio" id= "QFAnswer" name = "answer" value = "False"> False<br><br>
+                                                        {{/checkTAnswer}}
+                                                        {{#checkFAnswer answer}}
+                                                        <span style="font-weight:bold;">Answer: </span><input type = "radio" id= "QTAnswer" name = "answer" value = "True"> True</label>
+                                                                    <input type = "radio" id= "QFAnswer" name = "answer" value = "False" checked> False<br><br>            
+                                                        {{/checkFAnswer}}
+                                                    {{/showTFAnswer}}
                                                     <div id = "question type" style ="display: none;">
                                                         </b><input type = "text" name = "type" value = "{{type}}">
                                                     </div>

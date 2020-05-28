@@ -46,10 +46,10 @@ function hbsHelpers(handlebars){
                 return parseInt(index) + 1; 
             },
 
-            // Display when type is either multiple choice or T/F
+            // Display when type is either multiple choice or short answer
             showChoices: function(type, options)
             {
-                if(type == 'MC' || type == 'TF')
+                if(type == 'MC' || type == 'SA')
                 {
                     return options.fn(this);
                 }
@@ -59,6 +59,33 @@ function hbsHelpers(handlebars){
             showMCChoices: function(type, options)
             {
                 if(type == 'MC')
+                {
+                    return options.fn(this);
+                }
+            },
+
+            // Display T/F radio buttons when type is TF
+            showTFAnswer: function(type, options)
+            {
+                if(type == 'TF')
+                {
+                    return options.fn(this);
+                }
+            },
+
+            // Display checked True radio button if TF answer is True
+            checkTAnswer: function(answer, options)
+            {
+                if(answer == 'True')
+                {
+                    return options.fn(this);
+                }
+            },
+            
+            // Display checked False radio button if TF answer is False
+            checkFAnswer: function(answer, options)
+            {
+                if(answer == 'False')
                 {
                     return options.fn(this);
                 }
