@@ -155,24 +155,33 @@ document.getElementById("createAccountButton").addEventListener("click", functio
     email = document.getElementById("accountEmail").value;
     password = document.getElementById("accountPassword").value;
     
-    // Get userType from user selection.
-    if (document.getElementById("ALogin").checked)
+    // Check that email is properly formatted
+    var validEmail = validateEmail(email);
+    if (validEmail)
     {
-        accountType = "S";
+        // Get userType from user selection.
+        if (document.getElementById("ALogin").checked)
+        {
+            accountType = "S";
+        }
+        
+        else
+        {
+            accountType = "T";
+        }
+        
+        // Convert JSON data to string.
+        var data = JSON.stringify({"firstName": firstName, "lastName": lastName, "email": email, "password": password, "userType": accountType});
+
+        // Send data with the request.
+        req.send(data);
+
+        createAccount.preventDefault();
     }
-    
     else
     {
-        accountType = "T";
+        alert("You have entered an invalid email address!");
     }
-    
-    // Convert JSON data to string.
-    var data = JSON.stringify({"firstName": firstName, "lastName": lastName, "email": email, "password": password, "userType": accountType});
-
-    // Send data with the request.
-    req.send(data);
-
-    createAccount.preventDefault();
 });
 
 /* Function definition that displays the span element that consists of the password restrictions 
@@ -181,3 +190,14 @@ function displayPasswordRule()
 {
     document.getElementById("passwordRule").style.display = "block";
 };
+
+// code source from: https://www.w3resource.com/javascript/form/email-validation.php
+// checks that email is in proper format.
+function validateEmail(email) 
+{
+    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email))
+    {
+        return (true);
+    }
+    return (false);
+}
