@@ -182,7 +182,7 @@ module.exports = function()
 				else
 				{
 					// Check for valid password. IF password is valid...
-					if (password.length <= 12 & password.search(" ") == -1)
+					if (password.length >= 8 & password.length <= 12 & password.search(" ") == -1)
 					{
 						// Add teacher account information in database.
 						mysql.pool.query("INSERT INTO `teacher` (`firstName`, `lastName`, `email`, `password`, `userType`) VALUES (?, ?, ?, ?, ?);", [firstName, lastName, email, password, accountType], function(err, results, fields)
@@ -209,7 +209,7 @@ module.exports = function()
 					else
 					{
 						// Send a HTTP 400 status code and error message to client.
-						res.status(400).send("The password you entered is invalid. Please enter a different password up to 12 characters and with no spaces.");
+						res.status(400).send("The password you entered is invalid. Please enter a different password between 8 and 12 characters and with no spaces.");
 					}
 				}
 			});
