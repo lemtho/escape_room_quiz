@@ -132,7 +132,7 @@ module.exports = function()
 				else
 				{
 					// Check for valid password. IF password is valid...
-					if (password.length <= 12 & password.search(" ") == -1)
+					if (password.length >= 8 & password.length <= 12 & password.search(" ") == -1)
 					{
 						// Add student account information in database.
 						mysql.pool.query("INSERT INTO `student` (`firstName`, `lastName`, `email`, `password`, `userType`) VALUES (?, ?, ?, ?, ?);", [firstName, lastName, email, password, accountType], function(err, results, fields)
@@ -205,7 +205,7 @@ module.exports = function()
 						});
 					}
 
-					// ELSE, password is invali d...
+					// ELSE, password is invalid...
 					else
 					{
 						// Send a HTTP 400 status code and error message to client.

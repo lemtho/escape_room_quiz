@@ -30,8 +30,8 @@ function updatePassword(){
     if (document.getElementById('newPassword').value != document.getElementById('confirmPassword').value) {
         alert('Password does not match! Please reenter.');
     }
-    else if (document.getElementById('newPassword').value.length > 12 | document.getElementById('newPassword').value.search(" ") != -1) {
-        alert("The password you entered is invalid. Please enter a different password up to 12 characters and with no spaces.");
+    else if (document.getElementById('newPassword').value.length < 8 | document.getElementById('newPassword').value.length > 12 | document.getElementById('newPassword').value.search(" ") != -1) {
+        alert("The password you entered is invalid. Please enter a different password with 8 to 12 characters in length and with no spaces.");
     }
     else {
         $.ajax({
