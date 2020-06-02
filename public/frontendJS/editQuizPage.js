@@ -25,44 +25,52 @@ document.getElementById("updateQuizNameButton").addEventListener("click", functi
     quizID = document.getElementById("quizID").textContent;
     quizName = document.getElementById("quizNameID").value;
 
-    // Create a XMLHttpRequest object.
-    var req = new XMLHttpRequest();
-
-    // Define the URL to send data to.
-    var url = "/teacherQuiz/Quiz/updateName/" + quizID;
-
-    // Open a connection.
-    req.open("POST", url, true);
-
-    // Set the request header.
-    req.setRequestHeader('Content-Type', 'application/json');
-
-    // Create a state change callback.
-    req.onreadystatechange = function()
+    if (quizName == "")
     {
-        // TEST: Output response from server.
-        // console.log(req);
-        
-        /* IF response from server is good and the response has completed, 
-        redirect user to the responseURL site. (i.e., teacher edit quiz page). */
-        if (req.readyState == 4 & req.status == 200)
-        {
-            window.location = req.responseURL;
-        }
-
-        /* IF response from server is bad request, alert user with the message
-        (i.e., responseText) server sent. */
-        else if (req.readyState == 4 & req.status == 400)
-        {
-            alert(req.responseText);
-        }
+        alert("Error! Quiz name field cannot be empty.");
+        window.location.reload();
     }
+    else
+    {
+        // Create a XMLHttpRequest object.
+        var req = new XMLHttpRequest();
 
-    // Convert JSON data to string.
-    var data = JSON.stringify({"quizID": quizID, "quizName": quizName});
+        // Define the URL to send data to.
+        var url = "/teacherQuiz/Quiz/updateName/" + quizID;
 
-    // Send data with the request.
-    req.send(data);
+        // Open a connection.
+        req.open("POST", url, true);
+
+        // Set the request header.
+        req.setRequestHeader('Content-Type', 'application/json');
+
+        // Create a state change callback.
+        req.onreadystatechange = function()
+        {
+            // TEST: Output response from server.
+            // console.log(req);
+            
+            /* IF response from server is good and the response has completed, 
+            redirect user to the responseURL site. (i.e., teacher edit quiz page). */
+            if (req.readyState == 4 & req.status == 200)
+            {
+                window.location = req.responseURL;
+            }
+
+            /* IF response from server is bad request, alert user with the message
+            (i.e., responseText) server sent. */
+            else if (req.readyState == 4 & req.status == 400)
+            {
+                alert(req.responseText);
+            }
+        }
+
+        // Convert JSON data to string.
+        var data = JSON.stringify({"quizID": quizID, "quizName": quizName});
+
+        // Send data with the request.
+        req.send(data);
+    }
 
     updateQuizName.preventDefault();
 });
