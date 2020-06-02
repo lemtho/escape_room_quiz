@@ -45,11 +45,18 @@ document.getElementById("nextButton").addEventListener("click", function(checkQu
         }
     }
 
-    // Convert JSON data to string.
-    var data = JSON.stringify({"quizName": quizName});
+    if (quizName == "")
+    {
+        alert("Error! Quiz name cannot be empty.");
+    }
+    else
+    {
+        // Convert JSON data to string.
+        var data = JSON.stringify({"quizName": quizName});
 
-    // Send data with the request.
-    req.send(data);
+        // Send data with the request.
+        req.send(data);
+    }
 
     checkQuizName.preventDefault();
 });
