@@ -129,14 +129,27 @@ function selectAnswer(x){
 
 function updateQuestion(id){
     var form =$('#' + 'edit_question' + id);
-    $.ajax({
-        url: '/teacherQuiz/Quiz/' + id,
-        type: 'PUT',
-        data: $(form).serialize(),
-        success: function(result){
-            window.location.reload();
-        }
-    });
+    var data = JSON.parse(JSON.stringify($(form).serializeArray()));
+
+    var valid = validateInput(data);
+    
+    if (!valid)
+    {
+        window.location.reload();
+    }
+
+    // update the question
+    else
+    {
+        $.ajax({
+            url: '/teacherQuiz/Quiz/' + id,
+            type: 'PUT',
+            data: $(form).serialize(),
+            success: function(result){
+                window.location.reload();
+            }
+        });
+    }
 };
 
 function deleteQuestion(id){
@@ -148,3 +161,55 @@ function deleteQuestion(id){
         }
     });
 };
+
+function validateInput(data)
+{
+    var valid = true;
+
+    // Validate question field is not empty
+    if (data[0].value == "")
+    {
+        alert("Error! Question field cannot be empty.");
+        valid = false;
+    }
+
+    // if 2 is type, then question is short answer
+    else if (data[2].name == 'type')
+    {
+        if (data[1].value == "")
+        {
+            alert("Error! Answer field cannot be empty.");
+            valid = false;
+        }
+    }
+
+    // Validate multiple choice input fields are not empty
+    else if (data[5].value == 'MC')
+    {
+        if (data[1].value == "")
+        {
+            alert("Error! Answer field cannot be empty.");
+            valid = false;
+        }
+
+        else if (data[2].value == "")
+        {
+            alert("Error! Incorrect answer field cannot be empty.");
+            valid = false;
+        }
+
+        else if (data[3].value == "")
+        {
+            alert("Error! Incorrect answer field cannot be empty.");
+            valid = false;
+        }
+
+        else if (data[4].value == "")
+        {
+            alert("Error! Incorrect answer field cannot be empty.");
+            valid = false;
+        }
+    }
+
+    return valid;
+}

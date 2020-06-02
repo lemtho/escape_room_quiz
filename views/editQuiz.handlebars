@@ -56,7 +56,7 @@
                                 <tr>
                                     <td>
                                         <form id = "edit_quizname" action = "/teacherQuiz/{{quizID}}">
-                                            <span style="font-weight:bold;"><i>Quiz Name: </i></span><input id="quizNameID" type = "text" name = "quizName" value = "{{name}}">
+                                            <span style="font-weight:bold;"><i>Quiz Name: </i></span><input id="quizNameID" type = "text" name = "quizName" value = "{{name}}" size="50">
                                             <button id="updateQuizNameButton" class="btn btn-primary btn-sm">Update</button>
                                         </form>
                                     </td>
@@ -67,13 +67,13 @@
                                         <tr>
                                             <td>
                                                 <form id = "edit_question{{questionID}}" action = "/teacherQuiz/Quiz/" method = "put"><br>
-                                                    <span style="font-weight:bold;">Q{{inc @index "qNum"}}. </span><input type = "text" name = "question" size="50" value = "{{question}}">
+                                                    <span style="font-weight:bold;">Q{{inc @index "qNum"}}. </span><input type = "text" name = "question" size="75" value = "{{question}}" maxlength="128">
                                                     {{#showChoices type}}
-                                                    <span style="font-weight:bold;">Answer: </span><input type = "text" name = "answer" value = "{{answer}}"><br><br>
+                                                    <span style="font-weight:bold;">Answer: </span><input type = "text" name = "answer" value = "{{answer}}" size="30" maxlength="80"><br><br>
                                                     {{#showMCChoices type}}
-                                                        <span style="font-weight:bold;">Incorrect Answer(s): </span><input type = "text" name = "choiceA" value = "{{choiceA}}">
-                                                        <span style="font-weight:bold;">                     </span><input type = "text" name = "choiceB" value = "{{choiceB}}">
-                                                        <span style="font-weight:bold;">                     </span><input type = "text" name = "choiceC" value = "{{choiceC}}">
+                                                        <span style="font-weight:bold;">Incorrect Answers: </span><input type = "text" name = "choiceA" value = "{{choiceA}}" size="30" maxlength="80">
+                                                        <span style="font-weight:bold;">                     </span><input type = "text" name = "choiceB" value = "{{choiceB}}" size="30" maxlength="80">
+                                                        <span style="font-weight:bold;">                     </span><input type = "text" name = "choiceC" value = "{{choiceC}}" size="30" maxlength="80">
                                                     {{/showMCChoices}}
                                                     {{/showChoices}}
                                                     {{#showTFAnswer type}}
@@ -113,12 +113,12 @@
                                                 {{else}}
                                                     <span style="font-weight: bold;">Q1.</span>
                                                 {{/if}}
-                                                <input type = "text" name = "newWording" size="50" placeholder = "Enter your question here..." required>
+                                                <input type = "text" name = "newWording" size="67" maxlength="128" placeholder = "Enter your question here..." required>
                                                 <span style="font-weight:bold;">Type: </span><input type = "radio" id = "SAType" name = "newType" onclick="showQuestion(0)"value ="SA"> Short Answer
                                                         <input type = "radio" id = "TFType" name = "newType" onclick="showQuestion(1)" value ="TF"> True/False
                                                         <input type = "radio" id = "MCType" name = "newType" onclick="showQuestion(2)" value = "MC"> Multiple Choice<br><br>
                                                 <div id = "SAQuestion">
-                                                    <span style="font-weight:bold;">Answer: </span><input type ="text" name = "SAAnswer" placeholder ="Enter the answer here..." required><br><br>
+                                                    <span style="font-weight:bold;">Answer: </span><input type ="text" name = "SAAnswer" placeholder ="Enter the answer here..." maxlength="80" required><br><br>
                                                     <input type="submit" class="btn btn-primary btn-sm">
                                                 </div>            
                                                 <div id = "TFQuestion">
@@ -129,10 +129,10 @@
                                                     <input type="submit" class="btn btn-primary btn-sm"> 
                                                 </div>
                                                 <div id = "MCQuestion">
-                                                    <span style="font-weight: bold;">Answer: </span><input type ="text" name = "MCAnswer" placeholder ="Enter the answer here..." required><br><br>
-                                                    <span style="font-weight: bold;">Wrong Answers: </span><input type ="text" name = "MCChoiceA" placeholder ="Enter the 1st wrong choice here..." required>
-                                                                            <input type ="text" name = "MCChoiceB" placeholder ="Enter the 2nd wrong choice here..." required>
-                                                                            <input type ="text" name = "MCChoiceC" placeholder ="Enter the 3rd wrong choice here..." required><br><br>
+                                                    <span style="font-weight: bold;">Answer: </span><input type ="text" name = "MCAnswer" placeholder ="Enter the answer here..." maxlength="80" required><br><br>
+                                                    <span style="font-weight: bold;">Incorrect Answers: </span><input type ="text" name = "MCChoiceA" placeholder ="Enter the 1st wrong choice here..." maxlength="80" required>
+                                                                            <input type ="text" name = "MCChoiceB" placeholder ="Enter the 2nd wrong choice here..." maxlength="80" required>
+                                                                            <input type ="text" name = "MCChoiceC" placeholder ="Enter the 3rd wrong choice here..." maxlength="80" required><br><br>
                                                     <input type="submit" class="btn btn-primary btn-sm"> 
                                                 </div>
                                             </div>
