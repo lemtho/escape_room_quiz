@@ -58,11 +58,12 @@
                         <!--The following form element has been exercpted and modified from https://getbootstrap.com/docs/4.0/components/forms/ -->
                         <form class="form-inline" style="display:inline-flex;">
                             <div class="form-group mx-sm-3 mb-2">
-                                <input type="text" class="form-control" style="width:200px; height:75px" id="quizID" name="quizID" placeholder="Enter quiz code">
+                                <input type="text" class="form-control" style="width:200px; height:75px" id="quizID" name="quizID" placeholder="Enter quiz code" onclick="displayRule()">
                             </div>
                             <button class="btn btn-primary mb-2" style="width:100px; height:75px;" id="goButton">Go!</button>
                             </form>
                     </div>
+                    <span id="rule" style="color:rgb(139, 0, 0); font-size:14px;">Warning: A quiz can only be attemped once. Please contact your teacher if you are having any issues.</span><br>
                 </div>
             </div>
         </div>

@@ -46,14 +46,21 @@ function updatePassword(){
 };
 
 function updateName(){
-    $.ajax({
-        url: '/teacherProfile/',
-        type: 'PUT',
-        data: $('#updateName').serialize(),
-        success: function(result){
-            window.location.reload();
-        }
-    })
+    if (document.getElementById('newFirst').value == "" | document.getElementById('newLast').value == "")
+    {
+        alert("Error! Name field cannot be empty.");
+    }
+    else
+    {
+        $.ajax({
+            url: '/teacherProfile/',
+            type: 'PUT',
+            data: $('#updateName').serialize(),
+            success: function(result){
+                window.location.reload();
+            }
+        })
+    }
 };
 
 /* Function definition that displays the span element that consists of the password restrictions 

@@ -1,3 +1,10 @@
+document.getElementById("rule").style.display = "none";
+
+function displayRule()
+{
+    document.getElementById("rule").style.display = "block";
+};
+
 // IF the "Go" button is clicked...
 document.getElementById("goButton").addEventListener("click", function(go)
 {	

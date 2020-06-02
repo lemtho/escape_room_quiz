@@ -16,14 +16,21 @@ document.getElementById("editNameButton").addEventListener("click", function(app
 });
 
 function updateName(){
-    $.ajax({
-        url: '/studentProfile/',
-        type: 'PUT',
-        data: $('#updateName').serialize(),
-        success: function(result){
-            window.location.reload();
-        }
-    })
+    if (document.getElementById('newFirst').value == "" | document.getElementById('newLast').value == "")
+    {
+        alert("Error! Name field cannot be empty.");
+    }
+    else
+    {
+        $.ajax({
+            url: '/studentProfile/',
+            type: 'PUT',
+            data: $('#updateName').serialize(),
+            success: function(result){
+                window.location.reload();
+            }
+        })
+    }
 };
 
 // change password button is clicked
