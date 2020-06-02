@@ -175,13 +175,13 @@ document.getElementById("createAccountButton").addEventListener("click", functio
 
         // Send data with the request.
         req.send(data);
-
-        createAccount.preventDefault();
     }
     else
     {
         alert("You have entered an invalid email address!");
     }
+
+    createAccount.preventDefault();
 });
 
 /* Function definition that displays the span element that consists of the password restrictions 
