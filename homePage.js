@@ -159,7 +159,7 @@ module.exports = function()
 					else
 					{
 						// Send a HTTP 400 status code and error message to client.
-						res.status(400).send("The password you entered is invalid. Please enter a different password up to 12 characters and with no spaces.");
+						res.status(400).send("The password you entered is invalid. Please enter a different password with 8 to 12 characters and with no spaces.");
 					}
 				}
 			});
@@ -209,7 +209,7 @@ module.exports = function()
 					else
 					{
 						// Send a HTTP 400 status code and error message to client.
-						res.status(400).send("The password you entered is invalid. Please enter a different password between 8 and 12 characters and with no spaces.");
+						res.status(400).send("The password you entered is invalid. Please enter a different password with 8 to 12 characters and with no spaces.");
 					}
 				}
 			});
