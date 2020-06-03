@@ -384,7 +384,6 @@ document.getElementById("searchQuizButton").addEventListener("click", function(a
 
     // Send data with the request.
     req.send(data);
-    window.location.reload();
 });
 
 // When the user clicks on the "Sort" button under "Quiz Name" radio selection...
@@ -556,7 +555,6 @@ document.getElementById("searchStudentButton").addEventListener("click", functio
 
     // Send data with the request.
     req.send(data);
-    window.location.reload();
 });
 
 // When the user clicks on the "Sort" button under "Student Name" radio selection...

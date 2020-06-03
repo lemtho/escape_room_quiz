@@ -113,27 +113,27 @@
                                                 {{else}}
                                                     <span style="font-weight: bold;">Q1.</span>
                                                 {{/if}}
-                                                <input type = "text" name = "newWording" size="67" maxlength="128" placeholder = "Enter your question here..." required>
+                                                <input type = "text" id="inputNewQuestion" name = "newWording" size="67" maxlength="128" placeholder = "Enter your question here...">
                                                 <span style="font-weight:bold;">Type: </span><input type = "radio" id = "SAType" name = "newType" onclick="showQuestion(0)"value ="SA"> Short Answer
                                                         <input type = "radio" id = "TFType" name = "newType" onclick="showQuestion(1)" value ="TF"> True/False
                                                         <input type = "radio" id = "MCType" name = "newType" onclick="showQuestion(2)" value = "MC"> Multiple Choice<br><br>
                                                 <div id = "SAQuestion">
-                                                    <span style="font-weight:bold;">Answer: </span><input type ="text" name = "SAAnswer" placeholder ="Enter the answer here..." maxlength="80" required><br><br>
-                                                    <input type="submit" class="btn btn-primary btn-sm">
+                                                    <span style="font-weight:bold;">Answer: </span><input type ="text" id="answerSA" name = "SAAnswer" placeholder ="Enter the answer here..." maxlength="80"><br><br>
+                                                    <input id="submitSA" type="submit" class="btn btn-primary btn-sm">
                                                 </div>            
                                                 <div id = "TFQuestion">
                                                     <span style="font-weight:bold;">Answer: </span><input type = "radio" id= "TAnswer" name = "TFAnswer" onclick="selectWrongAnswer(0)" value = "True"> True</label>
                                                                     <input type = "radio" id= "FAnswer" name = "TFAnswer" onclick="selectWrongAnswer(1)" value = "False"> False<br><br>
                                                     <span style="font-weight:bold; display:none">Wrong Answer: </span><input type = "radio" id= "TChoice" onclick="selectAnswer(0)" name = "TFChoiceA" value = "True" style="display:none"></label>
                                                                     <input type = "radio" id= "FChoice" onclick="selectAnswer(1)" name = "TFChoiceA" value = "False" style="display:none">
-                                                    <input type="submit" class="btn btn-primary btn-sm"> 
+                                                    <input id="submitTF" type="submit" class="btn btn-primary btn-sm"> 
                                                 </div>
                                                 <div id = "MCQuestion">
-                                                    <span style="font-weight: bold;">Answer: </span><input type ="text" name = "MCAnswer" placeholder ="Enter the answer here..." maxlength="80" required><br><br>
-                                                    <span style="font-weight: bold;">Incorrect Answers: </span><input type ="text" name = "MCChoiceA" placeholder ="Enter the 1st wrong choice here..." maxlength="80" required>
-                                                                            <input type ="text" name = "MCChoiceB" placeholder ="Enter the 2nd wrong choice here..." maxlength="80" required>
-                                                                            <input type ="text" name = "MCChoiceC" placeholder ="Enter the 3rd wrong choice here..." maxlength="80" required><br><br>
-                                                    <input type="submit" class="btn btn-primary btn-sm"> 
+                                                    <span style="font-weight: bold;">Answer: </span><input type ="text" id="answerMC" name = "MCAnswer" placeholder ="Enter the answer here..." maxlength="80"><br><br>
+                                                    <span style="font-weight: bold;">Incorrect Answers: </span><input type ="text" id="answerChoiceA" name = "MCChoiceA" placeholder ="Enter the 1st wrong choice here..." maxlength="80">
+                                                                            <input type ="text" id="answerChoiceB" name = "MCChoiceB" placeholder ="Enter the 2nd wrong choice here..." maxlength="80">
+                                                                            <input type ="text" id="answerChoiceC" name = "MCChoiceC" placeholder ="Enter the 3rd wrong choice here..." maxlength="80"><br><br>
+                                                    <input id="submitMC" type="submit" class="btn btn-primary btn-sm"> 
                                                 </div>
                                             </div>
                                         </form>

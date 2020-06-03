@@ -221,3 +221,61 @@ function validateInput(data)
 
     return valid;
 }
+
+// Validate that the question answer field are not empty when submitting a SA question
+document.getElementById("submitSA").addEventListener("click", function(submitSA)
+{
+    if (document.getElementById("inputNewQuestion").value == "")
+    {
+        alert("Error! Question field cannot be empty.");
+        submitSA.preventDefault();
+    }
+    else if (document.getElementById("answerSA").value == "")
+    {
+        alert("Error! Answer field cannot be empty.");
+        submitSA.preventDefault();
+    }
+});
+
+// Validate that the question field is not empty when submitting a TF question
+document.getElementById("submitTF").addEventListener("click", function(submitTF)
+{
+    if (document.getElementById("inputNewQuestion").value == "")
+    {
+        alert("Error! Question field cannot be empty.");
+        submitTF.preventDefault();
+    }
+});
+
+// Validate that the question, answer, and incorrect answer fields are not empty when submitting a MC question
+document.getElementById("submitMC").addEventListener("click", function(submitMC)
+{
+    if (document.getElementById("inputNewQuestion").value == "")
+    {
+        alert("Error! Question field cannot be empty.");
+        submitMC.preventDefault();
+    }
+    else if (document.getElementById("answerMC").value == "")
+    {
+        alert("Error! Answer field cannot be empty.");
+        submitMC.preventDefault();
+    }
+
+    else if (document.getElementById("answerChoiceA").value == "")
+    {
+        alert("Error! Incorrect answer field cannot be empty.");
+        submitMC.preventDefault();
+    }
+
+    else if (document.getElementById("answerChoiceB").value == "")
+    {
+        alert("Error! Incorrect answer field cannot be empty.");
+        submitMC.preventDefault();
+    }
+
+    else if (document.getElementById("answerChoiceC").value == "")
+    {
+        alert("Error! Incorrect answer field cannot be empty.");
+        submitMC.preventDefault();
+    }
+});
