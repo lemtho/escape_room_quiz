@@ -24,7 +24,7 @@ function updateName(){
     {
         $.ajax({
             url: '/studentProfile/',
-            type: 'PUT',
+            type: 'POST',
             data: $('#updateName').serialize(),
             success: function(result){
                 window.location.reload();

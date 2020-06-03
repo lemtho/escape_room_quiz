@@ -54,7 +54,7 @@ function updateName(){
     {
         $.ajax({
             url: '/teacherProfile/',
-            type: 'PUT',
+            type: 'POST',
             data: $('#updateName').serialize(),
             success: function(result){
                 window.location.reload();
