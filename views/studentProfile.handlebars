@@ -89,7 +89,7 @@
                     </div>
 
                     <div id="changePasswordForm">
-                            <form id = "updatePassword" action = "/studentProfile" method = "post">
+                            <form id = "updatePassword" action = "/studentProfile" method = "put">
                                 New Password: <input id="newPassword" onclick="displayPasswordRule()" type = "password" name = "newPassword" value = "{{password}}"><br>
                                 <span id="passwordRule" style="color:red; font-size:14px;">Password Restrictions: 8 to 12 characters with no spaces.</span><br>
                                 Confirm New Password: <input id="confirmPassword" type = "password" value=""><br><br>

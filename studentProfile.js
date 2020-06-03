@@ -40,7 +40,7 @@ module.exports = function()
 	});
 
 	// update student name
-    router.put('/', function(req, res){
+    router.post('/', function(req, res){
 		if (req.session.studentID) {
 			var studentID = req.session.studentID;
 			var mysql = req.app.get('mysql');

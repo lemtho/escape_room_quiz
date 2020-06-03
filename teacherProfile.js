@@ -41,7 +41,7 @@ module.exports = function()
 	});
 
 	// update teacher name
-    router.put('/', function(req, res){
+    router.post('/', function(req, res){
 		if (req.session.teacherID) {
 			var teacherID = req.session.teacherID;
 			var mysql = req.app.get('mysql');
@@ -67,6 +67,7 @@ module.exports = function()
 	// update teacher password
 	router.put('/', function(req, res){
 		if (req.session.teacherID) {
+			var teacherID = req.session.teacherID;
 			var mysql = req.app.get('mysql');
 			var sql = 'UPDATE teacher SET password = ? WHERE teacherID = ?';
 			var inserts = [req.body.newPassword, teacherID];
