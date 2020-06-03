@@ -54,9 +54,9 @@
                     </div>
                     <br>
                     <div class = "create_quiz">
-                        <form id = "new_quiz" action = "/teacherQuiz/Quiz" method = "post">
-                            <b>Quiz Name: </b><input type = "text" name = "quizName"><br><br>
-                            <input type = "submit" value="Next">
+                        <form id = "new_quiz">
+                            <span style="font-weight: bold;">Quiz Name: </span><input id="quizNameID" type = "text" name = "quizName" size="30" maxlength="80" required><br><br>
+                            <button id="nextButton" class="btn btn-primary btn-sm">Next</button>
                         </form>
                         
                         </div>
@@ -105,3 +105,6 @@
         <script src="js/gijgo.min.js"></script>
 
         <script src="js/main.js"></script>
+
+        <!-- Front-end JS scripts here -->
+        <script src="frontendJS/createQuizPage.js"></script>

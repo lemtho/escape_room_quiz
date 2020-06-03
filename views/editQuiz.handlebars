@@ -47,83 +47,105 @@
         <div class="slider_area" style="min-height:100vh;">
             <div class="single_slider slider_bg_1" style="min-height:100vh; height:max-content; padding-top:5%; padding-bottom:5%;">
                 <div class="container" style="text-align:left;">
-
-                    <div id="quizID" style="display: none;">
-                        {{quizID}}
-                    </div>
+                    <p id="quizID" style="display: none;">{{quizID}}</p>
                     <div>
-                        <!--<h1 style="color:white;">PUT STUFF HERE</h1>-->
                         <table class = "spacing">
                             <tbody>
-                                {{#if question}}
-                                {{#each question}}   
+                                <span style="font-weight: bold; color: black;">Please click on the "Update" button on each question or quiz name that was modified.</span>
+                                <tr></tr>
+                                <tr>
+                                    <td>
+                                        <form id = "edit_quizname">
+                                            <span style="font-weight:bold;"><i>Quiz Name: </i></span><input id="quizNameID" type = "text" name = "quizName" value = "{{name}}" size="50" maxlength="80">
+                                            <button id="updateQuizNameButton" class="btn btn-primary btn-sm">Update</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                    {{#if question}}
+                                    <tr></tr>
+                                    {{#each question}}   
                                         <tr>
                                             <td>
-                                                <form id = "edit_question{{questionID}}" action = "/teacherQuiz/Quiz/" method = "put">
-                                                <b>Q{{inc @index "qNum"}}. </b><input type = "text" name = "question" value = "{{question}}">
-                                                <b>Answer: </b><input type = "text" name = "answer" value = "{{answer}}"><br>
-                                                {{#showChoices type}}
-                                                <b>Incorrect Answer(s): </b><input type = "text" name = "choiceA" value = "{{choiceA}}">
-                                                {{#showMCChoices type}}
-                                                <b>                     </b><input type = "text" name = "choiceB" value = "{{choiceB}}">
-                                                <b>                     </b><input type = "text" name = "choiceC" value = "{{choiceC}}">
-                                                {{/showMCChoices}}
-                                                {{/showChoices}}
-                                                <div id = "question type" style ="display: none;">
-                                                    </b><input type = "text" name = "type" value = "{{type}}">
-                                                </div>
+                                                <form id = "edit_question{{questionID}}" action = "/teacherQuiz/Quiz/" method = "put"><br>
+                                                    <span style="font-weight:bold;">Q{{inc @index "qNum"}}. </span><input type = "text" name = "question" size="75" value = "{{question}}" maxlength="128">
+                                                    {{#showChoices type}}
+                                                    <span style="font-weight:bold;">Answer: </span><input type = "text" name = "answer" value = "{{answer}}" size="30" maxlength="80"><br><br>
+                                                    {{#showMCChoices type}}
+                                                        <span style="font-weight:bold;">Incorrect Answers: </span><input type = "text" name = "choiceA" value = "{{choiceA}}" size="30" maxlength="80">
+                                                        <span style="font-weight:bold;">                     </span><input type = "text" name = "choiceB" value = "{{choiceB}}" size="30" maxlength="80">
+                                                        <span style="font-weight:bold;">                     </span><input type = "text" name = "choiceC" value = "{{choiceC}}" size="30" maxlength="80">
+                                                    {{/showMCChoices}}
+                                                    {{/showChoices}}
+                                                    {{#showTFAnswer type}}
+                                                        {{#checkTAnswer answer}}
+                                                        <span style="font-weight:bold;">Answer: </span><input type = "radio" id= "QTAnswer" name = "answer" value = "True" checked> True</label>
+                                                                    <input type = "radio" id= "QFAnswer" name = "answer" value = "False"> False<br><br>
+                                                        {{/checkTAnswer}}
+                                                        {{#checkFAnswer answer}}
+                                                        <span style="font-weight:bold;">Answer: </span><input type = "radio" id= "QTAnswer" name = "answer" value = "True"> True</label>
+                                                                    <input type = "radio" id= "QFAnswer" name = "answer" value = "False" checked> False<br><br>            
+                                                        {{/checkFAnswer}}
+                                                    {{/showTFAnswer}}
+                                                    <div id = "question type" style ="display: none;">
+                                                        </b><input type = "text" name = "type" value = "{{type}}">
+                                                    </div>
                                                 </form>       
-                                            </td>
-                                            <td><button onclick = "updateQuestion({{questionID}})" class = "edit">Update</button></td>
-                                            <td><button onclick = "deleteQuestion({{questionID}})" class = "delete">Delete</button></td>                                        
+                                            </td>                                       
                                         </tr>
-                                {{/each}}
-                                {{else}}
-                                    <tr id = "noQuestion"><td colspan = "20"><h4><span style ="font-weight: normal; text-align: center">The quiz has no questions. Click on "Add Question" to get started.</span></h4></td></tr>
-                                {{/if}}
-                                    <tr>
                                         <td>
-                                            <form id = "new_question" action = "/teacherQuiz/Quiz/{{quizID}}" method = "post" style="text-align: left;">
+                                            <div>
+                                                <button onclick = "updateQuestion({{questionID}})" class="btn btn-primary btn-sm">Update</button>
+                                                <button onclick = "deleteQuestion({{questionID}})" class="btn btn-primary btn-sm" style="background-color: rgba(255, 0, 0, 0.75);">Delete</button>
+                                            </div>
+                                        </td>
+                                    {{/each}}
+                                {{else}}
+                                    <tr></tr>
+                                    <tr id = "noQuestion"><td colspan = "20"><span style ="font-weight: bold; color:black">The quiz has no questions. Click on "Add Question" to get started.</span></td></tr>
+                                {{/if}}
+                                <tr>
+                                    <td>
+                                        <form id = "new_question" action = "/teacherQuiz/Quiz/{{quizID}}" method = "post" style="text-align: left;">
                                             <div id = "add_Question">
+                                                <br>
                                                 {{#if qNum}}
-                                                <b>Q{{qNum}}.</b>
+                                                    <span style="font-weight: bold;">Q{{qNum}}.</span>
                                                 {{else}}
-                                                <b>Q1.</b>
+                                                    <span style="font-weight: bold;">Q1.</span>
                                                 {{/if}}
-                                                <input type = "text" name = "newWording" placeholder = "Enter your question here..."><br>
-                                                <b>Type: </b><input type = "radio" id = "SAType" name = "newType" onclick="showQuestion(0)"value ="SA"><label for="SA">Short Answer</label>
-                                                            <input type = "radio" id = "TFType" name = "newType" onclick="showQuestion(1)" value ="TF"><label for="TF">True/False</label>
-                                                            <input type = "radio" id = "MCType" name = "newType" onclick="showQuestion(2)" value = "MC"><label for="MC">Multiple Choice</label><br>
-                                                            
-                                                            </div>
+                                                <input type = "text" name = "newWording" size="67" maxlength="128" placeholder = "Enter your question here..." required>
+                                                <span style="font-weight:bold;">Type: </span><input type = "radio" id = "SAType" name = "newType" onclick="showQuestion(0)"value ="SA"> Short Answer
+                                                        <input type = "radio" id = "TFType" name = "newType" onclick="showQuestion(1)" value ="TF"> True/False
+                                                        <input type = "radio" id = "MCType" name = "newType" onclick="showQuestion(2)" value = "MC"> Multiple Choice<br><br>
                                                 <div id = "SAQuestion">
-                                                    <b>Answer: </b><input type ="text" name = "SAAnswer" placeholder ="Enter the answer here..."><br>
-                                                    <input type="submit">
+                                                    <span style="font-weight:bold;">Answer: </span><input type ="text" name = "SAAnswer" placeholder ="Enter the answer here..." maxlength="80" required><br><br>
+                                                    <input type="submit" class="btn btn-primary btn-sm">
                                                 </div>            
                                                 <div id = "TFQuestion">
-                                                    <b>Answer: </b><input type = "radio" id= "TAnswer" name = "TFAnswer" onclick="selectWrongAnswer(0)" value = "True"><label for "True">True</label>
-                                                                    <input type = "radio" id= "FAnswer" name = "TFAnswer" onclick="selectWrongAnswer(1)" value = "False"><label for "False">False</label><br>
-                                                    <b>Wrong Answer: </b><input type = "radio" id= "TChoice" onclick="selectAnswer(0)" name = "TFChoiceA" value = "True"><label for "True">True</label>
-                                                                    <input type = "radio" id= "FChoice" onclick="selectAnswer(1)" name = "TFChoiceA" value = "False"><label for "False">False</label><br>
-                                                    <input type="submit"> 
+                                                    <span style="font-weight:bold;">Answer: </span><input type = "radio" id= "TAnswer" name = "TFAnswer" onclick="selectWrongAnswer(0)" value = "True"> True</label>
+                                                                    <input type = "radio" id= "FAnswer" name = "TFAnswer" onclick="selectWrongAnswer(1)" value = "False"> False<br><br>
+                                                    <span style="font-weight:bold; display:none">Wrong Answer: </span><input type = "radio" id= "TChoice" onclick="selectAnswer(0)" name = "TFChoiceA" value = "True" style="display:none"></label>
+                                                                    <input type = "radio" id= "FChoice" onclick="selectAnswer(1)" name = "TFChoiceA" value = "False" style="display:none">
+                                                    <input type="submit" class="btn btn-primary btn-sm"> 
                                                 </div>
                                                 <div id = "MCQuestion">
-                                                    <b>Answer: </b><input type ="text" name = "MCAnswer" placeholder ="Enter the answer here..."><br>
-                                                    <b>Wrong Answers: </b><input type ="text" name = "MCChoiceA" placeholder ="Enter the 1st wrong choice here..."><br>
-                                                                            <input type ="text" name = "MCChoiceB" placeholder ="Enter the 2nd wrong choice here..."><br>
-                                                                            <input type ="text" name = "MCChoiceC" placeholder ="Enter the 3rd wrong choice here..."><br>
-                                                    <input type="submit"> 
-                    
+                                                    <span style="font-weight: bold;">Answer: </span><input type ="text" name = "MCAnswer" placeholder ="Enter the answer here..." maxlength="80" required><br><br>
+                                                    <span style="font-weight: bold;">Incorrect Answers: </span><input type ="text" name = "MCChoiceA" placeholder ="Enter the 1st wrong choice here..." maxlength="80" required>
+                                                                            <input type ="text" name = "MCChoiceB" placeholder ="Enter the 2nd wrong choice here..." maxlength="80" required>
+                                                                            <input type ="text" name = "MCChoiceC" placeholder ="Enter the 3rd wrong choice here..." maxlength="80" required><br><br>
+                                                    <input type="submit" class="btn btn-primary btn-sm"> 
                                                 </div>
-                                                
-                                                </form>
-                                        </td>
-                                    </tr>
-                            <tr><td colspan = "8" align = "right"><button class = "create" id = "newQuestion">Add New Question</button></td></tr>
+                                            </div>
+                                        </form>
+                                    </td>
+                                </tr>
+                                <tr></tr>
+                                <tr><td><button class="btn btn-primary btn-sm" id = "newQuestion">Add New Question</button></td></tr>
+                                <tr></tr>
+                                <tr><td><button onclick = "window.location.href = '/teacherQuiz';" class="btn btn-primary btn-sm" style="background-color:rgba(45,226,84, 0.75);">Done</button>
                             </tbody>
                         </table>
                     </div>
-                
                 </div>
             </div>
         </div>

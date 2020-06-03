@@ -1,22 +1,42 @@
 function hbsHelpers(handlebars){
     return handlebars.create({
         helpers: {
-            showResult: function(num_taken, options){
-                if(num_taken > 0){
-                    return options.fn(this);
+            // Calculate quiz code for students to enter game if quiz is published
+            // Helpers referenced: https://handlebarsjs.com/guide/block-helpers.html#simple-iterators
+            calcCode: function(published, id, options)
+            {
+                if(published == 'Y')
+                {
+                    return parseInt(id) * 273 + 89; 
                 }
-
+                else
+                {
+                    return "";
+                }
             },
 
-            editdel: function(num_taken, options){
-                if(num_taken == 0){
+            // Display result button if quiz is published
+            showResult: function(published, options)
+            {
+                if(published == 'Y')
+                {
+                    return options.fn(this);
+                }
+            },
+
+            // Display edit delete if students have taken it
+            editdel: function(published, options)
+            {
+                if(published == 'N')
+                {
                     return options.fn(this);
                 }
             },
             
             //Increment question number, referenced: https://stackoverflow.com/questions/22103989/adding-offset-to-index-when-looping-through-items-in-handlebars
             //Also saves index value into variable, referenced: https://stackoverflow.com/questions/24736938/is-it-possible-to-assign-a-parameter-value-within-handlebars-templates-without-u/37152268
-            inc: function(index, variable, options){
+            inc: function(index, variable, options)
+            {
                 if(index == undefined)
                 {
                     index = 0; 
@@ -26,14 +46,47 @@ function hbsHelpers(handlebars){
                 return parseInt(index) + 1; 
             },
 
-            showChoices: function(type, options){
-                if(type == 'MC' || type == 'TF'){
+            // Display when type is either multiple choice or short answer
+            showChoices: function(type, options)
+            {
+                if(type == 'MC' || type == 'SA')
+                {
                     return options.fn(this);
                 }
             },
 
-            showMCChoices: function(type, options){
-                if(type == 'MC'){
+            // Display when type is multiple choice
+            showMCChoices: function(type, options)
+            {
+                if(type == 'MC')
+                {
+                    return options.fn(this);
+                }
+            },
+
+            // Display T/F radio buttons when type is TF
+            showTFAnswer: function(type, options)
+            {
+                if(type == 'TF')
+                {
+                    return options.fn(this);
+                }
+            },
+
+            // Display checked True radio button if TF answer is True
+            checkTAnswer: function(answer, options)
+            {
+                if(answer == 'True')
+                {
+                    return options.fn(this);
+                }
+            },
+            
+            // Display checked False radio button if TF answer is False
+            checkFAnswer: function(answer, options)
+            {
+                if(answer == 'False')
+                {
                     return options.fn(this);
                 }
             }

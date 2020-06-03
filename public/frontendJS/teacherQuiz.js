@@ -9,6 +9,27 @@ function deleteQuiz(id){
     })
 };
 
+// publish the quiz to generate a quiz code if quiz has at minimum 10 questions
+function publishQuiz(numQuestion, id)
+{
+    if (numQuestion >= 10)
+    {
+        $.ajax({
+            url: '/teacherQuiz/' + id,
+            type: 'PATCH',
+            // data: JSON.stringify({published: "Y"}),
+            success: function(result){
+                window.location.reload();
+            }
+        })
+        // console.log("success!");
+    }
+    else
+    {
+        alert("Quiz must have a minimum of 10 questions in order to be published.");
+    }
+}
+
 // When the user clicks on the Results button...
 function fetchResults(quizID, quizName)
 {

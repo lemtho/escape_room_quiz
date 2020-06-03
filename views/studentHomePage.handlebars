@@ -53,23 +53,17 @@
                         <br>
                     </div>
                     <div id="studentHomeDiv4" style="text-align:center;">
-                        <h2 style="color:white;">Join Game</h2>
+                        <h2 style="color:white;">Play Game</h2>
                         <br>
                         <!--The following form element has been exercpted and modified from https://getbootstrap.com/docs/4.0/components/forms/ -->
                         <form class="form-inline" style="display:inline-flex;">
                             <div class="form-group mx-sm-3 mb-2">
-                                <input type="text" class="form-control" style="width:200px; height:75px" id="quizID" placeholder="Enter code">
+                                <input type="text" class="form-control" style="width:200px; height:75px" id="quizID" name="quizID" placeholder="Enter quiz code" onclick="displayRule()">
                             </div>
-                            <button type="submit" class="btn btn-primary mb-2" style="width:100px; height:75px;" id="goButton">Go!</button>
+                            <button class="btn btn-primary mb-2" style="width:100px; height:75px;" id="goButton">Go!</button>
                             </form>
                     </div>
-                    <div id="game" value={{id}} class="webgl-content">
-                        <div id="unityContainer" style="height: 540px"></div>
-                        <div class="footer">
-                            <div class="webgl-logo"></div>
-                            <div class="fullscreen" onclick="unityInstance.SetFullscreen(1)"></div>
-                        </div>
-                    </div>
+                    <span id="rule" style="color:rgb(139, 0, 0); font-size:14px;">Warning: A quiz can only be attemped once. Please contact your teacher if you are having any issues.</span><br>
                 </div>
             </div>
         </div>
@@ -117,10 +111,3 @@
 
         <!-- Front-end JS scripts here -->
         <script src="frontendJS/studentHomePage.js"></script>
-
-        <!-- Unity Game Engine scripts here -->
-        <script src="game/TemplateData/UnityProgress.js"></script>
-        <script src="game/Build/UnityLoader.js"></script>
-        <script>
-            var unityInstance = UnityLoader.instantiate("unityContainer", "game/Build/Desktop.json", {onProgress: UnityProgress});
-        </script>

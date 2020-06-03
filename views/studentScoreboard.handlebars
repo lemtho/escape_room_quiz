@@ -56,13 +56,14 @@
                                 <option value="sortQuiz">Sort By Quiz Name</option>
                                 <option value="sortScore">Sort By Score</option>
                             </select>
-                            <button onclick="sortQuizzes()">Sort</button>
+                            <button onclick="sortQuizzes()" class="btn btn-primary btn-sm">Sort</button>
                         </div>
                         
                         <table id="studentQuizzes" class="spacing" align="center">
                             <thead>
                                 <th colspan="4" align="left">Quiz Name</th>
                                 <th colspan="4">Score</th>
+                                <th>Action</th>
                             </thead>
                             <tbody>
 
@@ -70,9 +71,7 @@
                                 <tr>
                                     <td colspan="4">{{name}}</td>
                                     <td colspan="4">{{actual_score}}</td>
-                                    <td>
-                                        <td><button onclick = "window.location.href = '/studentScoreboard/{{quizID}}/{{studentID}}';">Results</button></td>
-                                    </td>
+                                    <td><button onclick = "window.location.href = '/studentScoreboard/{{quizID}}/{{studentID}}';" class="btn btn-primary btn-sm">Results</button></td>
                                 </tr>
                                 {{/each}}
 
@@ -80,7 +79,7 @@
                         </table>
                     </div>
                     {{else}}
-                        <h1 style="color: white;">No scores to display.</h1>
+                        <h4><span style ="font-weight: normal; text-align: center">No scores to display.</span></h4>
                     {{/if}}
                     <br>        
                 </div>

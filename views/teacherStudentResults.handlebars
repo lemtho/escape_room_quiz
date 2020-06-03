@@ -8,7 +8,7 @@
                                 <div class="col-xl-2 col-lg-2">
                                     <div class="logo-img">
                                         <a href="/teacherHomePage">
-                                            <img src="img/Our Logo.png" alt="">
+                                            <img src="/img/Our Logo.png" alt="">
                                         </a>
                                     </div>
                                 </div>
@@ -50,12 +50,12 @@
 
                     <div>
                         {{#each header}}
-                        <h1 style="color:white;">Quiz: {{name}}</h1>
                         <h1 style="color:white;">Student: {{firstName}} {{lastName}}</h1>
+                        <h2 style="color:white;">Quiz: {{name}}</h2>
                         <h3 style="color:white;" >Date Taken: {{lastTakenDate}}</h3>
                         {{/each}}
                     </div>
-
+                    <br>
                     <div id="displayResults">
                         <table class="spacing" align="center">
                             <thead>
@@ -71,7 +71,7 @@
                             <tbody>
                                 {{#each questionResult}}
                                     <tr>
-                                        <td>{{questionID}}</td>
+                                        <td>{{questionOrder}}</td>
                                         <td>{{question}}</td>
                                         <td>{{studentAnswer}}</td>
                                         <td>{{answer}}</td>
@@ -81,16 +81,16 @@
                             </tbody>
                         </table>
                     </div>
-                    
+                    <br>
                     <div id="displayFinalScore">
                         {{#each finalScore}}
                         <h1 style="color:white;">Final Score: {{actual_score}}/{{count}}</h1>
                         {{/each}}
                     </div>
-
+                    <br>
                     <div id="printResult">
                         <form>
-                            <input type="button" id="printResult" value="Save My Results" onclick="window.print()">
+                            <input id="printPageButton" class="btn btn-primary btn-sm" style="font-weight: bold;" type="button" value="Save My Results" onclick="window.print()">
                         </form>
                     </div>
 

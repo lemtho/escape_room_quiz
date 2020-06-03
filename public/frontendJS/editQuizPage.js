@@ -9,6 +9,72 @@ function addQuestion(id){
     });
 };
 
+// When the user wants to update quiz name...
+document.getElementById("updateQuizNameButton").addEventListener("click", function(updateQuizName)
+{
+    /* Referenced "How to send a JSON object to a server using Javascript?" from
+    https://www.geeksforgeeks.org/how-to-send-a-json-object-to-a-server-using-javascript/ 
+    to help the programmer write the code inside the updateQuizName() function that sends data from 
+    client to server and receives data from server to client. */
+    
+    // Create a local variable to store quiz ID and quiz name in.
+    var quizID;
+    var quizName;
+
+    // Get the quiz ID and quiz name.
+    quizID = document.getElementById("quizID").textContent;
+    quizName = document.getElementById("quizNameID").value;
+
+    if (quizName == "")
+    {
+        alert("Error! Quiz name field cannot be empty.");
+        window.location.reload();
+    }
+    else
+    {
+        // Create a XMLHttpRequest object.
+        var req = new XMLHttpRequest();
+
+        // Define the URL to send data to.
+        var url = "/teacherQuiz/Quiz/updateName/" + quizID;
+
+        // Open a connection.
+        req.open("POST", url, true);
+
+        // Set the request header.
+        req.setRequestHeader('Content-Type', 'application/json');
+
+        // Create a state change callback.
+        req.onreadystatechange = function()
+        {
+            // TEST: Output response from server.
+            // console.log(req);
+            
+            /* IF response from server is good and the response has completed, 
+            redirect user to the responseURL site. (i.e., teacher edit quiz page). */
+            if (req.readyState == 4 & req.status == 200)
+            {
+                window.location = req.responseURL;
+            }
+
+            /* IF response from server is bad request, alert user with the message
+            (i.e., responseText) server sent. */
+            else if (req.readyState == 4 & req.status == 400)
+            {
+                alert(req.responseText);
+            }
+        }
+
+        // Convert JSON data to string.
+        var data = JSON.stringify({"quizID": quizID, "quizName": quizName});
+
+        // Send data with the request.
+        req.send(data);
+    }
+
+    updateQuizName.preventDefault();
+});
+
 //Hide add question form on load
 document.getElementById("add_Question").style.display ="none";
 document.getElementById("SAQuestion").style.display ="none";
@@ -71,14 +137,27 @@ function selectAnswer(x){
 
 function updateQuestion(id){
     var form =$('#' + 'edit_question' + id);
-    $.ajax({
-        url: '/teacherQuiz/Quiz/' + id,
-        type: 'PUT',
-        data: $(form).serialize(),
-        success: function(result){
-            window.location.reload();
-        }
-    });
+    var data = JSON.parse(JSON.stringify($(form).serializeArray()));
+
+    var valid = validateInput(data);
+    
+    if (!valid)
+    {
+        window.location.reload();
+    }
+
+    // update the question
+    else
+    {
+        $.ajax({
+            url: '/teacherQuiz/Quiz/' + id,
+            type: 'PUT',
+            data: $(form).serialize(),
+            success: function(result){
+                window.location.reload();
+            }
+        });
+    }
 };
 
 function deleteQuestion(id){
@@ -90,3 +169,55 @@ function deleteQuestion(id){
         }
     });
 };
+
+function validateInput(data)
+{
+    var valid = true;
+
+    // Validate question field is not empty
+    if (data[0].value == "")
+    {
+        alert("Error! Question field cannot be empty.");
+        valid = false;
+    }
+
+    // if 2 is type, then question is short answer
+    else if (data[2].name == 'type')
+    {
+        if (data[1].value == "")
+        {
+            alert("Error! Answer field cannot be empty.");
+            valid = false;
+        }
+    }
+
+    // Validate multiple choice input fields are not empty
+    else if (data[5].value == 'MC')
+    {
+        if (data[1].value == "")
+        {
+            alert("Error! Answer field cannot be empty.");
+            valid = false;
+        }
+
+        else if (data[2].value == "")
+        {
+            alert("Error! Incorrect answer field cannot be empty.");
+            valid = false;
+        }
+
+        else if (data[3].value == "")
+        {
+            alert("Error! Incorrect answer field cannot be empty.");
+            valid = false;
+        }
+
+        else if (data[4].value == "")
+        {
+            alert("Error! Incorrect answer field cannot be empty.");
+            valid = false;
+        }
+    }
+
+    return valid;
+}

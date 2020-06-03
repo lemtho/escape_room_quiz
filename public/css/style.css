@@ -6661,3 +6661,10 @@ h6 {
 .spacing {
   border-collapse: separate;  border-spacing: 10px 20px;
 }
+
+/* code snippet from https://stackoverflow.com/questions/31425557/hide-buttons-when-printing to hide button when printing */
+@media print {
+  #printPageButton {
+    display: none;
+  }
+}

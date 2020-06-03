@@ -7,8 +7,7 @@ module.exports = function()
 	
 	// Function to pull all quizzes under a teacher
 	function getQuiz(res, mysql, context, id, complete){
-        mysql.pool.query("UPDATE quiz SET numQUESTION = (SELECT COUNT(quizID) FROM question WHERE question.quizID = quiz.quizID)");
-        var sql = 'SELECT q.quizID AS id, q.name AS name, IFNULL(q.numQuestion, 0) AS numQuestion, IFNULL(num_taken, 0) AS num_taken FROM quiz AS q LEFT JOIN (SELECT quizID, count(distinct quizID, studentID) AS num_taken FROM student_question GROUP BY quizID) stu_num USING (quizID) WHERE teacherID = ?';
+        var sql = 'SELECT q.quizID AS id, q.name AS name, IFNULL(q.numQuestion, 0) AS numQuestion, IFNULL(num_taken, 0) AS num_taken, q.published FROM quiz AS q LEFT JOIN (SELECT quizID, count(distinct quizID, studentID) AS num_taken FROM student_question GROUP BY quizID) stu_num USING (quizID) WHERE teacherID = ?';
         var insert = [id];
         sql = mysql.pool.query(sql, insert, function(error, results, fields){
             if(error){
@@ -37,6 +36,21 @@ module.exports = function()
         });
 	}
     
+    // Function to get name of a quiz
+    function getQuizName(res, mysql, context, id, complete){
+        var sql = 'SELECT name FROM quiz where quizID = ?';
+        var insert = [id];
+        sql = mysql.pool.query(sql, insert, function(error, results, fields){
+            if(error){
+                console.log(error);
+                res.write(JSON.stringify(error));
+                res.end();
+            }
+            
+            context.name = results[0].name;
+            complete(); 
+        });
+    }
     // Function to pull all questions from a quiz; used to load editQuiz page
     function getQuestions(res, mysql, context, quizID, complete){
         var sql = "SELECT * FROM question WHERE quizID = ?";
@@ -51,7 +65,7 @@ module.exports = function()
             context.question = results;
             context.quizID = quizID; 
             complete(); 
-        })
+        });
     }
 
 	// Display all quizzes that the teacher has created 
@@ -89,7 +103,6 @@ module.exports = function()
         }
     });
     
-    
     // Renders edit quiz page to update quiz information 
     router.get('/:id', function(req, res){
         if(req.session.teacherID)
@@ -99,10 +112,12 @@ module.exports = function()
             context.jsscripts = ["editQuizPage.js"];
             var mysql = req.app.get('mysql');
             getQuestions(res, mysql, context, req.params.id, complete); 
+            getQuizName(res, mysql, context, req.params.id, complete);
 
             function complete(){
                 callbackCount++;
-                if(callbackCount >= 1){
+                if(callbackCount >= 2){
+                    context.title = "Edit Quiz"
                     res.render('editQuiz', context);
                 }
             }
@@ -124,9 +139,8 @@ module.exports = function()
         var inserts = [req.body.quizName, teacherID, curTime];
         sql = mysql.pool.query(sql, inserts, function(error, results, fields){
             if(error){
-                console.log(error);
-                res.write(JSON.stringify(error));
-                res.end();
+                // console.log(error);
+                res.status(400).send("Error! The name of the quiz you wanted to update already exists. Please update quiz with another name."); 
 			}
 			else{
                 var context = {};
@@ -142,12 +156,29 @@ module.exports = function()
             }  
 		});
     });
-    
+
+    // Update quiz name in edit quiz page
+    router.post("/Quiz/updateName/:id", function(req, res){
+        var mysql = req.app.get('mysql');
+        var sql = 'UPDATE quiz SET name = ? WHERE quizID = ?';
+        var inserts = [req.body.quizName, req.body.quizID];
+        
+        sql = mysql.pool.query(sql, inserts, function(error, results){
+            if(error){
+                // console.log(error);
+                res.status(400).send("Error! The name of the quiz you wanted to update already exists. Please update quiz with another name."); 
+            }
+            else{
+                    // console.log("success");
+                    res.redirect('/teacherQuiz/' + req.body.quizID);
+            }
+        });
+    });
+
     // Insert new question into quiz and reload page
     router.post("/Quiz/:id", function(req, res){
         var mysql = req.app.get('mysql');
         var sql = 'INSERT into question (question, type, answer, quizID, choiceA, choiceB, choiceC) VALUES (?, ?, ?, ?, ?, ?, ?)';
-        
         //check type and determine inserts
         if(req.body.newType == 'SA'){
             var inserts = [req.body.newWording, req.body.newType, req.body.SAAnswer, req.params.id, null, null, null];
@@ -166,6 +197,8 @@ module.exports = function()
                 res.end(); 
             }
             else{
+                // Insert new question sucess -> update numQuestion attribute in Quiz table
+                mysql.pool.query("UPDATE quiz SET numQUESTION = (SELECT COUNT(quizID) FROM question WHERE question.quizID = quiz.quizID)");
                 res.status(202);
                 res.redirect('/teacherQuiz/' + req.params.id);
             }
@@ -176,9 +209,7 @@ module.exports = function()
     // Update question in quiz and reloads page
     router.put("/Quiz/:id", function(req, res){
         var mysql = req.app.get('mysql');
-        console.log(req.body.type);
 
-    
         //Determine update content depending on question type
         if(req.body.type == 'SA')
         {
@@ -188,7 +219,16 @@ module.exports = function()
         else if(req.body.type == 'TF')
         {
             var sql = 'UPDATE question SET question = ?, answer = ?, choiceA = ? WHERE questionID = ?';
-            var inserts = [req.body.question, req.body.answer, req.body.choiceA, req.params.id];
+            if(req.body.answer == 'True')
+            {
+                var TFchoiceA = 'False';
+            }
+            else
+            {
+                var TFchoiceA = 'True';
+            }
+
+            var inserts = [req.body.question, req.body.answer, TFchoiceA, req.params.id];
         }
         else if(req.body.type == 'MC')
         {
@@ -238,7 +278,28 @@ module.exports = function()
                 res.end(); 
             }
             else{
+                // Insert new question sucess -> update numQuestion attribute in Quiz table
+                mysql.pool.query("UPDATE quiz SET numQUESTION = (SELECT COUNT(quizID) FROM question WHERE question.quizID = quiz.quizID)");
                 res.status(204).end(); 
+            }
+        });
+    });
+
+    // update "published" attribute
+    router.patch("/:id", function(req, res){
+        var mysql = req.app.get('mysql');
+        var sql = 'UPDATE quiz SET published = "Y" WHERE quizID = ?';
+        var inserts = [req.params.id];
+        
+        sql = mysql.pool.query(sql, inserts, function(error, results){
+            if(error){
+                console.log(error);
+                res.write(JSON.stringify(error));
+                res.end(); 
+            }
+            else{
+                    //console.log("success");
+                    res.end();
             }
         });
     });
