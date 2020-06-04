@@ -65,3 +65,9 @@ function fetchResults(quizID, quizName)
     // Send data with the request.
     req.send(data);
 }
+
+function clearStorage()
+{
+    localStorage.clear();
+    window.location.href = "/logout";
+}

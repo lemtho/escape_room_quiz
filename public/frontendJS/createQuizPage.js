@@ -60,3 +60,9 @@ document.getElementById("nextButton").addEventListener("click", function(checkQu
 
     checkQuizName.preventDefault();
 });
+
+function clearStorage()
+{
+    localStorage.clear();
+    window.location.href = "/logout";
+}

@@ -131,26 +131,24 @@ module.exports = function()
 				that the server does not think every time the user is redirected 
 				from the teacherQuiz page each time user visits the 
 				teacherScoreboard page. */
-				// req.session.fromTeacherQuizPage = false;
-				// req.session.fromTeacherQuizID = "";
-				// req.session.fromTeacherQuizName = "";
-				// req.session.fromTeacherHomeID = "";
-
-				context.fromTeacherScoreboardPage = req.session.fromTeacherScoreboardPage;
+				req.session.fromTeacherQuizPage = false;
+				req.session.fromTeacherQuizID = "";
+				req.session.fromTeacherQuizName = "";
+				req.session.fromTeacherHomeID = "";
 			}
 
 			// ELSE IF this route originated from teacherScoreboard page...
-			else // if (req.session.fromTeacherScoreboardPage == true)
-			{
-				// console.log("I am inside fromTeacherScoreboardPage in the GET route!");
+			// else // if (req.session.fromTeacherScoreboardPage == true)
+			// {
+			// 	// console.log("I am inside fromTeacherScoreboardPage in the GET route!");
 				
-				context.fromTeacherScoreboardPage = req.session.fromTeacherScoreboardPage;
-				context.radioName = req.session.radioName;
-				context.quizButton = req.session.quizButton;
-				context.studentButton = req.session.studentButton;
-				context.sortStudentButton = req.session.sortStudentButton;
-				context.sortQuizButton = req.session.sortQuizButton;
-			}
+			// 	context.fromTeacherScoreboardPage = req.session.fromTeacherScoreboardPage;
+			// 	context.radioName = req.session.radioName;
+			// 	context.quizButton = req.session.quizButton;
+			// 	context.studentButton = req.session.studentButton;
+			// 	context.sortStudentButton = req.session.sortStudentButton;
+			// 	context.sortQuizButton = req.session.sortQuizButton;
+			// }
 
 			var mysql = req.app.get('mysql');
 			getQuizDrop(res, mysql, teacherID, context, complete);
@@ -217,31 +215,31 @@ module.exports = function()
 		// TEST: Output request sent from the client.
 		// console.log(req.body);
 		
-		// IF post request originated from teacherScoreboard page...
-		if (req.body.fromTeacherScoreboardPage == true)
-		{
-			// TEST: Output to console that program is inside fromTeacherScoreboard branch.
-			// console.log("I am inside fromTeacherScoreboard branch!");
+		// // IF post request originated from teacherScoreboard page...
+		// if (req.body.fromTeacherScoreboardPage == true)
+		// {
+		// 	// TEST: Output to console that program is inside fromTeacherScoreboard branch.
+		// 	// console.log("I am inside fromTeacherScoreboard branch!");
 
-			// Store or update the following data in session.
-			req.session.fromTeacherQuizPage = false;
-			req.session.fromTeacherScoreboardPage = req.body.fromTeacherScoreboardPage;
-			req.session.radioName = req.body.radioName;
-			req.session.quizButton = req.body.quizButton;
-			req.session.studentButton = req.body.studentButton;
-			req.session.sortStudentButton = req.body.sortStudentButton;
-			req.session.sortQuizButton = req.body.sortQuizButton;
+		// 	// Store or update the following data in session.
+		// 	req.session.fromTeacherQuizPage = false;
+		// 	req.session.fromTeacherScoreboardPage = req.body.fromTeacherScoreboardPage;
+		// 	req.session.radioName = req.body.radioName;
+		// 	req.session.quizButton = req.body.quizButton;
+		// 	req.session.studentButton = req.body.studentButton;
+		// 	req.session.sortStudentButton = req.body.sortStudentButton;
+		// 	req.session.sortQuizButton = req.body.sortQuizButton;
 
-			// TEST: Output to console the updated sessions data.
-			// console.log(req.session);
+		// 	// TEST: Output to console the updated sessions data.
+		// 	// console.log(req.session);
 
-			// Save the session data.
-			req.session.save();
-		}
+		// 	// Save the session data.
+		// 	req.session.save();
+		// }
 		
-		// ELSE, post request originated from teacherQuiz page...
-		else
-		{
+		// // ELSE, post request originated from teacherQuiz page...
+		// else
+		// {
 			// Store or update the following data in session.
 			req.session.fromTeacherScoreboardPage = false;
 			req.session.fromTeacherQuizPage = true;
@@ -256,7 +254,7 @@ module.exports = function()
 			
 			// Forcefully end the response process.
 			res.end();
-		}
+		// }
 
 	});
 	

@@ -121,4 +121,10 @@ confirmPassword.addEventListener("keyup", function(event) {
       document.getElementById("updatePasswordButton").click();
     }
 });
+
+function clearStorage()
+{
+    localStorage.clear();
+    window.location.href = "/logout";
+}
   

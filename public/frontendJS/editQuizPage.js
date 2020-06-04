@@ -279,3 +279,9 @@ document.getElementById("submitMC").addEventListener("click", function(submitMC)
         submitMC.preventDefault();
     }
 });
+
+function clearStorage()
+{
+    localStorage.clear();
+    window.location.href = "/logout";
+}
