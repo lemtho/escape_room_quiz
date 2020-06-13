@@ -1,3 +1,3 @@
 # escape_room_quiz
 
-Website: https://dry-reaches-17022.herokuapp.com/
+Website: http://osu-2kool4skool.herokuapp.com/
